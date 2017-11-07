@@ -1,0 +1,8 @@
+.scrollContainer {
+	@include global-container();
+}
+.scrollY {
+	height: 300px;
+	overflow-y: scroll;
+	overflow-x:hidden;;
+}

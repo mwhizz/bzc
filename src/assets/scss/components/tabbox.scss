@@ -1,0 +1,24 @@
+//
+.tabBoxContainer {
+  @include position(relative);
+  margin-bottom: $global-margin;
+  z-index: 50;
+
+  .tabBoxButton {
+    @include border-radius($radius: $global-radius);
+    margin-bottom: 0px;
+    z-index: 2;
+  }
+  .tabBoxContent {
+    @include position(absolute,$top: 27px);
+    //display: none;
+    padding-top: 45px;
+    width: 100%;
+    z-index: 1;
+  }
+  .close-button {
+    color: $complementary-light-color1;
+    right: 0;
+    top: 0;
+  }
+}

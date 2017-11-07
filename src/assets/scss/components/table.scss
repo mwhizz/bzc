@@ -1,0 +1,51 @@
+table {
+
+
+  thead {
+    border: none;
+    th {
+      font-size: $global-font-size*0.8;
+      font-weight: normal;
+      line-height: 1.2;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+  }
+
+  tbody {
+    border: 1px solid $complementary-dark-color3;
+
+    tr {
+      border-top: 1px solid $complementary-dark-color3;
+    }
+    tr:hover td {
+      color: $complementary-light-color1;
+      background: $complementary-dark-color3;
+    }
+    tr:hover:nth-child(even) td {
+      background: $complementary-dark-color2;
+      //color: $black;
+    }
+
+    td.colorCodeGreen {
+      background: #2d9157;
+    }
+    td.colorCodePurple {
+      background: #662d91;
+    }
+  }
+
+  &.caseTable {
+    td {
+      text-align: center;
+    }
+    td:nth-child(1) {
+      width: 1%;
+    }
+    td:nth-child(2) {
+      text-align: left;
+      width: 50%;
+    }
+  }
+}

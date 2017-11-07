@@ -1,0 +1,147 @@
+#main {
+	background: $light-gray;
+	@include position(relative);
+}
+
+#bizcubeTicketing {
+	color: $dark-gray;
+	font-weight: bold;
+	font-size: 22px;
+	text-transform: uppercase;
+}
+
+#header {
+	-webkit-box-shadow: 0 1px 4px 0 $black;
+	box-shadow: 0 1px 4px 0 $black;
+
+	background: $complementary-light-color1;
+	border-bottom: 5px solid $complementary-dark-color3;
+	//@include position(absolute, $top: 0, $left: 0, $right: 0);
+}
+
+.title-bar .menu-icon {
+	//@include border-radius($radius: 4px);
+	@include position(relative);
+	background: none;
+	&:hover,&:focus {
+		background: none;
+	}
+	&::after {
+		background: $black;
+		box-shadow: 0 7px 0 $black, 0 14px 0 $black;
+		top: 12px;
+	}
+	&:hover::after {
+		//background: $medium-gray;
+		//box-shadow: 0 7px 0 $medium-gray, 0 14px 0 $medium-gray;
+		top: 10px;
+	}
+}
+.menu .menu-text {
+	padding: 0;
+}
+
+#mainContent {
+	background: $white;
+	margin-top: 3px;
+	padding: $global-padding $global-edge-padding;
+	//padding-top: 8rem;
+
+	section {
+		margin-bottom: $global-section-margin;
+
+		& > header {
+			@include position(relative);
+			border-bottom: 1px dashed $medium-gray;
+			margin-bottom: $global-margin;
+
+			&.toggleTitle:before {
+				@include global-box('small');
+				@include position(absolute, $top: 5px, $right: 0);
+				content: '';
+				background: $complementary-light-color1;
+				cursor: pointer;
+				height: 30px;
+				width: 30px;
+
+			}
+			&.toggleTitle:after {
+					@include css-triangle($triangle-size: 8px, $triangle-color: $dark-gray, $triangle-direction:'up');
+
+					@include position(absolute, $top: 15px, $right: 7px);
+					content: '';
+					background: $complementary-light-color1;
+					cursor: pointer;
+			}
+		}
+
+	}
+}
+
+#footer {
+	border-top: 1px solid $complementary-dark-color1;
+
+	.inner {
+		background: $white;
+		padding: $global-edge-padding;
+	}
+
+	a {
+		color: $black;
+		margin: 10px;
+		&:hover {
+			color: $dark-gray;
+		}
+	}
+}
+
+h1 small {
+	font-size: 1rem;
+	text-transform: none;
+}
+
+.icon img {
+	margin-right: 0.5rem;
+	vertical-align: middle;
+}
+
+.boxModel {
+	@include global-box;
+}
+
+.calloutInline {
+	display: inline-block;
+}
+.calloutNeutral {
+	background: $complementary-light-color3;
+}
+
+.legend {
+
+	h6 {
+		font-weight: bold;
+	}
+
+	ul {
+		@include inline-unordered-list;
+	}
+	li {
+		//@include position(relative);
+		font-size: $global-font-size*0.8;
+
+		&:before {
+			@include global-box('small');
+			background: $complementary-dark-color2;
+			content: '';
+			display:inline-block;
+			height: 20px;
+			margin-right: 0.5rem;
+			margin-bottom: 0;
+			width: 20px;
+			vertical-align: bottom;
+		}
+		.completed {
+
+		}
+	}
+}

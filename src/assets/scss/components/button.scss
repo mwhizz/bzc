@@ -1,0 +1,98 @@
+button, .button {
+	@include global-box();
+	//background: $contrast-color1;
+	cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+
+	@include button-style(get-color(primary), lighten(get-color(primary),10%), $complementary-light-color1);
+}
+
+.button2 {
+  @include button-style(get-color(secondary), lighten(get-color(secondary),10%), $complementary-light-color1);
+
+}
+.button3 {
+  @include button-style($complementary-dark-color3, lighten($complementary-dark-color3,10%), $complementary-light-color1);
+
+}
+
+
+
+.buttonType2 {
+	//@include position(relative);
+	background: none;
+	cursor: pointer;
+  color: $black;
+	padding: 0;
+	padding-top: 0.7rem;
+	margin-bottom: $global-margin;
+
+	&:hover {
+    background: none;
+		color: $medium-gray;
+	}
+	&:focus {
+			background: none;
+			color: $complementary-dark-color2;
+	}
+
+	&.left:before,
+	&:after {
+		//@include position(absolute,$top:0, $right: 0);
+		@include global-box;
+		background-color: $contrast-color1;
+		color: $white;
+		content: '';
+		display: inline-block;
+		height: 40px;
+		margin-top: -0.7rem;
+		margin-left: 0.8rem;
+		margin-bottom: 0;
+		width:40px;
+		vertical-align: middle;
+
+	}
+	&.left:before {
+		margin-left: 0;
+		margin-right: 0.8rem;
+	}
+	&.left:after {
+		height: 0;
+		padding: 0;
+		width: 0;
+	}
+
+	&.buttonType2Add {
+		&.left:before,
+		&:after {
+			background: $contrast-color1 url('/assets/img/icon-light-add.png') no-repeat center center;
+		}
+		&.left:hover:before,
+		&:hover:after {
+			background-color: lighten($contrast-color1,10%);
+
+		}
+	}
+	&.buttonType2Back {
+		&.left:before,
+		&:after {
+			background: url('/assets/img/icon-dark-back.png') no-repeat center center;
+		}
+		&.left:hover:before,
+		&:hover:after {
+			background-color: none;
+
+		}
+	}
+}
+
+&.close-button {
+  background: none;
+  margin-bottom: 0;
+  &:hover {
+    background: none;
+    color: $medium-gray;
+
+  }
+}
