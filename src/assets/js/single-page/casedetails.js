@@ -54,6 +54,89 @@ function GetCaseDetails(caseId){
 };
 
 
+//Add New Log
+function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, LoginID){
+  //get FLID from url???
+  var data = {'FLID':FLID, 'ActionType':ActionType, 'Status':Status, 'Details': Details,
+              'Duration': Duration, 'Internal':Internal, 'LoginID':1};
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/FL1.InsertActivityLog.json",
+    method: "POST",
+    dataType: "json",
+    data: {'data':JSON.stringify(data),
+          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          if (data.d.RetData.Tbl.Rows[0].Success == true) {
+            alert('Add Successful')
+            //window.close();
+          } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
+        }
+      }
+      else {
+        alert(data.d.RetMsg);
+      }
+    }
+  });
+};
+
+//Add Involvements
+function addInvolvement(FLID, RoleName, RoleID, Details, LoginID){
+  //get FLID from url???
+  var data = {'FLID':FLID, 'RoleName':RoleName, 'RoleID':RoleID, 'Details': Details, 'LoginID':1};
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/FL1.AddInvolvement.json",
+    method: "POST",
+    dataType: "json",
+    data: {'data':JSON.stringify(data),
+          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          if (data.d.RetData.Tbl.Rows[0].Success == true) {
+            alert('Add Successful')
+            //window.close();
+          } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
+        }
+      }
+      else {
+        alert(data.d.RetMsg);
+      }
+    }
+  });
+};
+
+//Review Case
+function reviewCase(FLID, ManDays, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID){
+  //get FLID from url???
+  var data = {'FLID':FLID, 'ManDays':ManDays, 'Category':Category, 'ProposedManDays': ProposedManDays,
+  'IntTargetEndDate': IntTargetEndDate,'TargetEndDate': TargetEndDate, 'LoginID':1};
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/FL1.ReviewCase.json",
+    method: "POST",
+    dataType: "json",
+    data: {'data':JSON.stringify(data),
+          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          if (data.d.RetData.Tbl.Rows[0].Success == true) {
+            alert('Add Successful')
+            //window.close();
+          } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
+        }
+      }
+      else {
+        alert(data.d.RetMsg);
+      }
+    }
+  });
+};
+
 //convert date to dd/mm/yyyy
 function convertDate(inputFormat) {
   function pad(s) { return (s < 10) ? '0' + s : s; }

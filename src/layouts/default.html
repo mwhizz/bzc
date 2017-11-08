@@ -22,9 +22,9 @@
       {{> footer}}
     </div>
     <script src="{{root}}assets/js/app.js"></script>
-    {{#ifpage 'case'}}
-      <script src="{{root}}assets/js/packagelist.js"></script>
-      <script src="{{root}}assets/js/caselist.js"></script>
+    {{#ifpage 'index'}}
+      <script src="{{root}}assets/js/single-page/packagelist.js"></script>
+      <script src="{{root}}assets/js/single-page/caselist.js"></script>
     {{/ifpage}}
     {{#ifpage 'case'}}
       <script src="{{root}}assets/js/single-page/casedetails.js"></script>
