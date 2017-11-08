@@ -7,33 +7,14 @@
 					<h2>Current Packages</h2>
 				</header>
 				<div class="grid-container toggleContent">
-					<div class="grid-x grid-margin-x">
-						<div class="medium-6 large-4 cell clearfix">
-							<div class="card">
-								<div class="grid-x card-divider">
-									<div class="cell auto">
-										<h3 class="colorCodeGreen">Charitas</h3>
-											<ul class="system">
-												<li>VMS</li>
-												<li>DMS</li>
-											</ul>
-									</div>
-								</div><!--card-divider-->
-								<div class="card-section">
-									<div class="packageType">Software Maintenance, Support &amp;
-			Assurance</div>
-									<div class="expiring">Expiring: <i>10 Mar 2018</i></div>
-								</div><!--card-section-->
-							</div> <!--card-->
-						</div><!--cell-->
-
+					<div class="grid-x grid-margin-x packageGrid">
 						<div class="medium-6 large-4 cell clearfix">
 							<div class="card">
 								<div class="card-divider grid-x">
 									<div class="cell auto">
 										<h3 class="colorCodePurple">Digitization</h3>
 									</div>
-									<div class="manDays cell small-3">
+									<div class="manDays cell small-4">
 										<div class="grid-y" style="height: 60px;">
 											<div class="cell small-9"><b>3</b>/<span class="totalDays">5</span></div>
 											<small class="cell small-3">Man Days</small>
@@ -56,10 +37,10 @@
 				 	<h2 class="cell auto">Case(s)</h2>
 					<button type="button" class="buttonType2 buttonType2Add cell medium-3 text-right"  data-open="caseAddForm">Create Case</button>
 				</header>
-				<div class="filter tabBoxContainer">
-					<button class="button button3 tabBoxButton" id="btnFilter" ><i class="icon"><img src="/assets/img/icon-light-filter.png" alt="icon"/></i>Filter</button>
-					<form class="form2 tabBoxContent reveal" >
-						<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+				<div id='caseFilter' class="caseFilter tabBoxContainer">
+					<button class="button button3 tabBoxButton" data-target="caseFilterForm" ><i class="icon"><img src="/assets/img/icon-light-filter.png" alt="icon"/></i>Filter</button>
+					<form class="form2 tabBoxContent reveal" id="caseFilterForm">
+						<button class="close-button tabBoxButtonClose" aria-label="Dismiss alert" type="button" data-close>
 					    <span aria-hidden="true">&times;</span>
 					  </button>
 							<div class="grid-x grid-padding-x">
@@ -84,12 +65,13 @@
 							<div class="grid-x grid-padding-x">
 								<fieldset class="cell">
 					        <legend>Status</legend>
-									<input type="checkbox" id="statusNewCB" name="statusNewCB" /><label for="statusNewCB">New</label>
-									<input type="checkbox" id="statusReviewCB" name="statusReviewCB" /><label for="statusReviewCB">Review</label>
-									<input type="checkbox" id="statusProgressingCB" name="statusProgressingCB" /><label for="statusProgressingCB">Progressing</label>
-									<input type="checkbox" id="statusClosedCB" name="statusClosedCB" /><label for="statusClosedCB">Closed</label>
-									<input type="checkbox" id="statusCompletedCB" name="statusCompletedCB" /><label for="statusCompletedCB">Completed</label>
-					      </fieldset>
+									<input type="checkbox" id="statusNewCB" value="New" name="status" /><label for="statusNewCB">New</label>
+									<input type="checkbox" id="statusReviewCB" value="Review" name="status" /><label for="statusReviewCB">Review</label>
+									<input type="checkbox" id="statusProgressingCB" value="Progressing" name="status" /><label for="statusProgressingCB">Progressing</label>
+									<input type="checkbox" id="statusClosedCB" value="Closed" name="status" /><label for="statusClosedCB">Closed</label>
+									<input type="checkbox" id="statusCompletedCB" value="Completed" name="status" /><label for="statusCompletedCB">Completed</label>
+									<input type="checkbox" id="statusMyCase" value="1" name="mycase" /><label for="statusMyCase">Show My Case ONLY</label>
+								</fieldset>
 							</div>
 							<div class="grid-x grid-padding-x">
 								<fieldset class="cell">
@@ -110,7 +92,7 @@
 					      </fieldset>
 							</div>
 							<footer class="grid-x grid-margin-x">
-								<button type="button" class="cell small-12 medium-offset-4 medium-4 button ">Filter</button>
+								<button type="button" class="cell small-12 medium-offset-4 medium-4 button tabBoxButtonSubmit">Filter</button>
 							</footer>
 					</form> <!-- form end -->
 				</div><!-- filter end -->
@@ -128,69 +110,6 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="">
-								<td class="colorCodeGreen"></td>
-								<td>Profile not showing</td>
-								<td>HCA Hospice</td>
-								<td></td>
-								<td>Contact</td>
-								<td>21/09/18</td>
-								<td><span class="statusNew">New</span></td>
-							</tr>
-							<tr class="">
-								<td class="colorCodeGreen"></td>
-								<td>Profile not showing</td>
-								<td>HCA Hospice</td>
-								<td></td>
-								<td>Contact</td>
-								<td>21/09/18</td>
-								<td><span class="statusNew">New</span></td>
-							</tr>
-							<tr class="">
-								<td class="colorCodeGreen"></td>
-								<td>Attendance not captured</td>
-								<td>HCA Hospice</td>
-								<td></td>
-								<td>Event</td>
-								<td>18/09/18</td>
-								<td><span class="statusReview">Review</span></td>
-							</tr>
-							<tr class="">
-								<td class="colorCodePurple"></td>
-								<td>IKD</td>
-								<td>Beyond Social Services</td>
-								<td>3</td>
-								<td>Donation</td>
-								<td>24/08/18</td>
-								<td><span class="statusProgressing">Progressing</span></td>
-							</tr>
-							<tr class="">
-								<td class="colorCodeGreen"></td>
-								<td>Donor Summary Support</td>
-								<td>Beyond Social Services</td>
-								<td>2</td>
-								<td>Donation</td>
-								<td>03/08/18</td>
-								<td><span class="statusProgressing">Progressing</span></td>
-							</tr>
-							<tr class="">
-								<td class="colorCodePurple"></td>
-								<td>Project Cost Not Accurate</td>
-								<td>RMS</td>
-								<td></td>
-								<td>Projects</td>
-								<td>23/07/18</td>
-								<td><span class="statusProgressing">Progressing</span></td>
-							</tr>
-							<tr class="completed">
-								<td class="colorCodeGreen"></td>
-								<td>Add New Contact Search Category</td>
-								<td>PLMC</td>
-								<td></td>
-								<td>Contact</td>
-								<td>15/06/18</td>
-								<td><span class="statusCompleted">Completed</span></td>
-							</tr>
 						</tbody>
 					</table>
 				</div><!-- scroll container end -->
@@ -231,11 +150,23 @@
 			<div class="grid-x grid-padding-x">
 				<div class="cell">
 					<label>
+						Product
+						<select id="product" name="product">
+							<option value="">-- Please Select --</option>
+							<option value="Charitas">Charitas</option>
+							<option value="Genesis">Genesis</option>
+						</select>
+					</label>
+				</div>
+			</div>
+			<div class="grid-x grid-padding-x">
+				<div class="cell">
+					<label>
 						System
 						<select id="system" name="system">
 							<option value="">-- Please Select --</option>
-							<option value="vms">VMS</option>
-							<option value="dms">DMS</option>
+							<option value="VMS">VMS</option>
+							<option value="DMS">DMS</option>
 						</select>
 					</label>
 				</div>
@@ -246,36 +177,10 @@
 						Module
 						<select id="module" name="module">
 							<option value="">-- Please Select --</option>
-							<option value="contact">Contact</option>
-							<option value="donation">Donation</option>
+							<option value="Contact">Contact</option>
+							<option value="Donation">Donation</option>
 						</select>
 					</label>
-				</div>
-			</div>
-			<div class="grid-x grid-padding-x">
-				<div class="cell">
-					<label>
-						Category
-						<select id="category" name="category">
-							<option value="">-- Please Select --</option>
-							<option value="bug fixes">Bug Fixes</option>
-							<option value="change request">Change Request</option>
-						</select>
-					</label>
-				</div>
-			</div>
-			<div class="grid-x grid-padding-x">
-				<div class="cell">
-					<label>
-						Proposed Duration
-						<input type="text" id="proposedDuration" name="proposedDuration"/>
-					</label>
-				</div>
-			</div>
-			<div class="grid-x grid-padding-x">
-				<div class="cell">
-					<input type="checkbox" id="chargeable" name="chargeable"/>
-					<label for="chargeable">Chargeable</label>
 				</div>
 			</div>
 			<div class="grid-x grid-padding-x">
@@ -289,7 +194,7 @@
 			<div class="grid-x grid-padding-x">
 				<div class="cell">
 					<label>
-						Carbon Copy (For multiple emails, separate by comma)
+						Carbon Copy (For multiple emails, separate by |)
 						<input type="text" id="cc" name="cc"/>
 					</label>
 				</div>
@@ -300,6 +205,10 @@
 				</div>
 			</div>
 			<footer class="grid-x grid-margin-x">
-					<button type="button" id="submit" class="cell small-12 medium-offset-4 medium-4">Submit</button>
+					<button type="button" id="submit" class="cell small-12 medium-offset-4 medium-4 newCaseSubmitButton">Submit</button>
 			</footer>
 	</form><!-- case add form end -->
+
+	<script>
+
+	</script>

@@ -16,36 +16,13 @@
 
 	background: $complementary-light-color1;
 	border-bottom: 5px solid $complementary-dark-color3;
-	//@include position(absolute, $top: 0, $left: 0, $right: 0);
-}
-
-.title-bar .menu-icon {
-	//@include border-radius($radius: 4px);
-	@include position(relative);
-	background: none;
-	&:hover,&:focus {
-		background: none;
-	}
-	&::after {
-		background: $black;
-		box-shadow: 0 7px 0 $black, 0 14px 0 $black;
-		top: 12px;
-	}
-	&:hover::after {
-		//background: $medium-gray;
-		//box-shadow: 0 7px 0 $medium-gray, 0 14px 0 $medium-gray;
-		top: 10px;
-	}
-}
-.menu .menu-text {
-	padding: 0;
+	@include position(absolute, $top: 0, $left: 0, $right: 0);
 }
 
 #mainContent {
 	background: $white;
-	margin-top: 3px;
 	padding: $global-padding $global-edge-padding;
-	//padding-top: 8rem;
+	padding-top: 8rem;
 
 	section {
 		margin-bottom: $global-section-margin;
