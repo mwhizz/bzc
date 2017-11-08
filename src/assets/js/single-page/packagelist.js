@@ -1,0 +1,11 @@
+
+$(function(){
+
+});
+
+//convert date to dd/mm/yyyy
+function convertDate(inputFormat) {
+  function pad(s) { return (s < 10) ? '0' + s : s; }
+  var d = new Date(inputFormat);
+  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+};
