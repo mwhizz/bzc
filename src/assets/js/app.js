@@ -126,16 +126,27 @@ function GetCaseDetails(caseId){
         if ((data) && (data.d.RetVal === -1)) {
           if (data.d.RetData.Tbls[0].Rows.length > 0) {
             var caseDetails = data.d.RetData.Tbls[0].Rows;
-            var htmlString = '';
+            var caseLogs = data.d.RetData.Tbls[1].Rows;
+            var threadContainer = '';
+            $('.threadC').html('');
             for (var i=0; i<caseDetails.length; i++ ){
               //var date = convertDate(caseDetails[i].ExpiryDate);
-              htmlString += '<header><button href="#" class="buttonType2 left buttonType2Back"><a href="./support.html">Back to Case Listing</a></button><h1>#'+
-                            caseDetails[i].FLID+' '+caseDetails[i].Title+'<small><a href="">Edit</a></small></h1></header> <section id="information"> <header class="toggleTitle"> <h2>Information</h2> </header> <div class=" toggleContent form"><div class="grid-x grid-padding-x"><div class="cell"><div class="labelText">Organisation</div>'
-              htmlString += '<div class="text">'+caseDetails[i].OrganizationName+'</div></div></div><div class="grid-x grid-padding-x"><div class="cell"><div class="labelText">Product</div>'
-              htmlString += '<div class="text">'+caseDetails[i].Product+'</div>'
-              htmlString += '</div></div><div class="grid-x grid-padding-x"><div class="cell"><div class="labelText">Module</div><div class="text">'+caseDetails[i].Module+'</div></div></div>'
+              $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title);
+              $('.organisation').html(caseDetails[i].OrganizationName);
+              $('.product').html(caseDetails[i].Product);
+              $('.module').html(caseDetails[i].Module);
+              $('.category').html(caseDetails[i].Category);
+              $('.description').html(caseDetails[i].Details);
             }
-            $('#caseContainer').html(htmlString);
+            for (var i=0; i<caseLogs.length; i++ ){
+              var date = convertDate(caseLogs[i].LogCreatedDate);
+              if (caseLogs[i].Internal){
+                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i>'+caseLogs[i].LogCreatedBy+'</i></span> <span class="tag">Internal</span></div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
+              }else{
+                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i>'+caseLogs[i].LogCreatedBy+'</i></span> </div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
+              }
+            }
+            $('.threadC').html(threadContainer);
           }
         }
         //alert('Success');
