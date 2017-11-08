@@ -22,5 +22,8 @@
       {{> footer}}
     </div>
     <script src="{{root}}assets/js/app.js"></script>
+    {{#ifpage 'case'}}
+      <script src="{{root}}assets/js/single-page/test.js"></script>
+    {{/ifpage}}
   </body>
 </html>

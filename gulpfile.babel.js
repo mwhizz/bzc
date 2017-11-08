@@ -112,6 +112,12 @@ let webpackConfig = {
 // Combine JavaScript into one file
 // In production, the file is minified
 function javascript() {
+  gulp.src('src/assets/js/single-page/**/*.js')
+  .pipe($.if(PRODUCTION, $.uglify()
+    .on('error', e => { console.log(e); })
+  ))
+  .pipe(gulp.dest(PATHS.dist + '/assets/js/single-page'));
+
   return gulp.src(PATHS.entries)
     .pipe(named())
     .pipe($.sourcemaps.init())
