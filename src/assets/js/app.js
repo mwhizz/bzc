@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Cookies from 'js-cookie';
 import whatInput from 'what-input';
 
 window.$ = $;
@@ -12,7 +13,27 @@ $(document).foundation();
 
 //document ready
 $(function(){
+
   
+  //set login cookie
+  var security;
+  if (Cookies.getJSON('security') == null) {
+    Cookies.set('security', {
+      username: ''
+    },
+    { expires: 1 });
+  }
+  else {
+    security = Cookies.getJSON('security');
+  }
+  //get login details
+  //https://portal.taksys.com.sg/Support/BCMain/Sec1.Login.json
+  //admin1234
+  console.log('username:' + security.username);
+
+  if (security.username.trim().length>=0) {
+    window.location.href = 'login.html';
+  }
 });
 
 //convert date to dd/mm/yyyy
