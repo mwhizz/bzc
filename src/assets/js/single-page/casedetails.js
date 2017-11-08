@@ -38,10 +38,11 @@ function GetCaseDetails(caseId){
             }
             for (var i=0; i<caseLogs.length; i++ ){
               var date = convertDate(caseLogs[i].LogCreatedDate);
+              var time = convertTime(caseLogs[i].LogCreatedDate)
               if (caseLogs[i].Internal){
-                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i>'+caseLogs[i].LogCreatedBy+'</i></span> <span class="tag">Internal</span></div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
+                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span> <span class="tag">Internal</span></div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
               }else{
-                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i>'+caseLogs[i].LogCreatedBy+'</i></span> </div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
+                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span> </div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
               }
             }
             $('.threadC').html(threadContainer);
@@ -142,4 +143,10 @@ function convertDate(inputFormat) {
   function pad(s) { return (s < 10) ? '0' + s : s; }
   var d = new Date(inputFormat);
   return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+};
+
+function convertTime(inputFormat) {
+  function pad(s) { return (s < 10) ? '0' + s : s; }
+  var d = new Date(inputFormat);
+  return [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
 };
