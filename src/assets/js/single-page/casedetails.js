@@ -26,12 +26,15 @@ function GetCaseDetails(caseId){
             var caseDetails = data.d.RetData.Tbls[0].Rows;
             var caseLogs = data.d.RetData.Tbls[1].Rows;
             var caseInvolvements = data.d.RetData.Tbls[2].Rows;
+            var caseAttachments = data.d.RetData.Tbls[3].Rows;
             var threadContainer = ''; var involvementContainer = '';
+            var caseAttachmentsContainer = '';
             $('.threadLog').html('');
             $('.threadTask').html('');
+            $('.attachments').html('');
             for (var i=0; i<caseDetails.length; i++ ){
               var datetime = convertDateTime(caseDetails[i].CreatedDate);
-              $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title);
+              $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title + '<small onclick="window.location.reload()"> Review</small>');
               $('.status').html(caseDetails[i].CurStatus);
               $('.category').html(caseDetails[i].Category);
               $('.organisation').html(caseDetails[i].OrganizationName);
@@ -44,6 +47,10 @@ function GetCaseDetails(caseId){
               $('.module').html(caseDetails[i].Module);
               $('.description').html(caseDetails[i].Details);
             }
+            for (var i=0; i<caseAttachments.length; i++ ){
+              caseAttachmentsContainer += '<img width="10%" height="10%" src="https://portal.taksys.com.sg/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
+            }
+            $('.attachments').html(caseAttachmentsContainer);
             for (var i=0; i<caseLogs.length; i++ ){
               var date = convertDate(caseLogs[i].LogCreatedDate);
               var time = convertTime(caseLogs[i].LogCreatedDate);
