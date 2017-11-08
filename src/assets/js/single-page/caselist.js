@@ -44,13 +44,6 @@ $(function(){
     CCEmails = $('#cc').val();
     createNewCase('7', Product, System, Module, Title, Details, CCEmails, '1');
   });
-  $('.caseTable').click(function(){
-    var caseContainerTable = caseContainer.find('table');
-    var caseTbody = caseContainerTable.find('tbody');
-    var caseRow = caseTbody.find('tr')
-    var caseId = caseRow.attr('id');
-    window.location.href = 'http://localhost:8000/case.html?caseID=' + caseId;
-  });
 });
 
 
@@ -85,6 +78,13 @@ function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, M
             htmlString += '</tr>';
           }
           caseTbody.html(htmlString);
+          console.log('click tr');
+          $('.caseTable tbody tr').click(function(){
+            var caseId = $(this).attr('id');
+            console.log(caseId);
+            var caseUrl = 'http://localhost:8000/case.html?caseID=' + caseId
+            window.location.href = caseUrl;
+          });
           //GetCaseDetails(caseTbody.find('tr'));
         }
       }
