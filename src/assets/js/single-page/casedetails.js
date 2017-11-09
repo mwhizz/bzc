@@ -172,7 +172,6 @@ function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, Log
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            alert('Add Successful')
             var urlParams = new URLSearchParams(window.location.search);
             GetCaseDetails(urlParams.get('caseID'),'Log');
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
