@@ -29,16 +29,14 @@ function GetCaseDetails(caseId){
             var caseAttachments = data.d.RetData.Tbls[3].Rows;
             var threadContainer = ''; var involvementContainer = '';
             var caseAttachmentsContainer = '';
-            $('.threadLog').html('');
-            $('.threadTask').html('');
-            $('.attachments').html('');
+            $('.threadLog').html('');$('.threadTask').html('');$('.attachments').html('');
             for (var i=0; i<caseDetails.length; i++ ){
               var datetime = convertDateTime(caseDetails[i].CreatedDate);
-              $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title + '<small onclick="window.location.reload()"> Review</small>');
+              $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title + '<small onclick="window.location.reload()"><A> Review</A></small>');
               $('.status').html(caseDetails[i].CurStatus);
               $('.category').html(caseDetails[i].Category);
               $('.organisation').html(caseDetails[i].OrganizationName);
-              $('.createdBy').html(caseDetails[i].CaseCreatedBy);
+              $('.caseCreatedBy').html(caseDetails[i].CaseCreatedBY);
               $('.createdDate').html(datetime);
               $('.propDuration').html(caseDetails[i].ManDays);
               $('.cc').html(caseDetails[i].CCEmails);
@@ -50,7 +48,6 @@ function GetCaseDetails(caseId){
             for (var i=0; i<caseAttachments.length; i++ ){
               caseAttachmentsContainer += '<img width="10%" height="10%" src="https://portal.taksys.com.sg/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
             }
-            $('.attachments').html(caseAttachmentsContainer);
             for (var i=0; i<caseLogs.length; i++ ){
               var date = convertDate(caseLogs[i].LogCreatedDate);
               var time = convertTime(caseLogs[i].LogCreatedDate);
@@ -67,6 +64,7 @@ function GetCaseDetails(caseId){
             }
             $('.threadLog').html(threadContainer);
             $('.threadTask').html(involvementContainer);
+            $('.attachments').html(caseAttachmentsContainer);
           }
         }
         //alert('Success');

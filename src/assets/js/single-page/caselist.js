@@ -82,7 +82,7 @@ function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, M
           $('.caseTable tbody tr').click(function(){
             var caseId = $(this).attr('id');
             console.log(caseId);
-            var caseUrl = 'http://localhost:8000/case.html?caseID=' + caseId
+            var caseUrl = '/case.html?caseID=' + caseId
             window.location.href = caseUrl;
           });
           //GetCaseDetails(caseTbody.find('tr'));
@@ -107,7 +107,7 @@ function createNewCase(Organization, Product, System, Module, Title, Details, CC
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            window.close();
+            getCasesList($('#caseContainer'),'','','','','','','');
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
