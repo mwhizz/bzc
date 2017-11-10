@@ -21,6 +21,8 @@ form,.form {
   	margin-bottom: $global-margin;
   }
   input[type=text],
+  input[type=password],
+  input[type=email],
   select,
   textarea {
     background: rgb(255,255,255);
@@ -36,6 +38,11 @@ form,.form {
   textarea {
     height: 110px;
   }
+
+  .formCallout {
+    display: none;
+  }
+
   .screenshots {
   	img {
   		@include position(relative);

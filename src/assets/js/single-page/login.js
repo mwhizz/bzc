@@ -1,10 +1,11 @@
 var appCookie;
-
+var loginComponent;
+var loginCallOut;
 $(function(){
 
   //get login details
-  //https://portal.taksys.com.sg/Support/BCMain/Sec1.Login.json
-  //admin1234
+  loginComponent = $('#loginComponent');
+  loginCallOut = loginComponent.find('.formCallout');
 
   appCookie = Cookies.getJSON('appCookie');
   console.log(appCookie);
@@ -109,5 +110,6 @@ function login() {
     console.log( "Login fail" );
     console.log(jqXHR);
     console.log( "Request failed: " + textStatus );
+    loginCallOut.addClass('warn').html('Login fail.').show();
   });
 }
