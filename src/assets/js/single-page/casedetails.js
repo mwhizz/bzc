@@ -144,7 +144,7 @@ function GetCaseDetails(caseId, section){
             for (var i=0; i<caseInvolvements.length; i++ ){
               var date = convertDate(caseInvolvements[i].CreatedDate);
               var time = convertTime(caseInvolvements[i].CreatedDate);
-              involvementContainer = '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span></div> <div class="text">'+caseInvolvements[i].RolePerson+' ('+caseInvolvements[i].RoleName+'): '+caseInvolvements[i].Remarks+'</div> </div>'
+              involvementContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span></div> <div class="text">'+caseInvolvements[i].RolePerson+' ('+caseInvolvements[i].RoleName+'): '+caseInvolvements[i].Remarks+'</div> </div>'
             }
             $('.threadTask').html(involvementContainer);
           }
