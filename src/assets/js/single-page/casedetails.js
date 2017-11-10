@@ -68,6 +68,9 @@ function GetCaseDetails(caseId, section){
             var caseAttachmentsContainer = '';
             $('.threadLog').html('');$('.threadTask').html('');$('.attachments').html('');
             for (var i=0; i<caseDetails.length; i++ ){
+              if (caseDetails[i].CurStatus == 'New'){
+                $('#review').show();
+              }
               var datetime = convertDateTime(caseDetails[i].CreatedDate);
               var intTarEndDate = convertDate(caseDetails[i].IntTargetEndDate);
               var tarEndDate = convertDate(caseDetails[i].TargetEndDate);
@@ -114,6 +117,9 @@ function GetCaseDetails(caseId, section){
           if (data.d.RetData.Tbl.Rows.length > 0) {
             var caseDetails = data.d.RetData.Tbl.Rows;
             for (var i=0; i<caseDetails.length; i++ ){
+              if (caseDetails[i].CurStatus == 'New'){
+                $('#review').show();
+              }
               var datetime = convertDateTime(caseDetails[i].CreatedDate);
               $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title + '<small onclick="window.location.reload()"><A> Review</A></small>');
               $('.status').html(caseDetails[i].CurStatus);
@@ -157,6 +163,7 @@ function GetCaseDetails(caseId, section){
             var involvementContainer = '';
             $('.attachments').html('');
             for (var i=0; i<caseInvolvements.length; i++ ){
+              console.log(caseInvolvements[i].CreatedDate);
               var date = convertDate(caseInvolvements[i].CreatedDate);
               var time = convertTime(caseInvolvements[i].CreatedDate);
               involvementContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span></div> <div class="text">'+caseInvolvements[i].RolePerson+' ('+caseInvolvements[i].RoleName+'): '+caseInvolvements[i].Remarks+'</div> </div>'
