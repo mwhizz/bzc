@@ -36,9 +36,7 @@ $(function(){
   else {
     appCookie = Cookies.getJSON('appCookie');
   }
-  console.log(appCookie);
-
-  //console.log(appCookie.username.length == 0 && pageName.toLowerCase() != 'login');
+  
   if (!appCookie.username && pageName.toLowerCase() != 'login') {
 
     var pageURL = window.location;
