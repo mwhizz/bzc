@@ -1,17 +1,25 @@
 {{!-- This is the base layout for your project, and will be used on every page. --}}
 
+
 <!doctype html>
 <html class="no-js" lang="en">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bizcube Ticketing</title>
+    <title>
+      {{#ifpage 'index'}}
+        Bizcube Ticketing
+      {{/ifpage}}
+      {{#unlesspage 'index'}}
+          {{page}} - Bizcube Ticketing
+      {{/unlesspage}}
+    </title>
     <link rel="stylesheet" href="{{root}}assets/css/app.css">
 
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
   </head>
-  <body>
+  <body id="page-{{page}}">
     <div id="main">
       {{> header}}
       <div id="mainContent" class="grid-container">
@@ -25,6 +33,9 @@
     {{#ifpage 'index'}}
       <script src="{{root}}assets/js/single-page/packagelist.js"></script>
       <script src="{{root}}assets/js/single-page/caselist.js"></script>
+    {{/ifpage}}
+    {{#ifpage 'login'}}
+      <script src="{{root}}assets/js/single-page/login.js"></script>
     {{/ifpage}}
     {{#ifpage 'case'}}
       <script src="{{root}}assets/js/single-page/casedetails.js"></script>
