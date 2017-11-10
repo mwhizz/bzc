@@ -204,7 +204,7 @@ function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, Log
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
             var urlParams = new URLSearchParams(window.location.search);
-            GetCaseDetails(urlParams.get('caseID'),'Log');
+            GetCaseDetails(FLID,'Log');
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -230,7 +230,8 @@ function addInvolvement(FLID, RoleName, RoleID, Details, LoginID){
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
             var urlParams = new URLSearchParams(window.location.search);
-            GetCaseDetails(urlParams.get('caseID'),'Involve');
+            GetCaseDetails(FLID,'Involve');
+            GetCaseDetails(FLID,'Log');
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -257,7 +258,8 @@ function reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEnd
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
             var urlParams = new URLSearchParams(window.location.search);
-            GetCaseDetails(urlParams.get('caseID'),'Full');
+            GetCaseDetails(FLID,'Full');
+            GetCaseDetails(FLID,'Log');
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
