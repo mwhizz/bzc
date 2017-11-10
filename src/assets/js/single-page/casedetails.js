@@ -69,7 +69,9 @@ function GetCaseDetails(caseId, section){
             $('.threadLog').html('');$('.threadTask').html('');$('.attachments').html('');
             for (var i=0; i<caseDetails.length; i++ ){
               var datetime = convertDateTime(caseDetails[i].CreatedDate);
-              $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title + '<small onclick="window.location.reload()"><A> Review</A></small>');
+              var intTarEndDate = convertDate(caseDetails[i].IntTargetEndDate);
+              var tarEndDate = convertDate(caseDetails[i].TargetEndDate);
+              $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title);
               $('.status').html(caseDetails[i].CurStatus);
               $('.category').html(caseDetails[i].Category);
               $('.organisation').html(caseDetails[i].OrganizationName);
@@ -81,6 +83,8 @@ function GetCaseDetails(caseId, section){
               $('.product').html(caseDetails[i].Product);
               $('.module').html(caseDetails[i].Module);
               $('.description').html(caseDetails[i].Details);
+              $('.targetEndDate').html(tarEndDate);
+              $('.intTargetEnDate').html(intTarEndDate);
             }
             for (var i=0; i<caseAttachments.length; i++ ){
               caseAttachmentsContainer += '<img width="10%" height="10%" src="https://portal.taksys.com.sg/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
