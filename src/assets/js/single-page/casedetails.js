@@ -5,6 +5,16 @@ $(function(){
   if (urlParams.get('caseID')){
     GetCaseDetails(urlParams.get('caseID'),'Full');
   }
+  //Assign Task
+  $('#involvement .assign').click(function(){
+    var FLID, RoleName, RoleID, Details, LoginID;
+    FLID = urlParams.get('caseID');
+    RoleName = $('#involvement #roles').val();
+    RoleID = $('#involvement #person').val();
+    Details = $('#involvement #task').val();
+    LoginID = 1;
+    addInvolvement(FLID, RoleName, RoleID, Details, LoginID);
+  });
   //Add New Log
   $('#caseLogAddForm #submit').click(function(){
     var FLID, ActionType, Status, Details, Duration, Internal, LoginID;
@@ -156,7 +166,6 @@ function GetCaseDetails(caseId, section){
   });
 };
 
-
 //Add New Log
 function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, LoginID){
   var data = {'FLID':FLID, 'ActionType':ActionType, 'Status':Status, 'Details': Details,
@@ -225,8 +234,8 @@ function reviewCase(FLID, ManDays, Category, ProposedManDays, IntTargetEndDate, 
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            alert('Add Successful')
-            //window.close();
+            //alert('Review Successful')
+            GetCaseDetails(urlParams.get('caseID'),'Full');
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
