@@ -5,6 +5,17 @@ $(function(){
   if (urlParams.get('caseID')){
     GetCaseDetails(urlParams.get('caseID'),'Full');
   }
+  //Review submit
+  $('#reviewForm .review').click(function(){
+    var FLID, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID;
+    FLID = urlParams.get('caseID');
+    Category = $('#reviewForm #category').val();
+    ProposedManDays = $('#reviewForm #manDays').val();
+    TargetEndDate = $('#reviewForm #targetEndDate').val();
+    IntTargetEndDate = $('#reviewForm #intTargetEnDate').val();
+    LoginID = 1;
+    reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID);
+  });
   //Assign Task
   $('#involvement .assign').click(function(){
     var FLID, RoleName, RoleID, Details, LoginID;
@@ -220,9 +231,9 @@ function addInvolvement(FLID, RoleName, RoleID, Details, LoginID){
 };
 
 //Review Case
-function reviewCase(FLID, ManDays, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID){
-  var data = {'FLID':FLID, 'ManDays':ManDays, 'Category':Category, 'ProposedManDays': ProposedManDays,
-  'IntTargetEndDate': IntTargetEndDate,'TargetEndDate': TargetEndDate, 'LoginID':1};
+function reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID){
+  var data = {'FLID':FLID, 'Category':Category, 'ProposedManDays': ProposedManDays,
+  'IntTargetEndDate': IntTargetEndDate,'TargetEndDate': TargetEndDate, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.ReviewCase.json",
     method: "POST",
@@ -234,7 +245,7 @@ function reviewCase(FLID, ManDays, Category, ProposedManDays, IntTargetEndDate, 
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            //alert('Review Successful')
+            var urlParams = new URLSearchParams(window.location.search);
             GetCaseDetails(urlParams.get('caseID'),'Full');
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }

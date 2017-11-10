@@ -99,8 +99,32 @@
 					<header class="toggleTitle">
 						<h2>Review</h2>
 					</header>
-					<form id="reviewform" class="reveal" data-reveal>
-
+					<form id="reviewForm" class="form3 boxModel">
+						<div>
+							<label>
+								Category
+								<select id="category" name="category">
+									<option value="">-- Select Category --</option>
+									<option value="Bugs">Bugs</option>
+									<option value="Change Request">Change Request</option>
+								</select>
+							</label>
+							<label>
+								Man-Day(s)
+								<input type="text" id="manDays" name="manDays"/>
+							</label>
+							<label>
+								Target End Date
+								<input type="text" id="targetEndDate" name="targetEndDate"/>
+							</label>
+							<label>
+								Target End Date (Internal)
+								<input type="text" id="intTargetEnDate" name="intTargetEnDate"/>
+							</label>
+						</div>
+						<div class="cell medium-2">
+							<button type="button" class="review" src="">Submit Review</button>
+						</div>
 					</form>
 				</section>
 				<section id="involvement">
