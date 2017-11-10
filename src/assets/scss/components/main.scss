@@ -122,3 +122,14 @@ h1 small {
 		}
 	}
 }
+
+.inlineRow {
+	margin-bottom: 0.5em;
+	div{
+		display: inline;
+		margin-right: 1em;
+		b{
+			margin-right: 0.5em;
+		}
+	}
+}
