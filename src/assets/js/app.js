@@ -49,7 +49,32 @@ $(function(){
   }
 
   $('#logOut').click(function() {
+    $.ajax({
+      url: "https://portal.taksys.com.sg/Support/Sec1.Logout.json",
+      method: "POST",
+      dataType: "json",
+      xhrFields: {
+        withCredentials: true
+      },
+      data: {
+        'data': {},
+        'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+        'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
+      }
+    })
+    .done(function(data) {
+      console.log( "Logout success" );
+      if (typeof Cookies.getJSON('appCookie') !== 'undefined')
+        Cookies.remove('appCookie');
+      window.location.href = 'login.html';
+    })
+    .fail(function( jqXHR, textStatus ) {
+      console.log( "Logout fail" );
+      console.log(jqXHR);
+      console.log( "Request failed: " + textStatus );
+    });
 
+    return false;
   });
 });
 
