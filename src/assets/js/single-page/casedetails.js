@@ -1,9 +1,15 @@
 
 $(function(){
+  //get cookie
+  var appCookie = Cookies.getJSON('appCookie');
+  //get loginid
+  var loginID = appCookie.loginID;
+  
   //get FLID from URL
   var urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('caseID')){
-    GetCaseDetails(urlParams.get('caseID'),'Full');
+  var caseID = urlParams.get('caseID');
+  if (caseID){
+    GetCaseDetails(caseID,'Full',loginID);
   }
   //Review submit
   $('#reviewForm .review').click(function(){
@@ -13,7 +19,7 @@ $(function(){
     ProposedManDays = $('#reviewForm #manDays').val();
     TargetEndDate = $('#reviewForm #targetEndDate').val();
     IntTargetEndDate = $('#reviewForm #intTargetEnDate').val();
-    LoginID = 1;
+    LoginID = loginID;
     reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID);
   });
   //Assign Task
@@ -23,7 +29,7 @@ $(function(){
     RoleName = $('#involvement #roles').val();
     RoleID = $('#involvement #person').val();
     Details = $('#involvement #task').val();
-    LoginID = 1;
+    LoginID = loginID;
     addInvolvement(FLID, RoleName, RoleID, Details, LoginID);
   });
   //Add New Log
@@ -39,13 +45,13 @@ $(function(){
     }else{
       Internal = 0;
     }
-    LoginID = 1;
+    LoginID = loginID;
     createNewLog(FLID, ActionType, Status, Details, Duration, Internal, LoginID)
   });
 });
 
 //Get Case Details
-function GetCaseDetails(caseId, section){
+function GetCaseDetails(caseId, section, LoginID){
   if (section == ''){
     section = 'Full'
   }
@@ -53,7 +59,7 @@ function GetCaseDetails(caseId, section){
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.GetCaseDetailsBySection.json",
     method: "POST",
     dataType: "json",
-    data: {'data':JSON.stringify({'LoginID':1,'Section':section,'FLID':caseId}),
+    data: {'data':JSON.stringify({'LoginID':LoginID,'Section':section,'FLID':caseId}),
           'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
           'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
     success: function(data){
@@ -204,7 +210,7 @@ function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, Log
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
             var urlParams = new URLSearchParams(window.location.search);
-            GetCaseDetails(FLID,'Log');
+            GetCaseDetails(FLID,'Log',LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -217,7 +223,7 @@ function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, Log
 
 //Add Involvements
 function addInvolvement(FLID, RoleName, RoleID, Details, LoginID){
-  var data = {'FLID':FLID, 'RoleName':RoleName, 'RoleID':RoleID, 'Details': Details, 'LoginID':1};
+  var data = {'FLID':FLID, 'RoleName':RoleName, 'RoleID':RoleID, 'Details': Details, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.AddInvolvement.json",
     method: "POST",
@@ -230,8 +236,8 @@ function addInvolvement(FLID, RoleName, RoleID, Details, LoginID){
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
             var urlParams = new URLSearchParams(window.location.search);
-            GetCaseDetails(FLID,'Involve');
-            GetCaseDetails(FLID,'Log');
+            GetCaseDetails(FLID,'Involve',LoginID);
+            GetCaseDetails(FLID,'Log',LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -258,8 +264,8 @@ function reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEnd
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
             var urlParams = new URLSearchParams(window.location.search);
-            GetCaseDetails(FLID,'Full');
-            GetCaseDetails(FLID,'Log');
+            GetCaseDetails(FLID,'Full',LoginID);
+            GetCaseDetails(FLID,'Log',LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
