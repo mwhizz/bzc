@@ -71,9 +71,9 @@ function GetCaseDetails(caseId, section){
               if (caseDetails[i].CurStatus == 'New'){
                 $('#review').show();
               }
-              var datetime = convertDateTime(caseDetails[i].CreatedDate);
-              var intTarEndDate = convertDate(caseDetails[i].IntTargetEndDate);
-              var tarEndDate = convertDate(caseDetails[i].TargetEndDate);
+              var datetime = convertDateTime(caseDetails[i].CreatedDate,'datetime');
+              var intTarEndDate = convertDateTime(caseDetails[i].IntTargetEndDate,'date');
+              var tarEndDate = convertDateTime(caseDetails[i].TargetEndDate,'date');
               $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title);
               $('.status').html(caseDetails[i].CurStatus);
               $('.category').html(caseDetails[i].Category);
@@ -93,8 +93,8 @@ function GetCaseDetails(caseId, section){
               caseAttachmentsContainer += '<img width="10%" height="10%" src="https://portal.taksys.com.sg/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
             }
             for (var i=0; i<caseLogs.length; i++ ){
-              var date = convertDate(caseLogs[i].LogCreatedDate);
-              var time = convertTime(caseLogs[i].LogCreatedDate);
+              var date = convertDateTime(caseLogs[i].LogCreatedDate,'date');
+              var time = convertDateTime(caseLogs[i].LogCreatedDate,'time');
               if (caseLogs[i].Internal){
                 threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span> <span class="tag">Internal</span></div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
               }else{
@@ -102,8 +102,8 @@ function GetCaseDetails(caseId, section){
               }
             }
             for (var i=0; i<caseInvolvements.length; i++ ){
-              var date = convertDate(caseInvolvements[i].CreatedDate);
-              var time = convertTime(caseInvolvements[i].CreatedDate);
+              var date = convertDateTime(caseInvolvements[i].CreatedDate,'date');
+              var time = convertDateTime(caseInvolvements[i].CreatedDate,'time');
               involvementContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span></div> <div class="text">'+caseInvolvements[i].RolePerson+' ('+caseInvolvements[i].RoleName+'): '+caseInvolvements[i].Remarks+'</div> </div>'
             }
             $('.threadLog').html(threadContainer);
@@ -120,7 +120,7 @@ function GetCaseDetails(caseId, section){
               if (caseDetails[i].CurStatus == 'New'){
                 $('#review').show();
               }
-              var datetime = convertDateTime(caseDetails[i].CreatedDate);
+              var datetime = convertDateTime(caseDetails[i].CreatedDate,'datetime');
               $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title + '<small onclick="window.location.reload()"><A> Review</A></small>');
               $('.status').html(caseDetails[i].CurStatus);
               $('.category').html(caseDetails[i].Category);
@@ -144,8 +144,8 @@ function GetCaseDetails(caseId, section){
             var threadContainer = '';
             $('.threadLog').html('');
             for (var i=0; i<caseLogs.length; i++ ){
-              var date = convertDate(caseLogs[i].LogCreatedDate);
-              var time = convertTime(caseLogs[i].LogCreatedDate);
+              var date = convertDateTime(caseLogs[i].LogCreatedDate,'date');
+              var time = convertDateTime(caseLogs[i].LogCreatedDate,'time');
               if (caseLogs[i].Internal){
                 threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span> <span class="tag">Internal</span></div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
               }else{
@@ -164,8 +164,8 @@ function GetCaseDetails(caseId, section){
             $('.attachments').html('');
             for (var i=0; i<caseInvolvements.length; i++ ){
               console.log(caseInvolvements[i].CreatedDate);
-              var date = convertDate(caseInvolvements[i].CreatedDate);
-              var time = convertTime(caseInvolvements[i].CreatedDate);
+              var date = convertDateTime(caseInvolvements[i].CreatedDate,'date');
+              var time = convertDateTime(caseInvolvements[i].CreatedDate,'time');
               involvementContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span></div> <div class="text">'+caseInvolvements[i].RolePerson+' ('+caseInvolvements[i].RoleName+'): '+caseInvolvements[i].Remarks+'</div> </div>'
             }
             $('.threadTask').html(involvementContainer);
@@ -271,20 +271,17 @@ function reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEnd
 };
 
 //convert date to dd/mm/yyyy
-function convertDate(inputFormat) {
+function convertDateTime(inputFormat, type) {
+  if (inputFormat == null){
+    return '-';
+  };
   function pad(s) { return (s < 10) ? '0' + s : s; }
   var d = new Date(inputFormat);
-  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-};
-
-function convertDateTime(inputFormat) {
-  function pad(s) { return (s < 10) ? '0' + s : s; }
-  var d = new Date(inputFormat);
-  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/') + ' ' + [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
-};
-
-function convertTime(inputFormat) {
-  function pad(s) { return (s < 10) ? '0' + s : s; }
-  var d = new Date(inputFormat);
-  return [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+  if (type == 'date'){
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+  }else if (type == 'datetime'){
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/') + ' ' + [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+  }else if (type == 'time'){
+    return [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+  }
 };
