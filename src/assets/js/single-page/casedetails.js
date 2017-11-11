@@ -4,7 +4,7 @@ $(function(){
   var appCookie = Cookies.getJSON('appCookie');
   //get loginid
   var loginID = appCookie.loginID;
-  
+
   //get FLID from URL
   var urlParams = new URLSearchParams(window.location.search);
   var caseID = urlParams.get('caseID');
@@ -74,8 +74,10 @@ function GetCaseDetails(caseId, section, LoginID){
             var caseAttachmentsContainer = '';
             $('.threadLog').html('');$('.threadTask').html('');$('.attachments').html('');
             for (var i=0; i<caseDetails.length; i++ ){
-              if (caseDetails[i].CurStatus == 'New'){
+              var Permission = caseDetails[i].Permission;
+              if (caseDetails[i].CurStatus == 'New' && (Permission==4 || Permission==3)){
                 $('#review').show();
+                $('.involvemetAdd').show();
               }
               var datetime = convertDateTime(caseDetails[i].CreatedDate,'datetime');
               var intTarEndDate = convertDateTime(caseDetails[i].IntTargetEndDate,'date');
