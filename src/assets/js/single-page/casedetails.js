@@ -77,6 +77,8 @@ function GetCaseDetails(caseId, section, LoginID){
               var Permission = caseDetails[i].Permission;
               if (caseDetails[i].CurStatus == 'New' && (Permission==4 || Permission==3)){
                 $('#review').show();
+              }
+              if (Permission==4 || Permission==3){
                 $('.involvemetAdd').show();
               }
               var datetime = convertDateTime(caseDetails[i].CreatedDate,'datetime');

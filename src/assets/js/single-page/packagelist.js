@@ -8,7 +8,6 @@ $(function(){
   var urlParams = new URLSearchParams(window.location.search);
   var packageID = urlParams.get('packageID');
 
-
   var pageName = getPageName();
   if (pageName == 'packages'){
     getPackageList('', '', '', '', '',loginID);
@@ -17,10 +16,13 @@ $(function(){
       getPackageDetails(packageID, loginID)
     }
   }else{
+    if (loginID!=1){
+      $('#packages').show();
+    };
     getCurrentPackageList(loginID);
   }
   //filter
-  $('#packageFilterForm .tabBoxButtonSubmit').click(function(){
+  packages.click(function(){
     var targetRef = $(this).parents('.tabBoxContent');
     var Organization, Product, Status, DateFrom, DateTo;
     Organization = $('#packageFilterForm #organisation').val();
