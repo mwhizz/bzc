@@ -92,7 +92,6 @@ $(function(){
 function getPageName() {
   var pageName = $('body').attr('id').replace('page-','');
   return pageName;
-
 }
 
 //convert date to dd/mm/yyyy

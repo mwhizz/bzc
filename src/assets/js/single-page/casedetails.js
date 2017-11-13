@@ -14,7 +14,7 @@ $(function(){
   //Review submit
   $('#reviewForm .review').click(function(){
     var FLID, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID;
-    FLID = urlParams.get('caseID');
+    FLID = caseID;
     Category = $('#reviewForm #category').val();
     ProposedManDays = $('#reviewForm #manDays').val();
     TargetEndDate = $('#reviewForm #targetEndDate').val();
@@ -25,7 +25,7 @@ $(function(){
   //Assign Task
   $('#involvement .assign').click(function(){
     var FLID, RoleName, RoleID, Details, LoginID;
-    FLID = urlParams.get('caseID');
+    FLID = caseID;
     RoleName = $('#involvement #roles').val();
     RoleID = $('#involvement #person').val();
     Details = $('#involvement #task').val();
@@ -35,7 +35,7 @@ $(function(){
   //Add New Log
   $('#caseLogAddForm #submit').click(function(){
     var FLID, ActionType, Status, Details, Duration, Internal, LoginID;
-    FLID = urlParams.get('caseID');
+    FLID = caseID;
     ActionType = 'U';
     Status = $('#caseLogAddForm #status').val();
     Details = $('#caseLogAddForm #description').val();
@@ -211,7 +211,6 @@ function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, Log
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            var urlParams = new URLSearchParams(window.location.search);
             GetCaseDetails(FLID,'Log',LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
@@ -237,7 +236,6 @@ function addInvolvement(FLID, RoleName, RoleID, Details, LoginID){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            var urlParams = new URLSearchParams(window.location.search);
             GetCaseDetails(FLID,'Involve',LoginID);
             GetCaseDetails(FLID,'Log',LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
@@ -265,7 +263,6 @@ function reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEnd
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            var urlParams = new URLSearchParams(window.location.search);
             GetCaseDetails(FLID,'Full',LoginID);
             GetCaseDetails(FLID,'Log',LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }

@@ -9,13 +9,12 @@ $(function(){
   getCasesList(caseContainer,'','','','','','',loginID);
 
   $('#caseFilter .tabBoxButtonSubmit').click(function(){
-    var targetRef = $(this).parents('.tabBoxContent');
     var System, Module, DateFrom, DateTo, MyCase;
     var Status = "";
     $.each($("input[name='status']:checked"), function(){
-                //Status.push($(this).val());
-                Status = Status +$(this).val() + ",";
-            });
+      //Status.push($(this).val());
+      Status = Status +$(this).val() + ",";
+    });
     Status = Status.slice(0, -1);
     System = $('#product').val();
     Module = $('#module').val();
@@ -72,7 +71,6 @@ function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, M
           caseTbody.html(htmlString);
           $('.caseTable tbody tr').click(function(){
             var caseId = $(this).attr('id');
-            console.log(caseId);
             var caseUrl = '/case.html?caseID=' + caseId
             window.location.href = caseUrl;
           });
