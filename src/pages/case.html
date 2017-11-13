@@ -50,7 +50,7 @@
 						</div>
 					</div>
 				</section>
-				<section id="information">
+				<section class="toggleBox" id="information">
 					<header class="toggleTitle">
 						<h2>Information</h2>
 					</header>
@@ -107,7 +107,7 @@
 						</div>
 					</div>
 				</section>
-				<section style="display: none;" id="review">
+				<section class="toggleBox" style="display: none;" id="review">
 					<header class="toggleTitle">
 						<h2>Review</h2>
 					</header>
@@ -139,11 +139,12 @@
 						</div>
 					</form>
 				</section>
-				<section id="involvement">
+				<section class="toggleBox" id="involvement">
 					<header class="toggleTitle">
 						<h2>Involvement</h2>
 					</header>
-					<form style="display: none;" class="form3 boxModel involvemetAdd">
+					<div class="toggleContent">
+						<form style="display: none;" class="form3 boxModel involvemetAdd">
 							<header class="grid-x grid-padding-x">
 								<div class="cell small-12">
 									<h3>Assign Task</h3>
@@ -177,24 +178,26 @@
 									</label>
 								</div>
 							</div>
-
-					</form>
-					<div class="threadContainer" id="taskThread">
-						<div class="scrollContainer scrollY threadTask">
-							<!--Task thread insert here-->
-						</div><!--scrollContainer-->
+						</form>
+						<div class="threadContainer" id="taskThread">
+							<div class="scrollContainer scrollY threadTask">
+								<!--Task thread insert here-->
+							</div><!--scrollContainer-->
+						</div>
 					</div>
 				</section>
-				<section id="log">
+				<section class="toggleBox" id="log">
 					<header class="toggleTitle">
 						<h2>Log Thread</h2>
 					</header>
-					<button type="button" class="buttonType2 buttonType2Add left" data-open="caseLogAddForm">Add New Thread</button>
-					<div class="threadContainer" id="logThread">
-						<div class="scrollContainer scrollY threadLog">
-							<!--Log thread insert here-->
-						</div><!--scrollContainer-->
-					</div><!--threadContainer-->
+					<div class="toggleContent">
+						<button type="button" class="buttonType2 buttonType2Add left" data-open="caseLogAddForm">Add New Thread</button>
+						<div class="threadContainer" id="logThread">
+							<div class="scrollContainer scrollY threadLog">
+								<!--Log thread insert here-->
+							</div><!--scrollContainer-->
+						</div><!--threadContainer-->
+					</div>
 				</section><!--case log end-->
 
 				<form id="caseLogAddForm" class="reveal" data-reveal>
