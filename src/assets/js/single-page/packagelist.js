@@ -17,7 +17,7 @@ $(function(){
       getPackageDetails(packageID, loginID)
     }
   }else{
-    getCurrentPackageList();
+    getCurrentPackageList(loginID);
   }
   //filter
   $('#packageFilterForm .tabBoxButtonSubmit').click(function(){
@@ -129,8 +129,8 @@ function getPackageList(Organisation, Product, Status, StartDate, ExpiryDate, Lo
 };
 
 //get Current Package List
-function getCurrentPackageList(){
-  var data = {'LoginID':5};
+function getCurrentPackageList(LoginID){
+  var data = {'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.GetCurrentPackages.json",
     method: "POST",
@@ -208,7 +208,6 @@ function getPackageDetails(PackageID, LoginID){
         if (data.d.RetData.Tbl.Rows.length > 0) {
           var packageDetails = data.d.RetData.Tbl.Rows;
           var htmlString = '';
-
           for (var i=0; i<packageDetails.length; i++ ){
             var packageDate = convertDateTime(packageDetails[i].CreatedDate,'datetime');
             var startDate = convertDateTime(packageDetails[i].StartDate,'date');
