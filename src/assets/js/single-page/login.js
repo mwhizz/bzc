@@ -94,7 +94,7 @@ function login() {
         username: dataReturned1.Username,
         dispName: dataReturned1.DispName,
         loginID: dataReturned1.LoginID,
-        //personID: dataReturned2.PersonID
+        personID: dataReturned2.PersonID
       });
       console.log(appCookie);
         if (appCookie.redirectPage)
