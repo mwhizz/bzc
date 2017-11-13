@@ -6,6 +6,12 @@
   left: $left;
 }
 
+@mixin scrollY($height: 300px) {
+	height: $height;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
 @mixin border-radius($radius: 8px, $bottom-left: -1, $bottom-right: -1, $top-left: -1, $top-right: -1) {
   @if ($top-left >= 0 and $top-right >= 0 and $bottom-left >= 0 and $bottom-right >= 0) {
     -webkit-border-radius: $top-left;
@@ -47,7 +53,6 @@
 }
 
 @mixin global-container() {
-
     margin-bottom: $global-margin;
 }
 

@@ -19,7 +19,20 @@ $(function(){
   //get page name
   pageName = getPageName();
 
-
+  $('.tabBoxButtonClose,.tabBoxButtonSubmit').click(function(){
+    var targetRef = $(this).parents('.tabBoxContent');
+    $(targetRef).hide();
+    return false;
+  });
+  $('.tabBoxButton').click(function(){
+    var targetRef = $(this).data('target');
+    if (  $('#'+targetRef).is(':visible')){
+      $('#'+targetRef).hide();
+    }else{
+      $('#'+targetRef).show();
+    }
+    return false;
+  });
 
   $('.items').on('click', '.add', function () {
       var imageId = $(this).data("id");
@@ -79,7 +92,6 @@ $(function(){
 function getPageName() {
   var pageName = $('body').attr('id').replace('page-','');
   return pageName;
-
 }
 
 //convert date to dd/mm/yyyy

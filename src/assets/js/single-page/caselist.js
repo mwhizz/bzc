@@ -1,36 +1,27 @@
 
 $(function(){
+  //get cookie
+  var appCookie = Cookies.getJSON('appCookie');
+  //get loginid
+  var loginID = appCookie.loginID;
+
   var caseContainer = $('#caseContainer');
-  getCasesList(caseContainer,'','','','','','','');
-  $('.tabBoxButtonClose,.tabBoxButtonSubmit').click(function(){
-    var targetRef = $(this).parents('.tabBoxContent');
-    $(targetRef).hide();
-    return false;
-  });
-  $('.tabBoxButton').click(function(){
-    var targetRef = $(this).data('target');
-    if (  $('#'+targetRef).is(':visible')){
-      $('#'+targetRef).hide();
-    }else{
-      $('#'+targetRef).show();
-    }
-    return false;
-  });
+  getCasesList(caseContainer,'','','','','','',loginID);
+
   $('#caseFilter .tabBoxButtonSubmit').click(function(){
-    var targetRef = $(this).parents('.tabBoxContent');
     var System, Module, DateFrom, DateTo, MyCase;
     var Status = "";
     $.each($("input[name='status']:checked"), function(){
-                //Status.push($(this).val());
-                Status = Status +$(this).val() + ",";
-            });
+      //Status.push($(this).val());
+      Status = Status +$(this).val() + ",";
+    });
     Status = Status.slice(0, -1);
     System = $('#product').val();
     Module = $('#module').val();
     DateFrom = $('#dateCreatedFrom').val();
     DateTo = $('#dateCreatedTo').val();
     MyCase = $('#statusMyCase').val();
-    getCasesList(caseContainer,System,Module,Status,DateFrom,DateTo,MyCase,'');
+    getCasesList(caseContainer,System,Module,Status,DateFrom,DateTo,MyCase,loginID);
     return false;
   });
   $('#caseAddForm .newCaseSubmitButton').click(function(){
@@ -42,7 +33,7 @@ $(function(){
     Title = $('#title').val();
     Details = $('#description').val();
     CCEmails = $('#cc').val();
-    createNewCase('7', Product, System, Module, Title, Details, CCEmails, '1');
+    createNewCase('7', Product, System, Module, Title, Details, CCEmails, loginID);
   });
 });
 
@@ -51,7 +42,7 @@ $(function(){
 function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, MyCase, LoginID){
   var caseContainerTable = caseContainer.find('table');
   var caseTbody = caseContainerTable.find('tbody');
-  var data = {'LoginID':1,'System':System,'Module':Module,'Status':Status,'DateFrom':DateFrom,'DateTo':DateTo,'MyCase':MyCase};
+  var data = {'LoginID':LoginID,'System':System,'Module':Module,'Status':Status,'DateFrom':DateFrom,'DateTo':DateTo,'MyCase':MyCase};
   caseTbody.html('');
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.GetCasesList.json",
@@ -78,10 +69,8 @@ function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, M
             htmlString += '</tr>';
           }
           caseTbody.html(htmlString);
-          console.log('click tr');
           $('.caseTable tbody tr').click(function(){
             var caseId = $(this).attr('id');
-            console.log(caseId);
             var caseUrl = '/case.html?caseID=' + caseId
             window.location.href = caseUrl;
           });
@@ -95,7 +84,7 @@ function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, M
 //Create new case
 function createNewCase(Organization, Product, System, Module, Title, Details, CCEmails, LoginID){
   var data = {'Organization':Organization, 'Product':Product, 'System':System, 'Module': Module,
-              'Title': Title, 'Details':Details, 'CCEmail':CCEmails, 'LoginID':1};
+              'Title': Title, 'Details':Details, 'CCEmail':CCEmails, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.AddNewCase.json",
     method: "POST",
@@ -107,7 +96,7 @@ function createNewCase(Organization, Product, System, Module, Title, Details, CC
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            getCasesList($('#caseContainer'),'','','','','','','');
+            getCasesList($('#caseContainer'),'','','','','','',LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }

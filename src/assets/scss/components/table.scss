@@ -48,4 +48,10 @@ table {
       width: 50%;
     }
   }
+
+  &.packageTable {
+    td {
+      text-align: center;
+    }
+  }
 }
