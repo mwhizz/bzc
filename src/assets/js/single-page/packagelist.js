@@ -1,12 +1,13 @@
 
 $(function(){
     getCurrentPackageList();
+    getPackageList();
 });
 
 
 //Get All Package List
 function getPackageList(){
-  var data = {'LoginID':5};
+  var data = {'LoginID':1};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.GetPackageList.json",
     method: "POST",
@@ -16,8 +17,24 @@ function getPackageList(){
           'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
+        var htmlString = '';
         if (data.d.RetData.Tbl.Rows.length > 0) {
-
+          var packages = data.d.RetData.Tbl.Rows;
+          var htmlString = '';
+          for (var i=0; i<packages.length; i++ ){
+            var startDate = convertDate(packages[i].StartDate);
+            var expiryDate = convertDate(packages[i].ExpiryDate);
+            htmlString += '<tr id="'+ packages[i].PackageID  +'">';
+            htmlString += '<td>'+packages[i].Organization+'</td>';
+            htmlString += '<td>'+packages[i].BoughtManDays+'</td>';
+            htmlString += '<td>'+packages[i].Product+'</td>';
+            htmlString += '<td>'+packages[i].System+'</td>';
+            htmlString += '<td>'+startDate+'</td>';
+            htmlString += '<td>'+expiryDate+'</td>';
+            htmlString += '<td>'+packages[i].Status+'</td>';
+            htmlString += '</tr>';
+          }
+          $('.packageTable').find('tbody').html(htmlString);
         }
       }
     }

@@ -7,20 +7,7 @@ $(function(){
 
   var caseContainer = $('#caseContainer');
   getCasesList(caseContainer,'','','','','','',loginID);
-  $('.tabBoxButtonClose,.tabBoxButtonSubmit').click(function(){
-    var targetRef = $(this).parents('.tabBoxContent');
-    $(targetRef).hide();
-    return false;
-  });
-  $('.tabBoxButton').click(function(){
-    var targetRef = $(this).data('target');
-    if (  $('#'+targetRef).is(':visible')){
-      $('#'+targetRef).hide();
-    }else{
-      $('#'+targetRef).show();
-    }
-    return false;
-  });
+
   $('#caseFilter .tabBoxButtonSubmit').click(function(){
     var targetRef = $(this).parents('.tabBoxContent');
     var System, Module, DateFrom, DateTo, MyCase;
