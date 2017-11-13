@@ -58,7 +58,11 @@ function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, M
           var htmlString = '';
           for (var i=0; i<cases.length; i++ ){
             var date = convertDate(cases[i].CreatedDate);
-            htmlString += '<tr id="'+ cases[i].FLID +'">';
+            if (cases[i].CurStatus=='Completed'){
+              htmlString += '<tr class="completed" id="'+ cases[i].FLID +'">';
+            }else{
+              htmlString += '<tr id="'+ cases[i].FLID +'">';
+            }
             htmlString += '<td class="colorCodeGreen"></td>';
             htmlString += '<td>'+cases[i].Title+'</td>';
             htmlString += '<td>'+cases[i].OrganizationName+'</td>';
