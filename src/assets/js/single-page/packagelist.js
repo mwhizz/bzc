@@ -5,9 +5,17 @@ $(function(){
   //get loginid
   var loginID = appCookie.loginID;
 
+  var urlParams = new URLSearchParams(window.location.search);
+  var packageID = urlParams.get('packageID');
+
+
   var pageName = getPageName();
   if (pageName == 'packages'){
     getPackageList('', '', '', '', '',loginID);
+  }else if (pageName == 'packageDetails'){
+    if (packageID){
+      getPackageDetails(packageID, loginID)
+    }
   }else{
     getCurrentPackageList();
   }
@@ -148,6 +156,64 @@ function getCurrentPackageList(){
 						htmlString += '</div> <!--card-section--></div> <!--card--></div> <!--cell-->'
           }
           $('.packageGrid').append(htmlString);
+        }
+      }
+    }
+  });
+};
+
+function addNewtransaction(PackageID, Type, ManDays, Remarks, LoginID){
+  var data = {'PackageID':PackageID, 'Type':Type, 'ManDays':ManDays, 'Remarks': Remarks,
+              'LoginID':LoginID};
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.AddNewPackageTransactions.json",
+    method: "POST",
+    dataType: "json",
+    data: {'data':JSON.stringify(data),
+          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          if (data.d.RetData.Tbl.Rows[0].Success == true) {
+            getPackageDetails(PackageID, LoginID);
+          } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
+        }
+      }
+      else {
+        alert(data.d.RetMsg);
+      }
+    }
+  });
+}
+
+function getPackageDetails(PackageID, LoginID){
+  var data = {'PackageID':PackageID, 'LoginID':LoginID};
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.GetPackagedetails.json",
+    method: "POST",
+    dataType: "json",
+    data: {'data':JSON.stringify(data),
+          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        var htmlString = '';
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          var packageDetails = data.d.RetData.Tbl.Rows;
+          var htmlString = '';
+          for (var i=0; i<packageDetails.length; i++ ){
+            var tranDate = convertDate(packageDetails[i].TranDate);
+            htmlString += '<tr id="'+ packageDetails[i].PackageID  +'">';
+            htmlString += '<td>'+'credit'+'</td>';
+            htmlString += '<td>'+packageDetails[i].ManDays+'</td>';
+            htmlString += '<td>'+packageDetails[i].Remarks+'</td>';
+            htmlString += '<td>'+packageDetails[i].FLID+'</td>';
+            htmlString += '<td>'+tranDate+'</td>';
+            htmlString += '<td>'+packageDetails[i].TranCreatedBy+'</td>';
+            htmlString += '</tr>';
+          }
+          $('.packagetranTable tbody').html(htmlString);
         }
       }
     }

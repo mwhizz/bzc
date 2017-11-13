@@ -49,7 +49,7 @@ table {
     }
   }
 
-  &.packageTable {
+  &.packageTable, &.packagetranTable {
     td {
       text-align: center;
     }
