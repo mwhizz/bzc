@@ -30,7 +30,6 @@ $(function(){
     }else{
       Status = '';
     }
-    console.log(Status);
     DateFrom = $('#packageFilterForm #packageStartDate').val();
     DateTo = $('#packageFilterForm #packageExpiryDate').val();
     getPackageList(Organization, Product, Status, DateFrom, DateTo, loginID);
@@ -46,6 +45,14 @@ $(function(){
     StartDate = $('#packageAddForm #packageStartDate').val();
     ExpiryDate = $('#packageAddForm #packageExpiryDate').val();
     addNewPackage(RoleID, Type, Product, System, BoughtManDays, StartDate, ExpiryDate, loginID);
+  });
+  //add transaction
+  $('#packageTransactionAddForm #submit').click(function(){
+    var Type, ManDays, Remarks;
+    Type =  $('#packageTransactionAddForm #type').val();
+    ManDays = $('#packageTransactionAddForm #manDays').val();
+    Remarks = $('#packageTransactionAddForm #remarks').val();
+    addNewtransaction(packageID, '', Type, ManDays, Remarks, loginID);
   });
 });
 
@@ -97,8 +104,8 @@ function getPackageList(Organisation, Product, Status, StartDate, ExpiryDate, Lo
           var packages = data.d.RetData.Tbl.Rows;
           var htmlString = '';
           for (var i=0; i<packages.length; i++ ){
-            var startDate = convertDate(packages[i].StartDate);
-            var expiryDate = convertDate(packages[i].ExpiryDate);
+            var startDate = convertDateTime(packages[i].StartDate,'date');
+            var expiryDate = convertDateTime(packages[i].ExpiryDate,'date');
             htmlString += '<tr id="'+ packages[i].PackageID  +'">';
             htmlString += '<td>'+packages[i].Organization+'</td>';
             htmlString += '<td>'+packages[i].BoughtManDays+'</td>';
@@ -137,7 +144,7 @@ function getCurrentPackageList(){
           var packages = data.d.RetData.Tbl.Rows;
           var htmlString = '';
           for (var i=0; i<packages.length; i++ ){
-            var date = convertDate(packages[i].ExpiryDate);
+            var date = convertDateTime(packages[i].ExpiryDate,'date');
             htmlString += '<div class="medium-6 large-4 cell clearfix"> <div class="card"> <div class="grid-x card-divider"> <div class="cell auto">'
 						htmlString +=	'<h3 class="colorCodeGreen">'+packages[i].Product+'</h3>'
             if (packages[i].System.length > 0) {
@@ -162,9 +169,8 @@ function getCurrentPackageList(){
   });
 };
 
-function addNewtransaction(PackageID, Type, ManDays, Remarks, LoginID){
-  var data = {'PackageID':PackageID, 'Type':Type, 'ManDays':ManDays, 'Remarks': Remarks,
-              'LoginID':LoginID};
+function addNewtransaction(PackageID, FLID, Type, ManDays, Remarks, LoginID){
+  var data = {'PackageID':PackageID, 'FLID':FLID, 'Type':Type, 'ManDays':ManDays, 'Remarks': Remarks, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.AddNewPackageTransactions.json",
     method: "POST",
@@ -202,10 +208,24 @@ function getPackageDetails(PackageID, LoginID){
         if (data.d.RetData.Tbl.Rows.length > 0) {
           var packageDetails = data.d.RetData.Tbl.Rows;
           var htmlString = '';
+
           for (var i=0; i<packageDetails.length; i++ ){
-            var tranDate = convertDate(packageDetails[i].TranDate);
+            var packageDate = convertDateTime(packageDetails[i].CreatedDate,'datetime');
+            var startDate = convertDateTime(packageDetails[i].StartDate,'date');
+            var expiryDate = convertDateTime(packageDetails[i].ExpiryDate,'date');
+            $('.organization').html(packageDetails[i].Organization);
+            $('.packageType').html(packageDetails[i].Type);
+            $('.product').html(packageDetails[i].Product);
+            $('.system').html(packageDetails[i].System);
+            $('.status').html(packageDetails[i].Status);
+            $('.manDays').html(packageDetails[i].ManDaysLeft+'/'+packageDetails[i].BoughtManDays);
+            $('.startDate').html(startDate);
+            $('.expiryDate').html(expiryDate);
+            $('.pkgCreatedBy').html(packageDetails[i].PkgCreatedBy);
+            $('.createdDate').html(packageDate);
+            var tranDate = convertDateTime(packageDetails[i].TranDate,'date');
             htmlString += '<tr id="'+ packageDetails[i].PackageID  +'">';
-            htmlString += '<td>'+'credit'+'</td>';
+            htmlString += '<td>'+packageDetails[i].TranType+'</td>';
             htmlString += '<td>'+packageDetails[i].ManDays+'</td>';
             htmlString += '<td>'+packageDetails[i].Remarks+'</td>';
             htmlString += '<td>'+packageDetails[i].FLID+'</td>';
@@ -220,9 +240,17 @@ function getPackageDetails(PackageID, LoginID){
   });
 };
 
-//convert date to dd/mm/yyyy
-function convertDate(inputFormat) {
+function convertDateTime(inputFormat, type) {
+  if (inputFormat == null){
+    return '-';
+  };
   function pad(s) { return (s < 10) ? '0' + s : s; }
   var d = new Date(inputFormat);
-  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+  if (type == 'date'){
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+  }else if (type == 'datetime'){
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/') + ' ' + [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+  }else if (type == 'time'){
+    return [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+  }
 };
