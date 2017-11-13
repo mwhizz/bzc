@@ -46,7 +46,10 @@
 	}
 }
 
-h1 small {
+h1 small,
+h2 small,
+h3 small,
+h4 small, {
 	font-size: 1rem;
 	text-transform: none;
 }
