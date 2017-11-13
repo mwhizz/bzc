@@ -77,6 +77,8 @@ function GetCaseDetails(caseId, section, LoginID){
               var Permission = caseDetails[i].Permission;
               if (caseDetails[i].CurStatus == 'New' && (Permission==4 || Permission==3)){
                 $('#review').show();
+              }
+              if (Permission==4 || Permission==3){
                 $('.involvemetAdd').show();
               }
               var datetime = convertDateTime(caseDetails[i].CreatedDate,'datetime');
@@ -211,6 +213,7 @@ function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, Log
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
+            GetCaseDetails(FLID,'Main',LoginID);
             GetCaseDetails(FLID,'Log',LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }

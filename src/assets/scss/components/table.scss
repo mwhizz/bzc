@@ -37,6 +37,9 @@ table {
   }
 
   &.caseTable {
+    tr.completed {
+      background: $complementary-dark-color2;
+    }
     td {
       text-align: center;
     }
