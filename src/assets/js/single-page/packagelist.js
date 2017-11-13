@@ -22,7 +22,7 @@ $(function(){
     getCurrentPackageList(loginID);
   }
   //filter
-  packages.click(function(){
+  $('#packageFilter .tabBoxButtonSubmit').click(function(){
     var targetRef = $(this).parents('.tabBoxContent');
     var Organization, Product, Status, DateFrom, DateTo;
     Organization = $('#packageFilterForm #organisation').val();

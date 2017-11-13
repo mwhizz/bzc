@@ -213,6 +213,7 @@ function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, Log
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
+            GetCaseDetails(FLID,'Main',LoginID);
             GetCaseDetails(FLID,'Log',LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
