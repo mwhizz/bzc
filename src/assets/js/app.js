@@ -86,6 +86,21 @@ $(function(){
     });
 
     return false;
+  });//logout
+
+  //toggleTitle
+  $('.toggleTitle').click(function() {
+    var toggleObj = $(this);
+    var toggleBox = toggleObj.parents('.toggleBox');
+    var toggleContent = toggleBox.find('.toggleContent');
+    if (toggleObj.hasClass('toggleOpen')) {
+      toggleObj.removeClass('toggleOpen');
+      toggleContent.slideDown();
+    }
+    else {
+      toggleObj.addClass('toggleOpen');
+      toggleContent.slideUp();
+    }
   });
 });
 
