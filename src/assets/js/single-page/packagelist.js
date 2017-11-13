@@ -109,7 +109,7 @@ function getPackageList(Organisation, Product, Status, StartDate, ExpiryDate, Lo
             var startDate = convertDateTime(packages[i].StartDate,'date');
             var expiryDate = convertDateTime(packages[i].ExpiryDate,'date');
             htmlString += '<tr id="'+ packages[i].PackageID  +'">';
-            htmlString += '<td>'+packages[i].DisplayName+'</td>';
+            htmlString += '<td>'+packages[i].Organization+'</td>';
             htmlString += '<td>'+packages[i].BoughtManDays+'</td>';
             htmlString += '<td>'+packages[i].Product+'</td>';
             htmlString += '<td>'+packages[i].System+'</td>';
