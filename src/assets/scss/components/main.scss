@@ -46,6 +46,13 @@
 	}
 }
 
+.contentContainer {
+  & > header {
+    border-bottom: 1px dashed $medium-gray;
+    margin-bottom: $global-margin;
+	}
+}
+
 h1 small,
 h2 small,
 h3 small,
