@@ -80,6 +80,7 @@ function GetCaseDetails(caseId, section, LoginID){
               }
               if (Permission==4 || Permission==3){
                 $('.involvemetAdd').show();
+                $('.orgData').show();
               }
               var datetime = convertDateTime(caseDetails[i].CreatedDate,'datetime');
               var intTarEndDate = convertDateTime(caseDetails[i].IntTargetEndDate,'date');
