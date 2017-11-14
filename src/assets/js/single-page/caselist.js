@@ -5,6 +5,7 @@ $(function(){
   //get loginid
   var loginID = appCookie.loginID;
 
+  GetBasicInformation(appCookie.personID);
   var caseContainer = $('#caseContainer');
   getCasesList(caseContainer,'','','','','','',loginID);
 
@@ -110,6 +111,36 @@ function createNewCase(Organization, Product, System, Module, Title, Details, CC
     }
   });
 };
+
+function GetBasicInformation(personID) {
+  var data = {
+    'PersonID': personID
+  }
+
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.GetPersonalInfo.json",
+    method: "POST",
+    dataType: "json",
+    xhrFields: {
+      withCredentials: true
+    },
+    data: {
+      'data': JSON.stringify(data),
+      'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+      'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
+    }
+  })
+  .done(function(data) {
+    if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
+      $('.profileName').html(data.d.RetData.Tbl.Rows[0].DisplayName);
+    }
+  })
+  .fail(function( jqXHR, textStatus ) {
+    console.log( "Login fail" );
+    console.log(jqXHR);
+    console.log( "Request failed: " + textStatus );
+  });;
+}
 
 //convert date to dd/mm/yyyy
 function convertDate(inputFormat) {
