@@ -106,9 +106,9 @@ function GetCaseDetails(caseId, section, LoginID){
               var date = convertDateTime(caseLogs[i].LogCreatedDate,'date');
               var time = convertDateTime(caseLogs[i].LogCreatedDate,'time');
               if (caseLogs[i].Internal){
-                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span> <span class="tag">Internal</span></div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
+                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i> by '+caseLogs[i].LogCreatedBy+'</span> <span class="tag">Internal</span></div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
               }else{
-                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span> </div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
+                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i> by '+caseLogs[i].LogCreatedBy+'</span> </div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
               }
             }
             for (var i=0; i<caseInvolvements.length; i++ ){
@@ -157,9 +157,9 @@ function GetCaseDetails(caseId, section, LoginID){
               var date = convertDateTime(caseLogs[i].LogCreatedDate,'date');
               var time = convertDateTime(caseLogs[i].LogCreatedDate,'time');
               if (caseLogs[i].Internal){
-                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span> <span class="tag">Internal</span></div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
+                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i> by '+caseLogs[i].LogCreatedBy+'</span> <span class="tag">Internal</span></div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
               }else{
-                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span> </div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
+                threadContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i> by '+caseLogs[i].LogCreatedBy+'</span> </div> <div class="text">'+caseLogs[i].Details+'</div> </div>';
               }
             }
             $('.threadLog').html(threadContainer);
