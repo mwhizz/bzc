@@ -6,7 +6,6 @@ $(function(){
   console.log(appCookie);
   console.log(appCookie.personID);
   if (appCookie.personID) {
-
     GetBasicInformation(appCookie.personID);
   }
 
@@ -65,6 +64,5 @@ function GetBasicInformation(personID) {
     console.log( "Login fail" );
     console.log(jqXHR);
     console.log( "Request failed: " + textStatus );
-
   });;
 }
