@@ -34,7 +34,7 @@ $(function(){
     Title = $('#title').val();
     Details = $('#description').val();
     CCEmails = $('#cc').val();
-    createNewCase('7', Product, System, Module, Title, Details, CCEmails, loginID);
+    createNewCase(Organization, Product, System, Module, Title, Details, CCEmails, loginID);
   });
 });
 
