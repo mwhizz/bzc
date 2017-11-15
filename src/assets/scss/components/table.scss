@@ -30,13 +30,13 @@ table {
     td {
       padding: 1.2rem 0.8rem;
     }
-    td.colorCodeYellow {
+    td.colorCodePending {
       background: #ffff00;
     }
-    td.colorCodeGreen {
+    td.colorCodeActive {
       background: #00cc00;
     }
-    td.colorCodeRed {
+    td.colorCodeNonActive {
       background: #e60000;
     }
   }
