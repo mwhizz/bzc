@@ -95,10 +95,10 @@ function login() {
       });
       console.log('redirect' + appCookie.personID);
       console.log(appCookie.redirectPage);
-      if (appCookie.redirectPage)
-        window.location.href = appCookie.redirectPage;
-      else
+      if (!appCookie.redirectPage)
         window.location.href = 'index.html';
+      else
+        window.location.href = appCookie.redirectPage;
     });
   })
   .fail(function( jqXHR, textStatus ) {
