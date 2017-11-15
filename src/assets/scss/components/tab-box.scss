@@ -6,13 +6,21 @@
 
   .tabBoxButton {
     @include border-radius($radius: $global-radius);
+
     margin-bottom: 0px;
     z-index: 2;
+
+    &.tabBoxButtonOpen {
+      @include border-radius($top-right:8px, $top-left: 8px,$bottom-right:0px, $bottom-left: 0px);
+    }
   }
   .tabBoxContent {
     //@include position(absolute,$top: 27px);
     //display: none;
     //padding-top: 49px;
+    @include border-radius($top-right:8px, $top-left: 0,$bottom-right:8px, $bottom-left: 8px);
+    padding: 1.5rem 1rem; 
+    top: 0;
     width: 100%;
     z-index: 1;
   }

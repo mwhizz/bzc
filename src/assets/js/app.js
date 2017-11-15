@@ -20,16 +20,24 @@ $(function(){
   pageName = getPageName();
 
   $('.tabBoxButtonClose,.tabBoxButtonSubmit').click(function(){
-    var targetRef = $(this).parents('.tabBoxContent');
-    $(targetRef).hide();
+    var tabBoxContent = $(this).parents('.tabBoxContent');
+    var tabBoxContainer = tabBoxContent.parents('.tabBoxContainer');
+    tabBoxContent.slideUp(function() {
+      tabBoxContainer.find('.tabBoxButton').removeClass('tabBoxButtonOpen');
+    });
     return false;
   });
   $('.tabBoxButton').click(function(){
+    var $this = $(this);
     var targetRef = $(this).data('target');
     if (  $('#'+targetRef).is(':visible')){
-      $('#'+targetRef).hide();
+
+      $('#'+targetRef).slideUp(function() {
+        $this.removeClass('tabBoxButtonOpen');
+      });
     }else{
-      $('#'+targetRef).show();
+      $this.addClass('tabBoxButtonOpen');
+      $('#'+targetRef).slideDown();
     }
     return false;
   });
