@@ -1,6 +1,6 @@
 
 .legend {
-
+	
 	h6 {
 		font-weight: bold;
 	}
@@ -11,6 +11,7 @@
 	li {
 		//@include position(relative);
 		font-size: $global-font-size*0.8;
+		margin-right: $global-margin*0.5;
 
 		&:before {
 			@include global-box('small');
@@ -44,6 +45,7 @@ table {
       text-align: center;
     }
     td:nth-child(1) {
+			padding: 0;
       width: 1%;
     }
     td:nth-child(2) {
