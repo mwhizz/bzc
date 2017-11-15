@@ -139,10 +139,10 @@ function GetBasicInformation(personID) {
     }
   }).done(function(data) {
     if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
-      if (data.d.RetData.Tbl.Rows[0].EntityType == 'O'){
-        $('#navPackages').hide();
-        $('#navReport').hide();
-        $('#orgPnavSettingsrofile').hide();
+      if (data.d.RetData.Tbl.Rows[0].EntityType == 'I'){
+        $('#navPackages').show();
+        $('#navReport').show();
+        $('#navSettings').show();
       }
     }
   });
