@@ -19,6 +19,7 @@ form,.form {
   }
   .text {
   	margin-bottom: $global-margin;
+    min-height: 1.5rem;
   }
   input[type=text],
   input[type=password],
