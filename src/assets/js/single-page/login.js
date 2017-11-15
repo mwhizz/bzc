@@ -2,18 +2,15 @@ var appCookie;
 var loginComponent;
 var loginCallOut;
 $(function(){
-
   //get login details
   loginComponent = $('#loginComponent');
   loginCallOut = loginComponent.find('.formCallout');
 
   appCookie = Cookies.getJSON('appCookie');
-  console.log(appCookie);
 
   $('#submit').click(function() {
     login();
   });
-  //console.log(appCookie);
 });//onready
 
 function login() {
@@ -96,15 +93,13 @@ function login() {
         loginID: dataReturned1.LoginID,
         personID: dataReturned2.PersonID
       });
-      console.log(appCookie);
-        if (appCookie.redirectPage)
-          window.location.href = appCookie.redirectPage;
-        else
-          window.location.href = 'index.html';
-
+      console.log('redirect' + appCookie.personID);
+      console.log(appCookie.redirectPage);
+      if (appCookie.redirectPage)
+        window.location.href = appCookie.redirectPage;
+      else
+        window.location.href = 'index.html';
     });
-
-
   })
   .fail(function( jqXHR, textStatus ) {
     console.log( "Login fail" );

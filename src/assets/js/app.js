@@ -42,14 +42,14 @@ $(function(){
 
   //set login cookie
   if (typeof Cookies.getJSON('appCookie') === 'undefined') {
-    Cookies.set('appCookie', {
+    appCookie = Cookies.set('appCookie', {
     },
     { expires: 1 });
   }
   else {
     appCookie = Cookies.getJSON('appCookie');
   }
-  
+  console.log('pageName: '+pageName);
   if (!appCookie.username && pageName.toLowerCase() != 'login') {
 
     var pageURL = window.location;
@@ -77,7 +77,7 @@ $(function(){
       console.log( "Logout success" );
       if (typeof Cookies.getJSON('appCookie') !== 'undefined')
         Cookies.remove('appCookie');
-      window.location.href = 'login.html';
+      if (pageName != 'login') window.location.href = 'login.html';
     })
     .fail(function( jqXHR, textStatus ) {
       console.log( "Logout fail" );
