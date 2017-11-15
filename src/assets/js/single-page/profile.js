@@ -5,8 +5,6 @@ $(function(){
   appCookie = Cookies.getJSON('appCookie');
 
   if (appCookie.personID) {
-     //getOrgnisationInfo(appCookie.personID);
-     //getPointofContact(appCookie.personID);
      GetBasicInformation(appCookie.personID);
   }
 
