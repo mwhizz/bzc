@@ -110,6 +110,18 @@ $(function(){
       toggleContent.slideUp();
     }
   });
+
+  $('a').click(function() {
+    var href = $(this).attr('href');
+    var host = window.host;
+    if( location.hostname === this.hostname || !this.hostname.length ) {
+      window.location.href = href;
+    }
+    else
+      window.open(href,'','');
+
+    return false;
+  });
 });//onready
 
 function GetBasicInformation(personID) {
