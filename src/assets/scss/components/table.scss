@@ -27,13 +27,13 @@ table {
       background: $complementary-dark-color2;
       //color: $black;
     }
-    td.colorCodeYellow {
+    td.colorCodePending {
       background: #ffff00;
     }
-    td.colorCodeGreen {
+    td.colorCodeActive {
       background: #00cc00;
     }
-    td.colorCodeRed {
+    td.colorCodeNonActive {
       background: #e60000;
     }
   }

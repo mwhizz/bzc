@@ -61,11 +61,11 @@ function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, M
             var date = convertDate(cases[i].CreatedDate);
             htmlString += '<tr id="'+ cases[i].FLID +'">';
             if (cases[i].CurStatus=='New' || cases[i].CurStatus=='Progressing' ){
-              htmlString += '<td class="colorCodeGreen"></td>';
+              htmlString += '<td class="colorCodeActive"></td>';
             }else if (cases[i].CurStatus=='Reviewed' || cases[i].CurStatus=='Reviewed & Pending Quote'){
-                htmlString += '<td class="colorCodeYellow"></td>';
+                htmlString += '<td class="colorCodePending"></td>';
             }else{
-              htmlString += '<td class="colorCodeRed"></td>';
+              htmlString += '<td class="colorCodeNonActive"></td>';
             }
             htmlString += '<td>'+cases[i].Title+'</td>';
             htmlString += '<td>'+cases[i].OrganizationName+'</td>';
