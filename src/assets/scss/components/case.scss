@@ -1,0 +1,54 @@
+
+.legend {
+
+	h6 {
+		font-weight: bold;
+	}
+
+	ul {
+		@include inline-unordered-list;
+	}
+	li {
+		//@include position(relative);
+		font-size: $global-font-size*0.8;
+
+		&:before {
+			@include global-box('small');
+			background: $complementary-dark-color2;
+			content: '';
+			display:inline-block;
+			height: 20px;
+			margin-right: 0.5rem;
+			margin-bottom: 0;
+			width: 20px;
+			vertical-align: bottom;
+		}
+		&.active:before {
+      background: #00cc00;
+		}
+    &.non-active:before {
+      background: #e60000;
+		}
+		&.pending:before {
+      background: #ffff00;
+		}
+	}
+}
+
+table {
+  &.caseTable {
+    tr.completed {
+      background: $complementary-dark-color2;
+    }
+    td {
+      text-align: center;
+    }
+    td:nth-child(1) {
+      width: 1%;
+    }
+    td:nth-child(2) {
+      text-align: left;
+      width: 50%;
+    }
+  }
+}
