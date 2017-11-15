@@ -10,9 +10,9 @@
     z-index: 2;
   }
   .tabBoxContent {
-    @include position(absolute,$top: 27px);
+    //@include position(absolute,$top: 27px);
     //display: none;
-    padding-top: 49px;
+    //padding-top: 49px;
     width: 100%;
     z-index: 1;
   }
