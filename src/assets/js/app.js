@@ -19,47 +19,6 @@ $(function(){
   //get page name
   pageName = getPageName();
 
-  appCookie = Cookies.getJSON('appCookie');
-  console.log(appCookie.loginID);
-  if(appCookie.loginID){
-    GetBasicInformation(appCookie.personID);
-  }else{
-    $('#navPackages').hide();
-    $('#navReport').hide();
-    $('#navUser').hide();
-    $('#orgPnavSettingsrofile').hide();
-  }
-
-
-  $('.tabBoxButtonClose,.tabBoxButtonSubmit').click(function(){
-    var tabBoxContent = $(this).parents('.tabBoxContent');
-    var tabBoxContainer = tabBoxContent.parents('.tabBoxContainer');
-    tabBoxContent.slideUp(function() {
-      tabBoxContainer.find('.tabBoxButton').removeClass('tabBoxButtonOpen');
-    });
-    return false;
-  });
-  $('.tabBoxButton').click(function(){
-    var $this = $(this);
-    var targetRef = $(this).data('target');
-    if (  $('#'+targetRef).is(':visible')){
-
-      $('#'+targetRef).slideUp(function() {
-        $this.removeClass('tabBoxButtonOpen');
-      });
-    }else{
-      $this.addClass('tabBoxButtonOpen');
-      $('#'+targetRef).slideDown();
-    }
-    return false;
-  });
-
-  $('.items').on('click', '.add', function () {
-      var imageId = $(this).data("id");
-      list.add(JSON.stringify(imageId));
-      var exists = list.exists(JSON.stringify(imageId))
-  });
-
   //set login cookie
   if (typeof Cookies.getJSON('appCookie') === 'undefined') {
     appCookie = Cookies.set('appCookie', {
@@ -69,18 +28,19 @@ $(function(){
   else {
     appCookie = Cookies.getJSON('appCookie');
   }
-  console.log('pageName: '+pageName);
+
   if (!appCookie.username && pageName.toLowerCase() != 'login') {
-
     var pageURL = window.location;
-
     if (typeof Cookies.getJSON('appCookie') !== 'undefined') {
       appCookie = Cookies.getJSON('appCookie');
     }
     appCookie.redirectPage = (pageURL != '') ? pageURL : 'index.html';
     Cookies.set('appCookie', appCookie);
-
     window.location.href = 'login.html';
+  }
+
+  if(appCookie.loginID){
+    GetBasicInformation(appCookie.personID);
   }
 
   $('#logOut').click(function() {
@@ -112,6 +72,27 @@ $(function(){
     return false;
   });//logout
 
+  $('.tabBoxButtonClose,.tabBoxButtonSubmit').click(function(){
+    var targetRef = $(this).parents('.tabBoxContent');
+    $(targetRef).hide();
+    return false;
+  });
+  $('.tabBoxButton').click(function(){
+    var targetRef = $(this).data('target');
+    if (  $('#'+targetRef).is(':visible')){
+      $('#'+targetRef).hide();
+    }else{
+      $('#'+targetRef).show();
+    }
+    return false;
+  });
+
+  $('.items').on('click', '.add', function () {
+      var imageId = $(this).data("id");
+      list.add(JSON.stringify(imageId));
+      var exists = list.exists(JSON.stringify(imageId))
+  });
+
   //toggleTitle
   var toggleTitleButton = $('<div class="button"></div>');
   $('.toggleTitle').append(toggleTitleButton);
@@ -129,8 +110,6 @@ $(function(){
       toggleContent.slideUp();
     }
   });
-
-  console.log(appCookie);
 });//onready
 
 function GetBasicInformation(personID) {

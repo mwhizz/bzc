@@ -7,7 +7,11 @@ $(function(){
   loginCallOut = loginComponent.find('.formCallout');
 
   appCookie = Cookies.getJSON('appCookie');
-
+  $('#loginComponent').keyup(function(e){
+    if(e.keyCode == 13){
+        login();
+    }
+  });
   $('#submit').click(function() {
     login();
   });
@@ -34,7 +38,6 @@ function login() {
     }
   })
   .done(function(data) {
-    console.log( "login success" );
     var getLoginInfo =
       $.ajax({
         url: "https://portal.taksys.com.sg/Support/BCMain/Sec1.LoginInfo.json",
@@ -74,7 +77,6 @@ function login() {
       })
       .done(function(data) {
         console.log( "getOwnPersonID success" );
-
       })
       .fail(function( jqXHR, textStatus ) {
         console.log( "Get ID fail" );
@@ -85,8 +87,6 @@ function login() {
       // Handle both XHR objects
       var dataReturned1 = action1[0].d.RetData;
       var dataReturned2 = action2[0].d.RetData.Tbl.Rows[0];
-      console.log(dataReturned1);
-      console.log(dataReturned2);
 
       appCookie = Cookies.getJSON('appCookie');
 
@@ -96,14 +96,11 @@ function login() {
       appCookie.personID = dataReturned2.PersonID;
       Cookies.set('appCookie', appCookie);
 
-      console.log('personID: ' + appCookie.personID);
-      console.log('redirect: ' + appCookie.redirectPage);
-
-      console.log(!appCookie.redirectPage);
-      if (!appCookie.redirectPage)
-        window.location.href = appCookie.redirectPage;
-      else
+      if (appCookie.loginID || !appCookie.redirectPage || appCookie.redirectPage==undefined){
         window.location.href = 'index.html';
+      }else{
+        window.location.href = appCookie.redirectPage;
+      }
     });
   })
   .fail(function( jqXHR, textStatus ) {
