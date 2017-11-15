@@ -89,7 +89,10 @@ $(function(){
   });//logout
 
   //toggleTitle
-  $('.toggleTitle').click(function() {
+  var toggleTitleButton = $('<div class="button"></div>');
+  $('.toggleTitle').append(toggleTitleButton);
+  $('.toggleTitle').find('.button').click(function() {
+    console.log('t');
     var toggleObj = $(this);
     var toggleBox = toggleObj.parents('.toggleBox');
     var toggleContent = toggleBox.find('.toggleContent');
@@ -102,7 +105,7 @@ $(function(){
       toggleContent.slideUp();
     }
   });
-});
+});//onready
 
 function getPageName() {
   var pageName = $('body').attr('id').replace('page-','');

@@ -4,31 +4,29 @@ section {
     border-bottom: 1px dashed $medium-gray;
     margin-bottom: $global-margin;
 
-    &.toggleTitle:before {
+    &.toggleTitle .button {
       @include global-box('small');
       @include position(absolute, $top: 5px, $right: 0);
-      content: '';
       background: $complementary-light-color1;
+
       cursor: pointer;
       height: 30px;
       width: 30px;
 
-    }
-    &.toggleTitle:after {
+      &:hover {
+        background: $complementary-light-color2;
+      }
+
+      &:before {
+        @include position(absolute, $top: 10px, $right: 6px);
         @include css-triangle($triangle-size: 8px, $triangle-color: $dark-gray, $triangle-direction:'up');
-
-        @include position(absolute, $top: 15px, $right: 7px);
-        content: '';
-        background: $complementary-light-color1;
-        cursor: pointer;
+      }
     }
+    &.toggleTitle .button.toggleOpen {
 
-    &.toggleTitle.toggleOpen:before {
-
-
-    }
-    &.toggleTitle.toggleOpen:after {
-        @include css-triangle($triangle-size: 8px, $triangle-color: $dark-gray, $triangle-direction:'down');
+        &:before {
+          @include css-triangle($triangle-size: 8px, $triangle-color: $dark-gray, $triangle-direction:'down');
+        }
     }
   }
 
