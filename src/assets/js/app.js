@@ -39,9 +39,7 @@ $(function(){
     window.location.href = 'login.html';
   }
 
-  if(!appCookie.loginID){
-    $('#header').hide();
-  }else{
+  if(appCookie.loginID){
     GetBasicInformation(appCookie.personID);
   }
 
