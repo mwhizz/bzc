@@ -148,7 +148,7 @@ function getCurrentPackageList(LoginID){
           for (var i=0; i<packages.length; i++ ){
             var date = convertDateTime(packages[i].ExpiryDate,'date');
             htmlString += '<div class="medium-6 large-4 cell clearfix"> <div class="card"> <div class="grid-x card-divider"> <div class="cell auto">'
-						htmlString +=	'<h3 class="colorCodeGreen">'+packages[i].Product+'</h3>'
+						htmlString +=	'<h3">'+packages[i].Product+'</h3>'
             if (packages[i].System.length > 0) {
               htmlString +=	'<ul class="system">'
   						htmlString +=	'<li>'+packages[i].System+'</li>'
