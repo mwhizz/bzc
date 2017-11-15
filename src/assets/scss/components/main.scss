@@ -1,7 +1,25 @@
+html,
+body {
+    height: 100%;
+}
+
 #main {
 	background: $light-gray;
 	@include position(relative);
 }
+
+.page-noframe {
+
+	#main {
+		height: 100%;
+
+	}
+	#mainContent {
+		height: 100%;
+		//padding-top: $global-margin;
+	}
+}
+
 
 #bizcubeTicketing {
 	color: $dark-gray;
