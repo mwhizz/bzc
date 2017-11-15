@@ -111,6 +111,39 @@ $(function(){
     }
   });
 
+  //editLinkForm
+  $('.editLinkForm').each(function() {
+    var $this = $(this);
+    var target = $this.data('content');
+    var content = $('#'+target+'Content');
+    var form = $('#'+target+'Form');
+    var defaultText = (typeof $this.data('text') !== 'undefined' && $this.data('text').length) ? '['+$this.data('text')+']' : '[edit]' ;
+
+    $this.html(defaultText);
+    content.show();
+    form.hide();
+
+    $this.click(function() {
+      var $this = $(this);
+      var target = $this.data('content');
+      var content = $('#'+target+'Content');
+      var form = $('#'+target+'Form');
+
+      if(form.is(':visible')) {
+        $this.html(defaultText);
+        content.show();
+        form.hide();
+      }
+      else {
+        $this.html('[cancel]');
+        content.hide();
+        form.show();
+      }
+
+    });
+  });//editLinkForm
+
+  //set normal hyperlink to open new window if its external domain
   $('a').click(function() {
     var href = $(this).attr('href');
     var host = window.host;

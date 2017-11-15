@@ -1,14 +1,35 @@
 <div id="profileContainer" class="contentContainer">
   <header>
     <h1>
-      Profile <small><a href="#">Change Password</a></small>
+      Profile <small><a href="#" class="editLinkForm" data-content="password" data-text="Change Password">Change Password</a></small>
     </h1>
   </header>
+  <form id="passwordForm" class="grid-container toggleContent">
+    <div class="grid-x grid-padding-x">
+      <div class="cell medium-3">
+        <label for="newPassword">
+          New Password
+        </label>
+        <input type="password" name="newPassword" id="newPassword"/>
+      </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+      <div class="cell medium-3">
+        <label for="newPasswordConfirm">
+          Confirm New Password
+        </label>
+        <input type="password" name="newPasswordConfirm" id="newPasswordConfirm"/>
+      </div>
+    </div>
+    <footer class="grid-x grid-padding-x">
+      <button type="button" id="passwordSubmit" data-close class="btn cell small-12 medium-3">Submit</button>
+    </footer>
+  </form> <!--grid-container toggleContent end -->
   <section style="display:none" id="indProfile" class="toggleBox">
     <header class="toggleTitle">
-      <h2>Basic <small><a href="#">[edit]</a></small></h2>
+      <h2>Basic <small><a href="#" class="editLinkForm" data-content="basic">[edit]</a></small></h2>
     </header>
-    <div class="grid-container toggleContent form">
+    <div id="basicContent" class="grid-container toggleContent form">
       <div class="grid-x grid-padding-x">
         <div class="cell">
           <div class="labelText">
@@ -55,6 +76,51 @@
         </div>
       </div>
     </div> <!--grid-container toggleContent end -->
+    <form id="basicForm" class="grid-container toggleContent">
+      <div class="grid-x grid-padding-x">
+        <div class="cell">
+          <label for="name">
+            Name
+          </label>
+          <input type="text" name="name" id="name"/>
+        </div>
+      </div>
+      <div class="grid-x grid-padding-x">
+        <div class="cell">
+          <label for="tel1">
+            Contact No (O)
+          </label>
+          <input type="text" name="tel1" id="tel1"/>
+        </div>
+      </div>
+      <div class="grid-x grid-padding-x">
+        <div class="cell">
+          <label for="mobile">
+            Contact No (M)
+          </label>
+          <input type="text" name="mobile" id="mobile"/>
+        </div>
+      </div>
+      <div class="grid-x grid-padding-x">
+        <div class="cell">
+          <label for="email">
+            Email
+          </label>
+          <input type="text" name="email" id="email"/>
+        </div>
+      </div>
+      <div class="grid-x grid-padding-x">
+        <div class="cell">
+          <label for="address">
+            Address
+          </label>
+          <input type="text" name="address" id="address"/>
+        </div>
+      </div>
+      <footer class="grid-x grid-padding-x">
+        <button type="button" id="basicSubmit" data-close class="btn cell small-12 medium-offset-4 medium-4">Submit</button>
+      </footer>
+    </form> <!--grid-container toggleContent end -->
   </section>
   <section style="display:none" id="orgProfile" class="toggleBox">
     <header class="toggleTitle">

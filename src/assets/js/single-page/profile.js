@@ -7,7 +7,6 @@ $(function(){
   if (appCookie.personID) {
      GetBasicInformation(appCookie.personID);
   }
-
 });//onready
 
 function getOrgnisationInfo(PersonID){
