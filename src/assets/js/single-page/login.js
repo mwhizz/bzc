@@ -96,7 +96,7 @@ function login() {
       appCookie.personID = dataReturned2.PersonID;
       Cookies.set('appCookie', appCookie);
 
-      if (!appCookie.redirectPage || appCookie.redirectPage==undefined){
+      if (appCookie.loginID || !appCookie.redirectPage || appCookie.redirectPage==undefined){
         window.location.href = 'index.html';
       }else{
         window.location.href = appCookie.redirectPage;
