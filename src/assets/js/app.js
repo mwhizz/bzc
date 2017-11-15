@@ -53,9 +53,13 @@ $(function(){
   if (!appCookie.username && pageName.toLowerCase() != 'login') {
 
     var pageURL = window.location;
-    Cookies.set('appCookie', {
-      redirectPage: (pageURL != '') ? pageURL : 'index.html'
-    });
+
+    if (typeof Cookies.getJSON('appCookie') !== 'undefined') {
+      appCookie = Cookies.getJSON('appCookie');
+    }
+    appCookie.redirectPage = (pageURL != '') ? pageURL : 'index.html';
+    Cookies.set('appCookie', appCookie);
+
     window.location.href = 'login.html';
   }
 
@@ -105,6 +109,8 @@ $(function(){
       toggleContent.slideUp();
     }
   });
+
+  console.log(appCookie);
 });//onready
 
 function getPageName() {

@@ -87,18 +87,24 @@ function login() {
       var dataReturned2 = action2[0].d.RetData.Tbl.Rows[0];
       console.log(dataReturned1);
       console.log(dataReturned2);
-      Cookies.set('appCookie', {
-        username: dataReturned1.Username,
-        dispName: dataReturned1.DispName,
-        loginID: dataReturned1.LoginID,
-        personID: dataReturned2.PersonID
-      });
-      console.log('redirect' + appCookie.personID);
-      console.log(appCookie.redirectPage);
+
+      if (typeof Cookies.getJSON('appCookie') !== 'undefined') {
+        appCookie = Cookies.getJSON('appCookie');
+      }
+      appCookie.username = dataReturned1.Username;
+      appCookie.dispName = dataReturned1.DispName;
+      appCookie.loginID = dataReturned1.LoginID;
+      appCookie.personID = dataReturned2.PersonID;
+      Cookies.set('appCookie', appCookie);
+
+      console.log('personID: ' + appCookie.personID);
+      console.log('redirect: ' + appCookie.redirectPage);
+
+      console.log(!appCookie.redirectPage);
       if (!appCookie.redirectPage)
-        window.location.href = 'index.html';
-      else
         window.location.href = appCookie.redirectPage;
+      else
+        window.location.href = 'index.html';
     });
   })
   .fail(function( jqXHR, textStatus ) {
