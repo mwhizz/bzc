@@ -14,10 +14,10 @@ table {
   }
 
   tbody {
-    border: 1px solid $complementary-dark-color3;
-
+    //border: 1px solid $complementary-dark-color3;
+    border: none;
     tr {
-      border-top: 1px solid $complementary-dark-color3;
+      //border-top: 1px solid $complementary-dark-color3;
     }
     tr:hover td {
       color: $complementary-light-color1;
@@ -27,7 +27,10 @@ table {
       background: $complementary-dark-color2;
       //color: $black;
     }
+    td {
 
+      padding: 1.2rem 0.8rem;
+    }
     td.colorCodeGreen {
       background: #2d9157;
     }
