@@ -142,7 +142,7 @@ function GetBasicInformation(personID) {
       if (data.d.RetData.Tbl.Rows[0].EntityType == 'I'){
         $('#navPackages').show();
         $('#navReport').show();
-        $('#orgPnavSettingsrofile').show();
+        $('#navSettings').show();
       }
     }
   });
