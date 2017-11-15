@@ -77,36 +77,6 @@ h4 small, {
 	background: $complementary-light-color3;
 }
 
-.legend {
-
-	h6 {
-		font-weight: bold;
-	}
-
-	ul {
-		@include inline-unordered-list;
-	}
-	li {
-		//@include position(relative);
-		font-size: $global-font-size*0.8;
-
-		&:before {
-			@include global-box('small');
-			background: $complementary-dark-color2;
-			content: '';
-			display:inline-block;
-			height: 20px;
-			margin-right: 0.5rem;
-			margin-bottom: 0;
-			width: 20px;
-			vertical-align: bottom;
-		}
-		.completed {
-
-		}
-	}
-}
-
 .inlineRow {
 	margin-bottom: 0.5em;
 	div{

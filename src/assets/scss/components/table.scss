@@ -28,30 +28,16 @@ table {
       //color: $black;
     }
     td {
-
       padding: 1.2rem 0.8rem;
     }
+    td.colorCodeYellow {
+      background: #ffff00;
+    }
     td.colorCodeGreen {
-      background: #2d9157;
+      background: #00cc00;
     }
-    td.colorCodePurple {
-      background: #662d91;
-    }
-  }
-
-  &.caseTable {
-    tr.completed {
-      background: $complementary-dark-color2;
-    }
-    td {
-      text-align: center;
-    }
-    td:nth-child(1) {
-      width: 1%;
-    }
-    td:nth-child(2) {
-      text-align: left;
-      width: 50%;
+    td.colorCodeRed {
+      background: #e60000;
     }
   }
 
