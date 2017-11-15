@@ -113,9 +113,7 @@ function createNewCase(Organization, Product, System, Module, Title, Details, CC
 };
 
 function GetBasicInformation(personID) {
-  var data = {
-    'PersonID': personID
-  }
+  var data = {'PersonID': personID}
 
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.GetPersonalInfo.json",
@@ -134,12 +132,7 @@ function GetBasicInformation(personID) {
     if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
       $('.profileName').html(data.d.RetData.Tbl.Rows[0].DisplayName);
     }
-  })
-  .fail(function( jqXHR, textStatus ) {
-    console.log( "Login fail" );
-    console.log(jqXHR);
-    console.log( "Request failed: " + textStatus );
-  });;
+  });
 }
 
 //convert date to dd/mm/yyyy
