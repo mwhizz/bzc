@@ -88,9 +88,8 @@ function login() {
       console.log(dataReturned1);
       console.log(dataReturned2);
 
-      if (typeof Cookies.getJSON('appCookie') !== 'undefined') {
-        appCookie = Cookies.getJSON('appCookie');
-      }
+      appCookie = Cookies.getJSON('appCookie');
+
       appCookie.username = dataReturned1.Username;
       appCookie.dispName = dataReturned1.DispName;
       appCookie.loginID = dataReturned1.LoginID;
