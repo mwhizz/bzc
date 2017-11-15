@@ -7,7 +7,11 @@ $(function(){
   loginCallOut = loginComponent.find('.formCallout');
 
   appCookie = Cookies.getJSON('appCookie');
-
+  $('#loginComponent').keyup(function(e){
+    if(e.keyCode == 13){
+        login();
+    }
+  });
   $('#submit').click(function() {
     login();
   });
