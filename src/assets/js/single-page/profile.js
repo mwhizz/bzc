@@ -7,6 +7,25 @@ $(function(){
   if (appCookie.personID) {
      GetBasicInformation(appCookie.personID);
   }
+  
+  $('#changeMyPwd').keyup(function(e){
+    if(e.keyCode == 13){
+      var NewUserName, Password;
+      NewUserName = $('#NewUserName').val();
+      Password = $('#NewPassword').val();
+      if (checkPassword()){
+        changeMyPwd(NewUserName, Password);
+      }
+    }
+  });
+  $('#changeMyPwd #submit').click(function(){
+    var NewUserName, Password;
+    NewUserName = $('#NewUserName').val();
+    Password = $('#NewPassword').val();
+    if (checkPassword()){
+      changeMyPwd(NewUserName, Password);
+    }
+  });
 });//onready
 
 function getOrgnisationInfo(PersonID){
@@ -62,6 +81,46 @@ function getPointofContact(PersonID){
     }
   });
 };
+
+function changeMyPwd(Username, Password){
+  var data = { "Username": Username, "Password": Password };
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.ChangeUsernamePassword.json",
+    method: "POST",
+    dataType: "json",
+    xhrFields: {
+      withCredentials: true
+    },
+    data: {
+      'data': JSON.stringify(data),
+      'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+      'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
+    },
+    success: function(data){
+      window.location = '/profile.html';
+    },
+    error: function(XMLHttpRequest, data, errorThrown){
+      alert("Error: " + errorThrown);
+    }
+  })
+}
+
+function checkPassword() {
+	var NewPassword = $('#NewPassword').val();
+	var ConfirmPassword = $('#ConfirmPassword').val();
+	if (NewPassword === '') {
+		alert('New password is required.');
+    return false;
+	} else if (ConfirmPassword === ''){
+    alert('Confirm password is required.');
+    return false;
+  }else if (NewPassword != ConfirmPassword) {
+    alert('Two passwords do not match.');
+    return false;
+	}else{
+    return true;
+  }
+}
 
 function GetBasicInformation(personID) {
   var data = {
