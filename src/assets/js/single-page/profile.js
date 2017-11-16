@@ -123,9 +123,7 @@ function checkPassword() {
 }
 
 function GetBasicInformation(personID) {
-  var data = {
-    'PersonID': personID
-  }
+  var data = {'PersonID': personID}
 
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.GetPersonalInfo.json",
@@ -139,8 +137,7 @@ function GetBasicInformation(personID) {
       'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
       'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
     }
-  })
-  .done(function(data) {
+  }).done(function(data) {
     if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
       if (data.d.RetData.Tbl.Rows[0].EntityType == 'O'){
         $('#orgProfile').show();
@@ -156,8 +153,7 @@ function GetBasicInformation(personID) {
         $('.indAddress').html(data.d.RetData.Tbl.Rows[0].FullAddress);
       }
     }
-  })
-  .fail(function( jqXHR, textStatus ) {
+  }).fail(function( jqXHR, textStatus ) {
     console.log( "Login fail" );
     console.log(jqXHR);
     console.log( "Request failed: " + textStatus );
