@@ -75,13 +75,14 @@ function GetCaseDetails(caseId, section, LoginID){
             $('.threadLog').html('');$('.threadTask').html('');$('.attachments').html('');
             for (var i=0; i<caseDetails.length; i++ ){
               var Permission = caseDetails[i].Permission;
-              if (caseDetails[i].CurStatus != 'New' && (Permission!=4 || Permission!=3)){
-                $('#review').hide();
-              }
+
               if (Permission!=4 || Permission!=3){
                 $('.involvemetAdd').hide();
                 $('.orgData').hide();
                 $('.intTargetEndDate').hide();
+                if (caseDetails[i].CurStatus != 'New'){
+                  $('#review').hide();
+                }
               }
               var datetime = convertDateTime(caseDetails[i].CreatedDate,'datetime');
               var intTarEndDate = convertDateTime(caseDetails[i].IntTargetEndDate,'date');
