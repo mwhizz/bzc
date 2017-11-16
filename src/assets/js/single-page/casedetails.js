@@ -11,6 +11,12 @@ $(function(){
   if (caseID){
     GetCaseDetails(caseID,'Full',loginID);
   }
+
+  $('#addAttachment').click(function(){
+    $('#attachments').show();
+    $('#addAttachment').hide();
+  });
+
   //Review submit
   $('#reviewForm .review').click(function(){
     var FLID, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID;
@@ -73,9 +79,12 @@ function GetCaseDetails(caseId, section, LoginID){
             var threadContainer = ''; var involvementContainer = '';
             var caseAttachmentsContainer = '';
             $('.threadLog').html('');$('.threadTask').html('');$('.attachments').html('');
+            if(data.d.RetData.Tbls[4].Rows.length >0){
+              var url = 'https://portal.taksys.com.sg/Support' + data.d.RetData.Tbls[4].Rows[0].FolderPath;
+              $('#attachments').attr('src', url);
+            }
             for (var i=0; i<caseDetails.length; i++ ){
               var Permission = caseDetails[i].Permission;
-
               if (Permission!=4 || Permission!=3){
                 $('.involvemetAdd').hide();
                 $('.orgData').hide();
@@ -187,7 +196,11 @@ function GetCaseDetails(caseId, section, LoginID){
       }
       if (section == 'Files'){
         if ((data) && (data.d.RetVal === -1)) {
-          if (data.d.RetData.Tbl.Rows.length > 0) {
+          if(data.d.RetData.Tbls[1].Rows.length >0){
+            var url = data.d.RetData.Tbls[1].Rows[0].FolderPath;
+            $('#attachments').attr('src', url);
+          }
+          if (data.d.RetData.Tbls[0].Rows.length > 0) {
             var caseAttachments = data.d.RetData.Tbl.Rows;
             var caseAttachmentsContainer = '';;$('.attachments').html('');
             for (var i=0; i<caseAttachments.length; i++ ){

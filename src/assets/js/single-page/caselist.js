@@ -9,6 +9,11 @@ $(function(){
   var caseContainer = $('#caseContainer');
   getCasesList(caseContainer, loginID);
 
+  $('#addAttachment').click(function(){
+    $('#attachments').show();
+    $('#addAttachment').hide();
+  });
+
   $('#caseFilter .tabBoxButtonSubmit').click(function(){
     getCasesList(caseContainer, loginID);
     return false;
