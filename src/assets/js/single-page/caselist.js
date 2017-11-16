@@ -52,7 +52,7 @@ function getCasesList(caseContainer, LoginID){
           var cases = data.d.RetData.Tbl.Rows;
           var htmlString = '';
           for (var i=0; i<cases.length; i++ ){
-            var date = convertDate(cases[i].CreatedDate);
+            var date = convertDateTime(cases[i].CreatedDate,'date');
             htmlString += '<tr id="'+ cases[i].FLID +'">';
             if (cases[i].CurStatus=='New' || cases[i].CurStatus=='Progressing' ){
               htmlString += '<td class="colorCodeActive"></td>';
@@ -141,8 +141,17 @@ function GetBasicInformation(personID) {
 }
 
 //convert date to dd/mm/yyyy
-function convertDate(inputFormat) {
+function convertDateTime(inputFormat, type) {
+  if (inputFormat == null){
+    return '-';
+  };
   function pad(s) { return (s < 10) ? '0' + s : s; }
   var d = new Date(inputFormat);
-  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+  if (type == 'date'){
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+  }else if (type == 'datetime'){
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/') + ' ' + [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+  }else if (type == 'time'){
+    return [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+  }
 };
