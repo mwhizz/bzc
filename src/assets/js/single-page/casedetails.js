@@ -18,7 +18,7 @@ $(function(){
     Category = $('#reviewForm #category').val();
     ProposedManDays = $('#reviewForm #manDays').val();
     TargetEndDate = $('#reviewForm #targetEndDate').val();
-    IntTargetEndDate = $('#reviewForm #intTargetEnDate').val();
+    IntTargetEndDate = $('#reviewForm #intTargetEndDate').val();
     LoginID = loginID;
     reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID);
   });
@@ -75,12 +75,13 @@ function GetCaseDetails(caseId, section, LoginID){
             $('.threadLog').html('');$('.threadTask').html('');$('.attachments').html('');
             for (var i=0; i<caseDetails.length; i++ ){
               var Permission = caseDetails[i].Permission;
-              if (caseDetails[i].CurStatus == 'New' && (Permission==4 || Permission==3)){
-                $('#review').show();
+              if (caseDetails[i].CurStatus != 'New' && (Permission!=4 || Permission!=3)){
+                $('#review').hide();
               }
-              if (Permission==4 || Permission==3){
-                $('.involvemetAdd').show();
-                $('.orgData').show();
+              if (Permission!=4 || Permission!=3){
+                $('.involvemetAdd').hide();
+                $('.orgData').hide();
+                $('.intTargetEndDate').hide();
               }
               var datetime = convertDateTime(caseDetails[i].CreatedDate,'datetime');
               var intTarEndDate = convertDateTime(caseDetails[i].IntTargetEndDate,'date');
@@ -98,7 +99,7 @@ function GetCaseDetails(caseId, section, LoginID){
               $('.module').html(caseDetails[i].Module);
               $('.description').html(caseDetails[i].Details);
               $('.targetEndDate').html(tarEndDate);
-              $('.intTargetEnDate').html(intTarEndDate);
+              $('.intTargetEndDate').html(intTarEndDate);
             }
             for (var i=0; i<caseAttachments.length; i++ ){
               caseAttachmentsContainer += '<img width="10%" height="10%" src="https://portal.taksys.com.sg/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
