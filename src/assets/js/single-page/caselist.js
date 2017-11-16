@@ -69,6 +69,7 @@ function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, M
             }
             htmlString += '<td>'+cases[i].Title+'</td>';
             htmlString += '<td>'+cases[i].OrganizationName+'</td>';
+            htmlString += '<td>'+cases[i].System+'</td>';
             htmlString += '<td>'+cases[i].ManDays+'</td>';
             htmlString += '<td>'+cases[i].Module+'</td>';
             htmlString += '<td>'+date+'</td>';
