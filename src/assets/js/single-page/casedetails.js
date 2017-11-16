@@ -270,7 +270,6 @@ function reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEnd
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
             GetCaseDetails(FLID,'Full',LoginID);
-            GetCaseDetails(FLID,'Log',LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
