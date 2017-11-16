@@ -7,48 +7,42 @@ $(function(){
 
   GetBasicInformation(appCookie.personID);
   var caseContainer = $('#caseContainer');
-  getCasesList(caseContainer,'','','','','','',loginID);
+  getCasesList(caseContainer, loginID);
 
   $('#caseFilter .tabBoxButtonSubmit').click(function(){
-    var System, Module, DateFrom, DateTo, MyCase;
-    var Status = "";
-    $.each($("input[name='status']:checked"), function(){
-      //Status.push($(this).val());
-      Status = Status +$(this).val() + ",";
-    });
-    Status = Status.slice(0, -1);
-    System = $('#product').val();
-    Module = $('#module').val();
-    DateFrom = $('#dateCreatedFrom').val();
-    DateTo = $('#dateCreatedTo').val();
-    MyCase = $('#statusMyCase').val();
-    getCasesList(caseContainer,System,Module,Status,DateFrom,DateTo,MyCase,loginID);
+    getCasesList(caseContainer, loginID);
     return false;
   });
   $('#caseAddForm .newCaseSubmitButton').click(function(){
-    var Organization, Product, System, Module, Title, Details, CCEmails;
-    Organization = $('#caseAddForm #organisation').val();
-    Product = $('#caseAddForm #product').val();
-    System = $('#caseAddForm #system').val();
-    Module = $('#caseAddForm #module').val();
-    Title = $('#title').val();
-    Details = $('#description').val();
-    CCEmails = $('#cc').val();
-    createNewCase(Organization, Product, System, Module, Title, Details, CCEmails, loginID);
+    createNewCase(loginID);
   });
 });
 
-
 //get case list
-function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, MyCase, LoginID){
-  var caseContainerTable = caseContainer.find('table');
-  var caseTbody = caseContainerTable.find('tbody');
+function getCasesList(caseContainer, LoginID){
+  var caseContainerTable = caseContainer.find('table'), caseTbody = caseContainerTable.find('tbody');
+
+  var System, Status='', Module, DateFrom, DateTo, MyCase=0;
+  $.each($("input[name='status']:checked"), function(){
+    //Status.push($(this).val());
+    Status = Status +$(this).val() + ",";
+  });
+  Status = Status.slice(0, -1);
+  System = $('#system').val();
+  Module = $('#module').val();
+  DateFrom = $('#dateCreatedFrom').val();
+  DateTo = $('#dateCreatedTo').val();
+  if($('#statusMyCase').prop("checked") == true){
+    MyCase = 1;
+  }
+
   var data = {'LoginID':LoginID,'System':System,'Module':Module,'Status':Status,'DateFrom':DateFrom,'DateTo':DateTo,'MyCase':MyCase};
   caseTbody.html('');
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.GetCasesList.json",
     method: "POST",
     dataType: "json",
+    xhrFields: {withCredentials: true},
     data: {'data':JSON.stringify(data),
           'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
           'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
@@ -82,7 +76,6 @@ function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, M
             var caseUrl = '/case.html?caseID=' + caseId
             window.location.href = caseUrl;
           });
-          //GetCaseDetails(caseTbody.find('tr'));
         }
       }
     }
@@ -90,13 +83,22 @@ function getCasesList(caseContainer, System, Module, Status, DateFrom, DateTo, M
 };
 
 //Create new case
-function createNewCase(Organization, Product, System, Module, Title, Details, CCEmails, LoginID){
-  var data = {'Organization':Organization, 'Product':Product, 'System':System, 'Module': Module,
-              'Title': Title, 'Details':Details, 'CCEmail':CCEmails, 'LoginID':LoginID};
+function createNewCase(LoginID){
+  var Organization, Product, System, Module, Title, Details, CCEmails;
+  Organization = $('#caseAddForm #organisation').val();
+  Product = $('#caseAddForm #product').val();
+  System = $('#caseAddForm #system').val();
+  Module = $('#caseAddForm #module').val();
+  Title = $('#title').val();
+  Details = $('#description').val();
+  CCEmails = $('#cc').val();
+
+  var data = {'Organization':Organization, 'Product':Product, 'System':System, 'Module': Module, 'Title': Title, 'Details':Details, 'CCEmail':CCEmails, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.AddNewCase.json",
     method: "POST",
     dataType: "json",
+    xhrFields: {withCredentials: true},
     data: {'data':JSON.stringify(data),
           'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
           'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
@@ -104,7 +106,7 @@ function createNewCase(Organization, Product, System, Module, Title, Details, CC
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            getCasesList($('#caseContainer'),'','','','','','',LoginID);
+            getCasesList($('#caseContainer'),LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
