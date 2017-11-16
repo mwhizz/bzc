@@ -1,10 +1,18 @@
 <div id="profileContainer" class="contentContainer">
   <header>
     <h1>
-      Profile <small><a href="#" class="editLinkForm" data-content="password" data-text="Change Password">Change Password</a></small>
+      Profile <small><a href="#" class="editLinkForm" data-content="password" data-text="Change Username/Password"></a></small>
     </h1>
   </header>
   <form id="passwordForm" class="grid-container toggleContent">
+    <div class="grid-x grid-padding-x">
+      <div class="cell medium-3">
+        <label for="newUserName">
+          New Username
+        </label>
+        <input type="text" name="newUserName" id="newUserName"/>
+      </div>
+    </div>
     <div class="grid-x grid-padding-x">
       <div class="cell medium-3">
         <label for="newPassword">

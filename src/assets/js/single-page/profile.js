@@ -7,21 +7,21 @@ $(function(){
   if (appCookie.personID) {
      GetBasicInformation(appCookie.personID);
   }
-  
-  $('#changeMyPwd').keyup(function(e){
+
+  $('#passwordForm,#changeMyPwd').keyup(function(e){
     if(e.keyCode == 13){
       var NewUserName, Password;
-      NewUserName = $('#NewUserName').val();
-      Password = $('#NewPassword').val();
+      NewUserName = $('#newUserName').val();
+      Password = $('#newPassword').val();
       if (checkPassword()){
         changeMyPwd(NewUserName, Password);
       }
     }
   });
-  $('#changeMyPwd #submit').click(function(){
+  $('#passwordForm #passwordSubmit,#changeMyPwd #submit').click(function(){
     var NewUserName, Password;
-    NewUserName = $('#NewUserName').val();
-    Password = $('#NewPassword').val();
+    NewUserName = $('#newUserName').val();
+    Password = $('#newPassword').val();
     if (checkPassword()){
       changeMyPwd(NewUserName, Password);
     }
@@ -106,8 +106,8 @@ function changeMyPwd(Username, Password){
 }
 
 function checkPassword() {
-	var NewPassword = $('#NewPassword').val();
-	var ConfirmPassword = $('#ConfirmPassword').val();
+	var NewPassword = $('#newPassword').val();
+	var ConfirmPassword = $('#newPasswordConfirm').val();
 	if (NewPassword === '') {
 		alert('New password is required.');
     return false;
