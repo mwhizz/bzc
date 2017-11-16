@@ -10,7 +10,7 @@ $(function(){
 
   var pageName = getPageName();
   if (pageName == 'packages'){
-    getPackageList('', '', '', '', '',loginID);
+    getPackageList(loginID);
   }else if (pageName == 'packageDetails'){
     if (packageID){
       getPackageDetails(packageID, loginID)
@@ -23,38 +23,15 @@ $(function(){
   }
   //filter
   $('#packageFilter .tabBoxButtonSubmit').click(function(){
-    var targetRef = $(this).parents('.tabBoxContent');
-    var Organization, Product, Status, DateFrom, DateTo;
-    Organization = $('#packageFilterForm #organisation').val();
-    Product = $('#packageFilterForm #product').val();
-    if ($('input[name="status"]:checked').length > 0){
-      Status = 'Active';
-    }else{
-      Status = '';
-    }
-    DateFrom = $('#packageFilterForm #packageStartDate').val();
-    DateTo = $('#packageFilterForm #packageExpiryDate').val();
-    getPackageList(Organization, Product, Status, DateFrom, DateTo, loginID);
+    getPackageList(loginID);
   });
   //add package
   $('#packageAddForm #submit').click(function(){
-    var RoleID, Type, Product, System, BoughtManDays, Status, StartDate, ExpiryDate;
-    RoleID = $('#packageAddForm #organisation').val();
-    Type =  $('#packageAddForm #type').val();
-    Product = $('#packageAddForm #product').val();
-    System = $('#packageAddForm #system').val();
-    BoughtManDays = $('#packageAddForm #manDays').val();
-    StartDate = $('#packageAddForm #packageStartDate').val();
-    ExpiryDate = $('#packageAddForm #packageExpiryDate').val();
-    addNewPackage(RoleID, Type, Product, System, BoughtManDays, StartDate, ExpiryDate, loginID);
+    addNewPackage(loginID);
   });
   //add transaction
   $('#packageTransactionAddForm #submit').click(function(){
-    var Type, ManDays, Remarks;
-    Type =  $('#packageTransactionAddForm #type').val();
-    ManDays = $('#packageTransactionAddForm #manDays').val();
-    Remarks = $('#packageTransactionAddForm #remarks').val();
-    addNewtransaction(packageID, '', Type, ManDays, Remarks, loginID);
+    addNewtransaction(packageID, '', loginID);
   });
 });
 
@@ -63,10 +40,17 @@ function getPageName() {
   return pageName;
 }
 
-function addNewPackage(RoleID, Type, Product, System, BoughtManDays, StartDate, ExpiryDate, LoginID){
-  var data = {'RoleID':RoleID, 'Type':Type, 'Product':Product, 'System': System,
-              'BoughtManDays': BoughtManDays, 'StartDate':StartDate,
-              'ExpiryDate':ExpiryDate, 'LoginID':LoginID};
+function addNewPackage(LoginID){
+  var RoleID, Type, Product, System, BoughtManDays, Status, StartDate, ExpiryDate;
+  RoleID = $('#packageAddForm #organisation').val();
+  Type =  $('#packageAddForm #type').val();
+  Product = $('#packageAddForm #product').val();
+  System = $('#packageAddForm #system').val();
+  BoughtManDays = $('#packageAddForm #manDays').val();
+  StartDate = $('#packageAddForm #packageStartDate').val();
+  ExpiryDate = $('#packageAddForm #packageExpiryDate').val();
+
+  var data = {'RoleID':RoleID, 'Type':Type, 'Product':Product, 'System': System, 'BoughtManDays': BoughtManDays, 'StartDate':StartDate, 'ExpiryDate':ExpiryDate, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.AddNewPackage.json",
     method: "POST",
@@ -78,7 +62,7 @@ function addNewPackage(RoleID, Type, Product, System, BoughtManDays, StartDate, 
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            getPackageList('', '', '', '', '', LoginID);
+            getPackageList(LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -90,8 +74,17 @@ function addNewPackage(RoleID, Type, Product, System, BoughtManDays, StartDate, 
 }
 
 //Get All Package List
-function getPackageList(Organisation, Product, Status, StartDate, ExpiryDate, LoginID){
-  var data = {'Organisation':Organisation, 'Product':Product, 'Status':Status, 'StartDate':StartDate, 'ExpiryDate':ExpiryDate, 'LoginID':LoginID};
+function getPackageList(LoginID){
+  var Organization, Product, Status='', DateFrom, DateTo;
+  Organization = $('#packageFilterForm #organisation').val();
+  Product = $('#packageFilterForm #product').val();
+  if($('#status').prop("checked") == true){
+    Status = 'Active';
+  }
+  DateFrom = $('#packageFilterForm #packageStartDate').val();
+  DateTo = $('#packageFilterForm #packageExpiryDate').val();
+
+  var data = {'Organisation':Organization, 'Product':Product, 'Status':Status, 'StartDate':DateFrom, 'ExpiryDate':DateTo, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.GetPackageList.json",
     method: "POST",
@@ -171,7 +164,12 @@ function getCurrentPackageList(LoginID){
   });
 };
 
-function addNewtransaction(PackageID, FLID, Type, ManDays, Remarks, LoginID){
+function addNewtransaction(PackageID, FLID, LoginID){
+  var Type, ManDays, Remarks;
+  Type =  $('#packageTransactionAddForm #type').val();
+  ManDays = $('#packageTransactionAddForm #manDays').val();
+  Remarks = $('#packageTransactionAddForm #remarks').val();
+
   var data = {'PackageID':PackageID, 'FLID':FLID, 'Type':Type, 'ManDays':ManDays, 'Remarks': Remarks, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.AddNewPackageTransactions.json",
