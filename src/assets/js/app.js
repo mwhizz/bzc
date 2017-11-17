@@ -133,11 +133,17 @@ $(function(){
         $this.html(defaultText);
         content.show();
         form.hide();
+        $('html, body').animate({
+          scrollTop: content.offset().top
+        }, 500);
       }
       else {
         $this.html('[cancel]');
         content.hide();
         form.show();
+        $('html, body').animate({
+          scrollTop: form.offset().top
+        }, 500);
       }
 
     });
@@ -176,6 +182,7 @@ function GetBasicInformation(personID) {
         $('#navPackages').show();
         $('#navReport').show();
         $('#navSettings').show();
+        $('#packages').hide();
       }
     }
   });

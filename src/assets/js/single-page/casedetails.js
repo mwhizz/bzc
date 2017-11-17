@@ -11,7 +11,8 @@ $(function(){
   if (caseID){
     GetCaseDetails(caseID,'Full',loginID);
   }
-
+  
+  $('#attachments').hide();
   $('#addAttachment').click(function(){
     $('#attachments').show();
     $('#addAttachment').hide();
