@@ -5,6 +5,10 @@ $(function(){
   //get loginid
   var loginID = appCookie.loginID;
 
+  GetDropdownList('#caseAddForm #module, #caseFilter #module', 'module');
+  GetDropdownList('#caseAddForm #product', 'Product');
+  GetDropdownList('#caseAddForm #system, #caseFilter #system', 'system');
+
   GetBasicInformation(appCookie.personID);
   var caseContainer = $('#caseContainer');
   getCasesList(caseContainer, loginID);
@@ -159,4 +163,29 @@ function convertDateTime(inputFormat, type) {
   }else if (type == 'time'){
     return [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
   }
+};
+
+function GetDropdownList(id, category) {
+  var data = {'LookupCat': category}
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.Lookup_Get.json",
+    method: "POST",
+    dataType: "json",
+    xhrFields: {withCredentials: true},
+    data: {
+      'data': JSON.stringify(data),
+      'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+      'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
+    }
+  })
+  .done(function(data) {
+    if ((data) && (data.d.RetVal === -1)) {
+      if (data.d.RetData.Tbl.Rows.length > 0) {
+        var lookup = data.d.RetData.Tbl.Rows;
+        for (var i=0; i<lookup.length; i++ ){
+          $(id).append('<option value="'+lookup[i].LookupKey+'">'+lookup[i].Description+'</option>');
+        }
+      }
+    }
+  });
 };
