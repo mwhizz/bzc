@@ -88,9 +88,7 @@ function changeMyPwd(Username, Password){
     url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.ChangeUsernamePassword.json",
     method: "POST",
     dataType: "json",
-    xhrFields: {
-      withCredentials: true
-    },
+    xhrFields: {withCredentials: true},
     data: {
       'data': JSON.stringify(data),
       'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
