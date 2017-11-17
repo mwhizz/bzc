@@ -61,7 +61,7 @@ function getCasesList(caseContainer, LoginID){
           var cases = data.d.RetData.Tbl.Rows;
           var htmlString = '';
           for (var i=0; i<cases.length; i++ ){
-            if (cases[i].AccessPermission==2){
+            if (cases[i].Permission==2){
               $('.caseTable thead tr').html('<th colspan="2"></th><th>System</th><th>Man-Day(s)</th><th>Module</th><th>Created Date</th><th>Status</th>');
             }
             var date = convertDateTime(cases[i].CreatedDate,'date');
@@ -74,7 +74,7 @@ function getCasesList(caseContainer, LoginID){
               htmlString += '<td class="colorCodeNonActive"></td>';
             }
             htmlString += '<td>'+cases[i].Title+'</td>';
-            if (cases[i].AccessPermission==4 || cases[i].AccessPermission==3){
+            if (cases[i].Permission==4 || cases[i].Permission==3){
               htmlString += '<td>'+cases[i].OrganizationName+'</td>';
             }
             htmlString += '<td>'+cases[i].System+'</td>';
