@@ -183,6 +183,8 @@ function GetBasicInformation(personID) {
         $('#navReport').show();
         $('#navSettings').show();
         $('#packages').hide();
+      }else{
+        $('#caseFilter .orgCell').hide();
       }
     }
   });
