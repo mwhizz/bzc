@@ -41,6 +41,17 @@ function getOrgnisationInfo(PersonID){
         if (data.d.RetData.Tbl.Rows.length > 0) {
           var organisationInfo = data.d.RetData.Tbl.Rows[0];
           showOrgProfile();
+          $('.orgName').html(organisationInfo.DisplayName);
+          $('.idType').html(organisationInfo.EntityKeyType);
+          $('.entityKey').html(organisationInfo.EntityKey);
+          $('.orgContact').html(organisationInfo.Tel1);
+          $('.orgEmail').html(organisationInfo.Email1);
+          $('.orgAddress').html(organisationInfo.FullAddress);
+          $('#name').val(organisationInfo.DisplayName);
+          $('#entityKey').val(organisationInfo.EntityKey);
+          $('#tel1').val(organisationInfo.Tel1);
+          $('#email').val(organisationInfo.Email1);
+          $('#address').val(organisationInfo.FullAddress);
         }
       }
     }
@@ -61,6 +72,27 @@ function getPointofContact(PersonID){
         if (data.d.RetData.Tbl.Rows.length > 0) {
           var pointOfContact = data.d.RetData.Tbl.Rows[0];
           showOrgContact();
+          $('.poc1Name').html(pointOfContact.POCName);
+          $('.poc1Contact').html(pointOfContact.POCContact);
+          $('.poc1Email').html(pointOfContact.POCEmail);
+          $('.poc1Designation').html(pointOfContact.POCDesi);
+          $('.poc1Department').html(pointOfContact.POCDept);
+          $('.poc2Name').html(pointOfContact.POCName1);
+          $('.poc2Contact').html(pointOfContact.POCContact1);
+          $('.poc2Email').html(pointOfContact.POCEmail1);
+          $('.poc2Designation').html(pointOfContact.POCDesi1);
+          $('.poc2Department').html(pointOfContact.POCDept1);
+          
+          $('#poc1Name').val(pointOfContact.POCName);
+          $('#poc1Contact').val(pointOfContact.POCContact);
+          $('#poc1Email').val(pointOfContact.POCEmail);
+          $('#poc1Designation').val(pointOfContact.POCDesi);
+          $('#poc1Department').val(pointOfContact.POCDept);
+          $('#poc2Name').val(pointOfContact.POCName1);
+          $('#poc2Contact').val(pointOfContact.POCContact1);
+          $('#poc2Email').val(pointOfContact.POCEmail1);
+          $('#poc2Designation').val(pointOfContact.POCDesi1);
+          $('#poc2Department').val(pointOfContact.POCDept1);
         }
       }
     }
@@ -115,11 +147,22 @@ function GetBasicInformation(personID) {
             'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
-        if (data.d.RetData.Tbl.Rows[0].EntityType == 'O'){
+        var personalInfo = data.d.RetData.Tbl.Rows[0];
+        if (personalInfo.EntityType == 'O'){
           getOrgnisationInfo(appCookie.personID);
           getPointofContact(appCookie.personID);
         }else{
           showIndProfile();
+          $('.indName').html(personalInfo.DisplayName);
+          $('.indTel').html(personalInfo.Tel1);
+          $('.indMobile').html(personalInfo.Tel2);
+          $('.indEmail').html(personalInfo.Email1);
+          $('.indAddress').html(personalInfo.FullAddress);
+          $('#name').val(personalInfo.DisplayName);
+          $('#tel1').val(personalInfo.Tel1);
+          $('#mobile').val(personalInfo.Tel2);
+          $('#email').val(personalInfo.Email1);
+          $('#address').val(personalInfo.FullAddress);
         }
       }
     },
@@ -163,7 +206,6 @@ function showOrgProfile(){
   '<div class="grid-x grid-padding-x"> <div class="cell"> <div class="labelText"> Address </div> <div class="text orgAddress"> </div> </div> </div> </div>'+
   '<form id="basicForm" class="grid-container">'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="name"> Name </label> <input type="text" id="name"/> </div> </div>'+
-  '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="tel1"> ID Type </label> <input type="text" id="idType"/> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="tel1"> ID No </label> <input type="text" id="entityKey"/> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="tel1"> Contact No </label> <input type="text" id="tel1"/> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="email"> Email </label> <input type="text" id="email"/> </div> </div>'+
