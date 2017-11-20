@@ -1,13 +1,12 @@
 
 $(function(){
-  //get cookie
-  var appCookie = Cookies.getJSON('appCookie');
-  //get loginid
-  var loginID = appCookie.loginID;
-
-  var urlParams = new URLSearchParams(window.location.search);
-  var packageID = urlParams.get('packageID');
-
+  //get cookie & LoginID
+  var appCookie = Cookies.getJSON('appCookie'),
+      loginID = appCookie.loginID;
+  //get packageID from url
+  var urlParams = new URLSearchParams(window.location.search),
+      packageID = urlParams.get('packageID');
+  //get page name
   var pageName = getPageName();
   if (pageName == 'packages'){
     getPackageList(loginID);
@@ -21,8 +20,10 @@ $(function(){
     };
     getCurrentPackageList(loginID);
   }
+
   GetDropdownList('#packageFilter #product, #packageAddForm #product', 'Product');
   GetDropdownList('#packageAddForm #type', 'SupportPackageType');
+
   //filter
   $('#packageFilter .tabBoxButtonSubmit').click(function(){
     getPackageList(loginID);
@@ -36,11 +37,6 @@ $(function(){
     addNewtransaction(packageID, '', loginID);
   });
 });
-
-function getPageName() {
-  var pageName = $('body').attr('id').replace('page-','');
-  return pageName;
-}
 
 function addNewPackage(LoginID){
   var RoleID, Type, Product, System, BoughtManDays, Status, StartDate, ExpiryDate;
@@ -58,9 +54,9 @@ function addNewPackage(LoginID){
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
-    data: {'data':JSON.stringify(data),
-          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    data: { 'data':JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
@@ -105,20 +101,12 @@ function getPackageList(LoginID){
           for (var i=0; i<packages.length; i++ ){
             var startDate = convertDateTime(packages[i].StartDate,'date');
             var expiryDate = convertDateTime(packages[i].ExpiryDate,'date');
-            htmlString += '<tr id="'+ packages[i].PackageID  +'">';
-            htmlString += '<td>'+packages[i].Organization+'</td>';
-            htmlString += '<td>'+packages[i].BoughtManDays+'</td>';
-            htmlString += '<td>'+packages[i].Product+'</td>';
-            htmlString += '<td>'+packages[i].System+'</td>';
-            htmlString += '<td>'+startDate+'</td>';
-            htmlString += '<td>'+expiryDate+'</td>';
-            htmlString += '<td>'+packages[i].Status+'</td>';
-            htmlString += '</tr>';
+            htmlString += '<tr id="'+ packages[i].PackageID  +'"> <td>'+packages[i].Organization+'</td> <td>'+packages[i].BoughtManDays+'</td> <td>'+packages[i].Product+'</td> <td>'+packages[i].System+'</td> <td>'+startDate+'</td> <td>'+expiryDate+'</td> <td>'+packages[i].Status+'</td> </tr>';
           }
           $('.packageTable tbody').html(htmlString);
           $('.packageTable tbody tr').click(function(){
-            var packageId = $(this).attr('id');
-            var packageUrl = '/Ticketing/packageDetails.html?packageID=' + packageId
+            var packageId = $(this).attr('id'),
+                packageUrl = '/Ticketing/packageDetails.html?packageID=' + packageId;
             window.location.href = packageUrl;
           });
         }
@@ -135,9 +123,9 @@ function getCurrentPackageList(LoginID){
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
-    data: {'data':JSON.stringify(data),
-          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    data: { 'data':JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
@@ -145,22 +133,15 @@ function getCurrentPackageList(LoginID){
           var htmlString = '';
           for (var i=0; i<packages.length; i++ ){
             var date = convertDateTime(packages[i].ExpiryDate,'date');
-            htmlString += '<div class="medium-6 large-4 cell clearfix"> <div class="card"> <div class="grid-x card-divider"> <div class="cell auto">'
-						htmlString +=	'<h3">'+packages[i].Product+'</h3>'
+            htmlString += '<div class="medium-6 large-4 cell clearfix"> <div class="card"> <div class="grid-x card-divider"> <div class="cell auto"> <h3">'+packages[i].Product+'</h3>'
             if (packages[i].System.length > 0) {
-              htmlString +=	'<ul class="system">'
-  						htmlString +=	'<li>'+packages[i].System+'</li>'
-  						htmlString +=	'</ul>'
+              htmlString +=	'<ul class="system"> <li>'+packages[i].System+'</li> </ul>'
             }
             htmlString +=	'</div>'
             if (packages[i].ManDaysLeft > 0) {
-              htmlString += '<div class="manDays cell small-4"> <div class="grid-y" style="height: 60px;">'
-              htmlString += '<div class="cell small-9"><b>'+packages[i].ManDaysLeft+'</b>/<span class="totalDays">'+packages[i].BoughtManDays+'</span></div> <small class="cell small-3">Man-day(s)</small> </div> </div>'
+              htmlString += '<div class="manDays cell small-4"> <div class="grid-y" style="height: 60px;"> <div class="cell small-9"><b>'+packages[i].ManDaysLeft+'</b>/<span class="totalDays">'+packages[i].BoughtManDays+'</span></div> <small class="cell small-3">Man-day(s)</small> </div> </div>'
             }
-            htmlString += '</div><!--card-divider--> <div class="card-section">'
-						htmlString +=	'<div class="packageType">'+packages[i].Type+'</div>'
-						htmlString +=	'<div class="expiring">Expiring: <i>'+date+'</i></div>'
-						htmlString += '</div> <!--card-section--></div> <!--card--></div> <!--cell-->'
+            htmlString += '</div><!--card-divider--> <div class="card-section"> <div class="packageType">'+packages[i].Type+'</div> <div class="expiring">Expiring: <i>'+date+'</i></div> </div> </div> </div>'
           }
           $('.packageGrid').append(htmlString);
         }
@@ -181,9 +162,9 @@ function addNewtransaction(PackageID, FLID, LoginID){
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
-    data: {'data':JSON.stringify(data),
-          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    data: { 'data':JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
@@ -206,9 +187,9 @@ function getPackageDetails(PackageID, LoginID){
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
-    data: {'data':JSON.stringify(data),
-          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    data: { 'data':JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         var htmlString = '';
@@ -216,9 +197,9 @@ function getPackageDetails(PackageID, LoginID){
           var packageDetails = data.d.RetData.Tbl.Rows;
           var htmlString = '';
           for (var i=0; i<packageDetails.length; i++ ){
-            var packageDate = convertDateTime(packageDetails[i].CreatedDate,'datetime');
-            var startDate = convertDateTime(packageDetails[i].StartDate,'date');
-            var expiryDate = convertDateTime(packageDetails[i].ExpiryDate,'date');
+            var packageDate = convertDateTime(packageDetails[i].CreatedDate,'datetime'),
+                startDate = convertDateTime(packageDetails[i].StartDate,'date'),
+                expiryDate = convertDateTime(packageDetails[i].ExpiryDate,'date');
             $('.organization').html(packageDetails[i].Organization);
             $('.packageType').html(packageDetails[i].Type);
             $('.product').html(packageDetails[i].Product);
@@ -230,14 +211,7 @@ function getPackageDetails(PackageID, LoginID){
             $('.pkgCreatedBy').html(packageDetails[i].PkgCreatedBy);
             $('.createdDate').html(packageDate);
             var tranDate = convertDateTime(packageDetails[i].TranDate,'date');
-            htmlString += '<tr id="'+ packageDetails[i].PackageID  +'">';
-            htmlString += '<td>'+packageDetails[i].TranType+'</td>';
-            htmlString += '<td>'+packageDetails[i].ManDays+'</td>';
-            htmlString += '<td>'+packageDetails[i].Remarks+'</td>';
-            htmlString += '<td>'+packageDetails[i].FLID+'</td>';
-            htmlString += '<td>'+tranDate+'</td>';
-            htmlString += '<td>'+packageDetails[i].TranCreatedBy+'</td>';
-            htmlString += '</tr>';
+            htmlString += '<tr id="'+ packageDetails[i].PackageID  +'"> <td>'+packageDetails[i].TranType+'</td> <td>'+packageDetails[i].ManDays+'</td> <td>'+packageDetails[i].Remarks+'</td> <td>'+packageDetails[i].FLID+'</td> <td>'+tranDate+'</td> <td>'+packageDetails[i].TranCreatedBy+'</td> </tr>';
           }
           $('.packagetranTable tbody').html(htmlString);
         }
@@ -261,7 +235,12 @@ function convertDateTime(inputFormat, type) {
   }
 };
 
+function getPageName() {
+  var pageName = $('body').attr('id').replace('page-','');
+  return pageName;
+}
 
+//geneare drop down optioms
 function GetDropdownList(id, category) {
   var data = {'LookupCat': category}
   $.ajax({
@@ -269,19 +248,20 @@ function GetDropdownList(id, category) {
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
-    data: {
-      'data': JSON.stringify(data),
-      'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-      'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
-    }
-  })
-  .done(function(data) {
-    if ((data) && (data.d.RetVal === -1)) {
-      if (data.d.RetData.Tbl.Rows.length > 0) {
-        var lookup = data.d.RetData.Tbl.Rows;
-        for (var i=0; i<lookup.length; i++ ){
-          $(id).append('<option value="'+lookup[i].LookupKey+'">'+lookup[i].Description+'</option>');
+    data: { 'data': JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          var lookup = data.d.RetData.Tbl.Rows;
+          for (var i=0; i<lookup.length; i++ ){
+            $(id).append('<option value="'+lookup[i].LookupKey+'">'+lookup[i].Description+'</option>');
+          }
         }
+      }
+      else {
+        alert(data.d.RetMsg);
       }
     }
   });
