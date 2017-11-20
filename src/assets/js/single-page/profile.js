@@ -82,7 +82,7 @@ function getPointofContact(PersonID){
           $('.poc2Email').html(pointOfContact.POCEmail1);
           $('.poc2Designation').html(pointOfContact.POCDesi1);
           $('.poc2Department').html(pointOfContact.POCDept1);
-          
+
           $('#poc1Name').val(pointOfContact.POCName);
           $('#poc1Contact').val(pointOfContact.POCContact);
           $('#poc1Email').val(pointOfContact.POCEmail);
@@ -155,12 +155,12 @@ function GetBasicInformation(personID) {
           showIndProfile();
           $('.indName').html(personalInfo.DisplayName);
           $('.indTel').html(personalInfo.Tel1);
-          $('.indMobile').html(personalInfo.Tel2);
+          $('.indMobile').html(personalInfo.Mobile);
           $('.indEmail').html(personalInfo.Email1);
           $('.indAddress').html(personalInfo.FullAddress);
           $('#name').val(personalInfo.DisplayName);
           $('#tel1').val(personalInfo.Tel1);
-          $('#mobile').val(personalInfo.Tel2);
+          $('#mobile').val(personalInfo.Mobile);
           $('#email').val(personalInfo.Email1);
           $('#address').val(personalInfo.FullAddress);
         }
@@ -176,10 +176,16 @@ function GetBasicInformation(personID) {
   });
 }
 
-function updateBasic(){
-  var data = { "Username": Username, "Password": Password };
+function updateIndBasic(PersonID){
+  var name, tel1, mobile, email, address;
+  name = $('#name').val();
+  tel1 = $('#tel1').val();
+  mobile = $('#mobile').val();
+  email = $('#email').val();
+  address = $('#address').val();
+  var data = { "PID": PersonID, "name": name, "tel1": tel1, "mobile": mobile, "email": email, "address": address };
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.updateBasic.json",
+    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.UpdateIndBasic.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -187,7 +193,90 @@ function updateBasic(){
             'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
             'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
-      GetBasicInformation(personID);
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          if (data.d.RetData.Tbl.Rows[0].Success == true) {
+            location.reload();
+          } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
+        }
+      }
+      else {
+        alert(data.d.RetMsg);
+      }
+    },
+    error: function(XMLHttpRequest, data, errorThrown){
+      alert("Error: " + errorThrown);
+    }
+  })
+}
+
+function updateOrgBasic(PersonID){
+  var name, entityKey, tel1, email, address;
+  name = $('#name').val();
+  entityKey = $('#entityKey').val();
+  tel1 = $('#tel1').val();
+  email = $('#email').val();
+  address = $('#address').val();
+  var data = { "PID": PersonID, "name": name, "entityKey": entityKey, "tel1": tel1, "email": email, "address": address };
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.UpdateOrgBasic.json",
+    method: "POST",
+    dataType: "json",
+    xhrFields: { withCredentials: true },
+    data: { 'data': JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          if (data.d.RetData.Tbl.Rows[0].Success == true) {
+            location.reload();
+          } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
+        }
+      }
+      else {
+        alert(data.d.RetMsg);
+      }
+    },
+    error: function(XMLHttpRequest, data, errorThrown){
+      alert("Error: " + errorThrown);
+    }
+  })
+}
+
+function updateContactPoint(PersonID){
+  var poc1Name, poc1Contact, poc1Email, poc1Designation, poc1Department, poc2Name, poc2Contact, poc2Email, poc2Designation, poc2Department;
+  poc1Name = $('#poc1Name').val();
+  poc1Contact = $('#poc1Contact').val();
+  poc1Email = $('#poc1Email').val();
+  poc1Designation = $('#poc1Designation').val();
+  poc1Department = $('#poc1Department').val();
+  poc2Name = $('#poc2Name').val();
+  poc2Contact = $('#poc2Contact').val();
+  poc2Email = $('#poc2Email').val();
+  poc2Designation = $('#poc2Designation').val();
+  poc2Department = $('#poc2Department').val();
+
+  var data = { "PID": PersonID, "poc1Name": poc1Name, "poc1Contact": poc1Contact, "poc1Email": poc1Email, "poc1Designation": poc1Designation, "poc1Department": poc1Department, "poc2Name": poc2Name, "poc2Contact": poc2Contact, "poc2Email": poc2Email, "poc2Designation": poc2Designation, "poc2Department": poc2Department };
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.UpdateContactPoint.json",
+    method: "POST",
+    dataType: "json",
+    xhrFields: { withCredentials: true },
+    data: { 'data': JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          if (data.d.RetData.Tbl.Rows[0].Success == true) {
+            location.reload();
+          } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
+        }
+      }
+      else {
+        alert(data.d.RetMsg);
+      }
     },
     error: function(XMLHttpRequest, data, errorThrown){
       alert("Error: " + errorThrown);
@@ -213,6 +302,9 @@ function showOrgProfile(){
   '<footer class="grid-x grid-padding-x"> <button type="button" id="basicSubmit" data-close class="btn cell small-12 medium-offset-4 medium-4">Submit</button> </footer> </form>';
   $('#profileData').append(orgProfile);
   $('#basicForm').hide();
+  $('#basicSubmit').click(function(){
+    updateOrgBasic(appCookie.personID);
+  });
 }
 
 function showIndProfile(){
@@ -233,6 +325,9 @@ function showIndProfile(){
   $('#profileData').append(indProfile);
   $('#basicForm').hide();
   $('#contactPointData').hide();
+  $('#basicSubmit').click(function(){
+    updateIndBasic(appCookie.personID);
+  });
 }
 
 function showOrgContact(){
@@ -263,7 +358,10 @@ function showOrgContact(){
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="poc2Email"> Email </label> <input type="text" id="poc2Email" /> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="poc2Designation"> Designation </label> <input type="text" id="poc2Designation" />'+
   '</div> </div> <div class="grid-x grid-padding-x"> <div class="cell"> <label for="poc2Department"> Department </label> <input type="text" id="poc2Department" /> </div> </div>'+
-  '<footer class="grid-x grid-padding-x"> <button type="button" id="basicSubmit" data-close class="btn cell small-12 medium-offset-4 medium-4"> Submit </button> </footer> </form>';
+  '<footer class="grid-x grid-padding-x"> <button type="button" id="pocSubmit" data-close class="btn cell small-12 medium-offset-4 medium-4"> Submit </button> </footer> </form>';
   $('#contactPointData').append(contactPoint);
   $('#contactPointForm').hide();
+  $('#pocSubmit').click(function(){
+    updateContactPoint(appCookie.personID);
+  });
 }
