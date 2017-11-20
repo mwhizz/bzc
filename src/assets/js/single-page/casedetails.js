@@ -83,6 +83,9 @@ function GetCaseDetails(caseId, section, LoginID){
                 $('.orgData').hide();
                 $('.intTargetEndDate, .intTargetEndDateLbl').hide();
               }
+              if (caseDetails[i].CurStatus == 'Closed' || caseDetails[i].CurStatus == 'Completed'){
+                $('.involvemetAdd').hide();
+              }
               if (caseDetails[i].CurStatus != 'New' && (Permission!=4 || Permission!=3)){
                 $('#review').hide();
               }

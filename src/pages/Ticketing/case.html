@@ -1,259 +1,271 @@
-			<div id="caseContainer" class="contentContainer">
-				<header>
-					<a class="button buttonType2 left buttonType2Back" href="/">Back to Case Listing</a>
-					<h1 class="caseTitle">
-						<!--Insert caseTitle here-->
-					</h1>
-				</header>
-				<section id="summary">
-					<div class="grid-x grid-margin-x">
-						<div class="cell auto"><b>Status</b>
-							<span class="status">
-								<!--Insert Status here-->
-							</span>
-						</div>
-						<div class="cell auto"><b>Category</b>
-							<span class="category">
-								<!--Insert Category here-->
-							</span>
-						</div>
-					</div>
-					<div class="grid-x grid-margin-x">
-						<div class="cell auto"><b>Created By</b>
-							<span class="caseCreatedBy">
-									<!--Insert Created By here-->
-							</span>
-						</div>
-						<div class="cell auto"><b>Created Date &amp; Time</b>
-							<span class="createdDate">
-									<!--Insert CreatedDateTime here-->
-							</span>
-						</div>
-					</div>
-					<div class="grid-x grid-margin-x">
-						<div class="cell auto"><b>Proposed Duration</b>
-							<span class="propDuration">
-								<!--Insert Man-day(s) here-->
-							</span> Man-day(s)</div>
-						<div class="cell auto"><b>CC</b> <span class="cc"></span></div>
-					</div>
-					<div class="grid-x grid-margin-x">
-						<div class="cell auto"><b>Target End Date</b>
-							<span class="targetEndDate">
-									<!--Insert Target End Date here-->
-							</span>
-						</div>
-						<div class="cell auto intTargetEndDateLbl"><b>Target End Date (Internal)</b>
-							<span class="intTargetEndDate">
-									<!--Insert Internal Target End Date here-->
-							</span>
-						</div>
-					</div>
-				</section>
-				<section class="toggleBox" id="information">
-					<header class="toggleTitle">
-						<h2>Information</h2>
-					</header>
-					<div class="grid-container toggleContent form">
-						<div class="grid-x grid-padding-x">
-							<div class="cell orgData">
-								<div class="labelText">
-									Organisation
-								</div>
-								<div class="text organisation">
-									<!--Insert Organisation here-->
-								</div>
-							</div>
-						</div>
-						<div class="grid-x grid-padding-x">
-							<div class="cell">
-								<div class="labelText">
-									Product
-								</div>
-								<div class="text product">
-									<!--Insert Product here-->
-								</div>
-							</div>
-						</div>
-						<div class="grid-x grid-padding-x">
-							<div class="cell">
-								<div class="labelText">
-									Module
-								</div>
-								<div class="text module">
-									<!--Insert Module here-->
-								</div>
-							</div>
-						</div>
-						<div class="grid-x grid-padding-x">
-							<div class="cell">
-								<div class="labelText">
-									Description
-								</div>
-								<div class="text description">
-									<!--Insert Description here-->
-								</div>
-							</div>
-						</div>
-						<div class="grid-x grid-padding-x">
-							<div class="cell">
-								<div class="labelText">
-									Attachments
-								</div>
-								<div class="screenshots attachments">
-									<!--Insert Attachments here-->
-								</div>
-								<button type="button" id="addAttachment" class="buttonType2 left buttonType2Add">Add Attachment</button>
-								<iframe id='attachments' style="width:100%" height="200" src="">
-								  <p>Your browser does not support iframes.</p>
-								</iframe>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="toggleBox" id="review">
-					<header class="toggleTitle">
-						<h2>Review</h2>
-					</header>
-					<form id="reviewForm" class="form3 boxModel toggleContent">
-						<div>
-							<label>
-								Category
-								<select id="category" name="category">
-									<option value="">-- Select Category --</option>
-									<option value="Bugs">Bugs</option>
-									<option value="CR">Change Request</option>
-								</select>
-							</label>
-							<label>
-								Man-Day(s)
-								<input type="text" id="manDays" name="manDays"/>
-							</label>
-							<label>
-								Target End Date
-								<input type="text" id="targetEndDate" name="targetEndDate"/>
-							</label>
-							<label>
-								Target End Date (Internal)
-								<input type="text" id="intTargetEndDate" name="intTargetEndDate"/>
-							</label>
-						</div>
-						<div class="cell medium-2">
-							<button type="button" class="review" src="">Submit Review</button>
-						</div>
-					</form>
-				</section>
-				<section class="toggleBox" id="involvement">
-					<header class="toggleTitle">
-						<h2>Involvement</h2>
-					</header>
-					<div class="toggleContent">
-						<form class="form3 boxModel involvemetAdd">
-							<header class="grid-x grid-padding-x">
-								<div class="cell small-12">
-									<h3>Assign Task</h3>
-								</div>
-							</header>
-							<div class="grid-x grid-padding-x">
-								<div class="cell medium-10">
-									<label>
-										<select id="roles" name="roles">
-											<option value="">-- Select Roles --</option>
-											<option value="Developer">Developer</option>
-											<option value="Person in-charged">Person in-charged</option>
-										</select>
-									</label>
-									<label>
-										<select id="person" name="person">
-											<option value="">-- Select Staff --</option>
-											<option value="1">Admin</option>
-											<option value="6">Li Feng</option>
-										</select>
-									</label>
-								</div>
-								<div class="cell medium-2">
-									<button type="button" class="assign" src="">Assign</button>
-								</div>
-							</div>
-							<div class="grid-x grid-padding-x">
-								<div class="cell">
-									<label>
-										<textarea id="task" name="task" placeholder="Task"></textarea>
-									</label>
-								</div>
-							</div>
-						</form>
-						<div class="threadContainer" id="taskThread">
-							<div class="scrollContainer scrollY threadTask">
-								<!--Task thread insert here-->
-							</div><!--scrollContainer-->
-						</div>
-					</div>
-				</section>
-				<section class="toggleBox" id="log">
-					<header class="toggleTitle">
-						<h2>Log Thread</h2>
-					</header>
-					<div class="toggleContent">
-						<button type="button" class="buttonType2 buttonType2Add left" data-open="caseLogAddForm">Add New Thread</button>
-						<div class="threadContainer" id="logThread">
-							<div class="scrollContainer scrollY threadLog">
-								<!--Log thread insert here-->
-							</div><!--scrollContainer-->
-						</div><!--threadContainer-->
-					</div>
-				</section><!--case log end-->
-
-				<form id="caseLogAddForm" class="reveal" data-reveal>
-					<header class="grid-x grid-padding-x">
-						<h3 class="cell">Add Log</h3>
-						<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</header>
-						<div class="grid-x grid-padding-x">
-							<div class="cell">
-									<label class="callout calloutInline calloutNeutral">
-										<input type="checkbox" id="internal" name="internal" />
-									Internal</label>
-							</div>
-						</div>
-						<div class="grid-x grid-padding-x">
-							<div class="cell">
-								<label>
-									Description
-									<textarea id="description" name="description"></textarea>
-								</label>
-							</div>
-						</div>
-						<div class="grid-x grid-padding-x">
-							<div class="cell">
-								<label>
-									Status
-									<select id="status" name="status">
-										<option value="">-- Please Select --</option>
-										<option value="Approve">Approve</option>
-										<option value="Closed">Closed</option>
-										<option value="Completed">Completed</option>
-									</select>
-								</label>
-							</div>
-						</div>
-						<div class="grid-x grid-padding-x">
-							<div class="cell">
-								<label>
-									Duration
-									<input type="text" id="duration" name="duration"/>
-								</label>
-							</div>
-						</div>
-						<div class="grid-x grid-padding-x">
-								<div class="cell">
-									<button type="button" id="addAttachment" class="buttonType2 buttonType2Add left"><i class="icon"></i> Add Attachment</button>
-								</div>
-						</div>
-						<footer class="grid-x grid-padding-x">
-							<button type="button" id="submit" data-close class="btn cell small-12 medium-offset-4 medium-4">Submit</button>
-						</footer>
-				</form>
-			</div><!-- cases end -->
+<div id="caseContainer" class="contentContainer">
+   <header>
+      <a class="button buttonType2 left buttonType2Back" href="/">Back to Case Listing</a>
+      <h1 class="caseTitle">
+         <!--Insert caseTitle here-->
+      </h1>
+   </header>
+   <section id="summary">
+      <div class="grid-x grid-margin-x">
+         <div class="cell auto">
+            <b>Status</b>
+            <span class="status">
+               <!--Insert Status here-->
+            </span>
+         </div>
+         <div class="cell auto">
+            <b>Category</b>
+            <span class="category">
+               <!--Insert Category here-->
+            </span>
+         </div>
+      </div>
+      <div class="grid-x grid-margin-x">
+         <div class="cell auto">
+            <b>Created By</b>
+            <span class="caseCreatedBy">
+               <!--Insert Created By here-->
+            </span>
+         </div>
+         <div class="cell auto">
+            <b>Created Date &amp; Time</b>
+            <span class="createdDate">
+               <!--Insert CreatedDateTime here-->
+            </span>
+         </div>
+      </div>
+      <div class="grid-x grid-margin-x">
+         <div class="cell auto">
+            <b>Proposed Duration</b>
+            <span class="propDuration">
+               <!--Insert Man-day(s) here-->
+            </span>
+            Man-day(s)
+         </div>
+         <div class="cell auto"><b>CC</b> <span class="cc"></span></div>
+      </div>
+      <div class="grid-x grid-margin-x">
+         <div class="cell auto">
+            <b>Target End Date</b>
+            <span class="targetEndDate">
+               <!--Insert Target End Date here-->
+            </span>
+         </div>
+         <div class="cell auto intTargetEndDateLbl">
+            <b>Target End Date (Internal)</b>
+            <span class="intTargetEndDate">
+               <!--Insert Internal Target End Date here-->
+            </span>
+         </div>
+      </div>
+   </section>
+   <section class="toggleBox" id="information">
+      <header class="toggleTitle">
+         <h2>Information</h2>
+      </header>
+      <div class="grid-container toggleContent form">
+         <div class="grid-x grid-padding-x">
+            <div class="cell orgData">
+               <div class="labelText">
+                  Organisation
+               </div>
+               <div class="text organisation">
+                  <!--Insert Organisation here-->
+               </div>
+            </div>
+         </div>
+         <div class="grid-x grid-padding-x">
+            <div class="cell">
+               <div class="labelText">
+                  Product
+               </div>
+               <div class="text product">
+                  <!--Insert Product here-->
+               </div>
+            </div>
+         </div>
+         <div class="grid-x grid-padding-x">
+            <div class="cell">
+               <div class="labelText">
+                  Module
+               </div>
+               <div class="text module">
+                  <!--Insert Module here-->
+               </div>
+            </div>
+         </div>
+         <div class="grid-x grid-padding-x">
+            <div class="cell">
+               <div class="labelText">
+                  Description
+               </div>
+               <div class="text description">
+                  <!--Insert Description here-->
+               </div>
+            </div>
+         </div>
+         <div class="grid-x grid-padding-x">
+            <div class="cell">
+               <div class="labelText">
+                  Attachments
+               </div>
+               <div class="screenshots attachments">
+                  <!--Insert Attachments here-->
+               </div>
+               <button type="button" id="addAttachment" class="buttonType2 left buttonType2Add">Add Attachment</button>
+               <iframe id='attachments' style="width:100%" height="200" src="" />
+               </iframe>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="toggleBox" id="review">
+      <header class="toggleTitle">
+         <h2>Review</h2>
+      </header>
+      <form id="reviewForm" class="form3 boxModel toggleContent">
+         <div>
+            <label>
+               Category
+               <select id="category" name="category">
+                  <option value="">-- Select Category --</option>
+                  <option value="Bugs">Bugs</option>
+                  <option value="CR">Change Request</option>
+               </select>
+            </label>
+            <label>
+            Man-Day(s)
+            <input type="text" id="manDays" name="manDays"/>
+            </label>
+            <label>
+            Target End Date
+            <input type="text" id="targetEndDate" name="targetEndDate"/>
+            </label>
+            <label>
+            Target End Date (Internal)
+            <input type="text" id="intTargetEndDate" name="intTargetEndDate"/>
+            </label>
+         </div>
+         <div class="cell medium-2">
+            <button type="button" class="review" src="">Submit Review</button>
+         </div>
+      </form>
+   </section>
+   <section class="toggleBox" id="involvement">
+      <header class="toggleTitle">
+         <h2>Involvement</h2>
+      </header>
+      <div class="toggleContent">
+         <form class="form3 boxModel involvemetAdd">
+            <header class="grid-x grid-padding-x">
+               <div class="cell small-12">
+                  <h3>Assign Task</h3>
+               </div>
+            </header>
+            <div class="grid-x grid-padding-x">
+               <div class="cell medium-10">
+                  <label>
+                     <select id="roles" name="roles">
+                        <option value="">-- Select Roles --</option>
+                        <option value="Developer">Developer</option>
+                        <option value="Person in-charged">Person in-charged</option>
+                     </select>
+                  </label>
+                  <label>
+                     <select id="person" name="person">
+                        <option value="">-- Select Staff --</option>
+                        <option value="1">Admin</option>
+                        <option value="6">Li Feng</option>
+                     </select>
+                  </label>
+               </div>
+               <div class="cell medium-2">
+                  <button type="button" class="assign" src="">Assign</button>
+               </div>
+            </div>
+            <div class="grid-x grid-padding-x">
+               <div class="cell">
+                  <label>
+                  <textarea id="task" name="task" placeholder="Task"></textarea>
+                  </label>
+               </div>
+            </div>
+         </form>
+         <div class="threadContainer" id="taskThread">
+            <div class="scrollContainer scrollY threadTask">
+               <!--Task thread insert here-->
+            </div>
+            <!--scrollContainer-->
+         </div>
+      </div>
+   </section>
+   <section class="toggleBox" id="log">
+      <header class="toggleTitle">
+         <h2>Log Thread</h2>
+      </header>
+      <div class="toggleContent">
+         <button type="button" class="buttonType2 buttonType2Add left" data-open="caseLogAddForm">Add New Thread</button>
+         <div class="threadContainer" id="logThread">
+            <div class="scrollContainer scrollY threadLog">
+               <!--Log thread insert here-->
+            </div>
+            <!--scrollContainer-->
+         </div>
+         <!--threadContainer-->
+      </div>
+   </section>
+   <!--case log end-->
+   <form id="caseLogAddForm" class="reveal" data-reveal>
+      <header class="grid-x grid-padding-x">
+         <h3 class="cell">Add Log</h3>
+         <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+         <span aria-hidden="true">&times;</span>
+         </button>
+      </header>
+      <div class="grid-x grid-padding-x">
+         <div class="cell">
+            <label class="callout calloutInline calloutNeutral">
+            <input type="checkbox" id="internal" name="internal" />
+            Internal</label>
+         </div>
+      </div>
+      <div class="grid-x grid-padding-x">
+         <div class="cell">
+            <label>
+            Description
+            <textarea id="description" name="description"></textarea>
+            </label>
+         </div>
+      </div>
+      <div class="grid-x grid-padding-x">
+         <div class="cell">
+            <label>
+               Status
+               <select id="status" name="status">
+                  <option value="">-- Please Select --</option>
+                  <option value="Approve">Approve</option>
+                  <option value="Closed">Closed</option>
+                  <option value="Completed">Completed</option>
+               </select>
+            </label>
+         </div>
+      </div>
+      <div class="grid-x grid-padding-x">
+         <div class="cell">
+            <label>
+            Duration
+            <input type="text" id="duration" name="duration"/>
+            </label>
+         </div>
+      </div>
+      <div class="grid-x grid-padding-x">
+         <div class="cell">
+            <button type="button" id="addAttachment" class="buttonType2 buttonType2Add left"><i class="icon"></i> Add Attachment</button>
+         </div>
+      </div>
+      <footer class="grid-x grid-padding-x">
+         <button type="button" id="submit" data-close class="btn cell small-12 medium-offset-4 medium-4">Submit</button>
+      </footer>
+   </form>
+</div>
+<!-- cases end -->
