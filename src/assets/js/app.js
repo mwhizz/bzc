@@ -145,7 +145,6 @@ $(function(){
           scrollTop: form.offset().top
         }, 500);
       }
-
     });
   });//editLinkForm
 
@@ -185,6 +184,7 @@ function GetBasicInformation(personID) {
         $('#packages').hide();
       }else{
         $('#caseFilter .orgCell').hide();
+        $('#caseFilter #statusMyCase, #caseFilter .mycase').hide();
       }
     }
   });
