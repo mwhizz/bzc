@@ -165,7 +165,6 @@ $(function(){
 
 function GetBasicInformation(personID) {
   var data = {'PersonID': personID};
-
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.GetPersonalInfo.json",
     method: "POST",
@@ -178,6 +177,7 @@ function GetBasicInformation(personID) {
     }
   }).done(function(data) {
     if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
+      $('.profileName').html(data.d.RetData.Tbl.Rows[0].DisplayName);
       if (data.d.RetData.Tbl.Rows[0].EntityType == 'I'){
         $('#navPackages').show();
         $('#navReport').show();
@@ -188,6 +188,11 @@ function GetBasicInformation(personID) {
       }
     }
   });
+}
+
+function changeNavMenu(){
+  var menu = '<li style="display:none" id="navPackages"><a href="/Ticketing/packages.html"><i class="icon"><img src="/assets/img/icon-mid-packages.png" /></i> Contracts</a></li> <li style="display:none"id="navReport"><a href="#"><i class="icon"><img src="/assets/img/icon-mid-reports.png" /></i> Reports</a></li> <li id="navUser"><a href="#"><i class="icon"><img src="/assets/img/icon-mid-user.png" /></i> User</a> <ul class="menu vertical"> <li><a href="/Ticketing/profile.html">Profile</a> <li><a href="/Ticketing/changeMyPwd.html">Change Password</a> <li><a href="#" id="logOut">Logout</a> </ul> </li> <li style="display:none" id="navSettings"><a href="#"><i class="icon"><img src="/assets/img/icon-mid-settings.png" /></i> Settings</a></li>';
+  $('.dropdown .menu').html(menu);
 }
 
 function getPageName() {

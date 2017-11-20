@@ -9,9 +9,7 @@ $(function(){
   GetDropdownList('#caseAddForm #product', 'Product');
   GetDropdownList('#caseAddForm #system, #caseFilter #system', 'system');
 
-  GetBasicInformation(appCookie.personID);
-  var caseContainer = $('#caseContainer');
-  getCasesList(caseContainer, loginID);
+  getCasesList(loginID);
 
   $('#addAttachment').click(function(){
     $('#attachments').show();
@@ -19,7 +17,7 @@ $(function(){
   });
 
   $('#caseFilter .tabBoxButtonSubmit').click(function(){
-    getCasesList(caseContainer, loginID);
+    getCasesList(loginID);
     return false;
   });
   $('#caseAddForm .newCaseSubmitButton').click(function(){
@@ -28,12 +26,12 @@ $(function(){
 });
 
 //get case list
-function getCasesList(caseContainer, LoginID){
-  var caseContainerTable = caseContainer.find('table'), caseTbody = caseContainerTable.find('tbody');
+function getCasesList(LoginID){
+  var caseContainerTable = $('#caseContainer').find('table'),
+      caseTbody = caseContainerTable.find('tbody');
 
   var System, Status='', Module, DateFrom, DateTo, MyCase=0;
   $.each($("input[name='status']:checked"), function(){
-    //Status.push($(this).val());
     Status = Status +$(this).val() + ",";
   });
   Status = Status.slice(0, -1);
@@ -52,9 +50,9 @@ function getCasesList(caseContainer, LoginID){
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
-    data: {'data':JSON.stringify(data),
-          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    data: { 'data':JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
@@ -62,10 +60,11 @@ function getCasesList(caseContainer, LoginID){
           var htmlString = '';
           for (var i=0; i<cases.length; i++ ){
             if (cases[i].Permission==2){
-              $('.caseTable thead tr').html('<th colspan="2"></th><th>System</th><th>Man-Day(s)</th><th>Module</th><th>Created Date</th><th>Status</th>');
+              customCaseTable();
             }
             var date = convertDateTime(cases[i].CreatedDate,'date');
             htmlString += '<tr id="'+ cases[i].FLID +'">';
+            //color code
             if (cases[i].CurStatus=='New' || cases[i].CurStatus=='Progressing' ){
               htmlString += '<td class="colorCodeActive"></td>';
             }else if (cases[i].CurStatus=='Reviewed' || cases[i].CurStatus=='Reviewed & Pending Quote'){
@@ -74,20 +73,16 @@ function getCasesList(caseContainer, LoginID){
               htmlString += '<td class="colorCodeNonActive"></td>';
             }
             htmlString += '<td>'+cases[i].Title+'</td>';
+            //show org name
             if (cases[i].Permission==4 || cases[i].Permission==3){
               htmlString += '<td>'+cases[i].OrganizationName+'</td>';
             }
-            htmlString += '<td>'+cases[i].System+'</td>';
-            htmlString += '<td>'+cases[i].ManDays+'</td>';
-            htmlString += '<td>'+cases[i].Module+'</td>';
-            htmlString += '<td>'+date+'</td>';
-            htmlString += '<td><span class="statusNew">'+cases[i].CurStatus+'</span></td>';
-            htmlString += '</tr>';
+            htmlString += '<td>'+cases[i].System+'</td> <td>'+cases[i].ManDays+'</td> <td>'+cases[i].Module+'</td> <td>'+date+'</td> <td><span class="statusNew">'+cases[i].CurStatus+'</span></td> </tr>';
           }
           caseTbody.html(htmlString);
           $('.caseTable tbody tr').click(function(){
-            var caseId = $(this).attr('id');
-            var caseUrl = '/Ticketing/case.html?caseID=' + caseId
+            var caseId = $(this).attr('id'),
+                caseUrl = '/Ticketing/case.html?caseID=' + caseId
             window.location.href = caseUrl;
           });
         }
@@ -113,14 +108,14 @@ function createNewCase(LoginID){
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
-    data: {'data':JSON.stringify(data),
-          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    data: { 'data':JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            getCasesList($('#caseContainer'),LoginID);
+            getCasesList(LoginID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -130,29 +125,6 @@ function createNewCase(LoginID){
     }
   });
 };
-
-function GetBasicInformation(personID) {
-  var data = {'PersonID': personID}
-
-  $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.GetPersonalInfo.json",
-    method: "POST",
-    dataType: "json",
-    xhrFields: {
-      withCredentials: true
-    },
-    data: {
-      'data': JSON.stringify(data),
-      'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-      'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
-    }
-  })
-  .done(function(data) {
-    if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
-      $('.profileName').html(data.d.RetData.Tbl.Rows[0].DisplayName);
-    }
-  });
-}
 
 //convert date to dd/mm/yyyy
 function convertDateTime(inputFormat, type) {
@@ -170,6 +142,12 @@ function convertDateTime(inputFormat, type) {
   }
 };
 
+
+function customCaseTable(){
+  $('.caseTable thead tr').html('<th colspan="2"></th><th>System</th><th>Man-Day(s)</th><th>Module</th><th>Created Date</th><th>Status</th>');
+}
+
+//geneare drop down optioms
 function GetDropdownList(id, category) {
   var data = {'LookupCat': category}
   $.ajax({
@@ -177,19 +155,20 @@ function GetDropdownList(id, category) {
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
-    data: {
-      'data': JSON.stringify(data),
-      'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-      'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
-    }
-  })
-  .done(function(data) {
-    if ((data) && (data.d.RetVal === -1)) {
-      if (data.d.RetData.Tbl.Rows.length > 0) {
-        var lookup = data.d.RetData.Tbl.Rows;
-        for (var i=0; i<lookup.length; i++ ){
-          $(id).append('<option value="'+lookup[i].LookupKey+'">'+lookup[i].Description+'</option>');
+    data: { 'data': JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          var lookup = data.d.RetData.Tbl.Rows;
+          for (var i=0; i<lookup.length; i++ ){
+            $(id).append('<option value="'+lookup[i].LookupKey+'">'+lookup[i].Description+'</option>');
+          }
         }
+      }
+      else {
+        alert(data.d.RetMsg);
       }
     }
   });
