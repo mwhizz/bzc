@@ -11,11 +11,6 @@ $(function(){
 
   getCasesList(loginID);
 
-  $('#addAttachment').click(function(){
-    $('#attachments').show();
-    $('#addAttachment').hide();
-  });
-
   $('#caseFilter .tabBoxButtonSubmit').click(function(){
     getCasesList(loginID);
     return false;

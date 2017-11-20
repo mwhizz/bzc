@@ -1,17 +1,16 @@
 
 $(function(){
-  //get cookie
-  var appCookie = Cookies.getJSON('appCookie');
-  //get loginid
-  var loginID = appCookie.loginID;
+  //get cookie & loginID
+  var appCookie = Cookies.getJSON('appCookie'),
+      loginID = appCookie.loginID;
 
   //get FLID from URL
-  var urlParams = new URLSearchParams(window.location.search);
-  var caseID = urlParams.get('caseID');
+  var urlParams = new URLSearchParams(window.location.search),
+      caseID = urlParams.get('caseID');
   if (caseID){
     GetCaseDetails(caseID,'Full',loginID);
   }
-  
+
   $('#attachments').hide();
   $('#addAttachment').click(function(){
     $('#attachments').show();
@@ -20,40 +19,15 @@ $(function(){
 
   //Review submit
   $('#reviewForm .review').click(function(){
-    var FLID, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID;
-    FLID = caseID;
-    Category = $('#reviewForm #category').val();
-    ProposedManDays = $('#reviewForm #manDays').val();
-    TargetEndDate = $('#reviewForm #targetEndDate').val();
-    IntTargetEndDate = $('#reviewForm #intTargetEndDate').val();
-    LoginID = loginID;
-    reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID);
+    reviewCase(caseID, loginID);
   });
   //Assign Task
   $('#involvement .assign').click(function(){
-    var FLID, RoleName, RoleID, Details, LoginID;
-    FLID = caseID;
-    RoleName = $('#involvement #roles').val();
-    RoleID = $('#involvement #person').val();
-    Details = $('#involvement #task').val();
-    LoginID = loginID;
-    addInvolvement(FLID, RoleName, RoleID, Details, LoginID);
+    addInvolvement(caseID, loginID);
   });
   //Add New Log
   $('#caseLogAddForm #submit').click(function(){
-    var FLID, ActionType, Status, Details, Duration, Internal, LoginID;
-    FLID = caseID;
-    ActionType = 'U';
-    Status = $('#caseLogAddForm #status').val();
-    Details = $('#caseLogAddForm #description').val();
-    Duration = $('#caseLogAddForm #internal').val();
-    if ($('#caseLogAddForm #internal').is(':checked')){
-      Internal = 1;
-    }else{
-      Internal = 0;
-    }
-    LoginID = loginID;
-    createNewLog(FLID, ActionType, Status, Details, Duration, Internal, LoginID)
+    createNewLog(caseID, loginID)
   });
 });
 
@@ -66,9 +40,9 @@ function GetCaseDetails(caseId, section, LoginID){
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.GetCaseDetailsBySection.json",
     method: "POST",
     dataType: "json",
-    data: {'data':JSON.stringify({'LoginID':LoginID,'Section':section,'FLID':caseId}),
-          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    data: { 'data':JSON.stringify({'LoginID':LoginID,'Section':section,'FLID':caseId}),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if (section == 'Full'){
         if ((data) && (data.d.RetVal === -1)) {
@@ -186,7 +160,6 @@ function GetCaseDetails(caseId, section, LoginID){
             var involvementContainer = '';
             $('.attachments').html('');
             for (var i=0; i<caseInvolvements.length; i++ ){
-              console.log(caseInvolvements[i].CreatedDate);
               var date = convertDateTime(caseInvolvements[i].CreatedDate,'date');
               var time = convertDateTime(caseInvolvements[i].CreatedDate,'time');
               involvementContainer += '<div class="thread"> <div class="top"><span class="datetime">'+date+'<i> '+time+'</i></span></div> <div class="text">'+caseInvolvements[i].RolePerson+' ('+caseInvolvements[i].RoleName+'): '+caseInvolvements[i].Remarks+'</div> </div>'
@@ -216,16 +189,27 @@ function GetCaseDetails(caseId, section, LoginID){
 };
 
 //Add New Log
-function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, LoginID){
+function createNewLog(FLID, LoginID){
+  var ActionType, Status, Details, Duration, Internal;
+  ActionType = 'U';
+  Status = $('#caseLogAddForm #status').val();
+  Details = $('#caseLogAddForm #description').val();
+  Duration = $('#caseLogAddForm #internal').val();
+  if ($('#caseLogAddForm #internal').is(':checked')){
+    Internal = 1;
+  }else{
+    Internal = 0;
+  }
+
   var data = {'FLID':FLID, 'ActionType':ActionType, 'Status':Status, 'Details': Details,
               'Duration': Duration, 'Internal':Internal, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.InsertActivityLog.json",
     method: "POST",
     dataType: "json",
-    data: {'data':JSON.stringify(data),
-          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    data: { 'data':JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
@@ -243,15 +227,20 @@ function createNewLog(FLID, ActionType, Status, Details, Duration, Internal, Log
 };
 
 //Add Involvements
-function addInvolvement(FLID, RoleName, RoleID, Details, LoginID){
+function addInvolvement(FLID, LoginID){
+  var RoleName, RoleID, Details;
+  RoleName = $('#involvement #roles').val();
+  RoleID = $('#involvement #person').val();
+  Details = $('#involvement #task').val();
+
   var data = {'FLID':FLID, 'RoleName':RoleName, 'RoleID':RoleID, 'Details': Details, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.AddInvolvement.json",
     method: "POST",
     dataType: "json",
-    data: {'data':JSON.stringify(data),
-          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    data: { 'data':JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
@@ -269,16 +258,22 @@ function addInvolvement(FLID, RoleName, RoleID, Details, LoginID){
 };
 
 //Review Case
-function reviewCase(FLID, Category, ProposedManDays, IntTargetEndDate, TargetEndDate, LoginID){
+function reviewCase(FLID, LoginID){
+  var Category, ProposedManDays, IntTargetEndDate, TargetEndDate;
+  Category = $('#reviewForm #category').val();
+  ProposedManDays = $('#reviewForm #manDays').val();
+  TargetEndDate = $('#reviewForm #targetEndDate').val();
+  IntTargetEndDate = $('#reviewForm #intTargetEndDate').val();
+
   var data = {'FLID':FLID, 'Category':Category, 'ProposedManDays': ProposedManDays,
   'IntTargetEndDate': IntTargetEndDate,'TargetEndDate': TargetEndDate, 'LoginID':LoginID};
   $.ajax({
     url: "https://portal.taksys.com.sg/Support/BCMain/FL1.ReviewCase.json",
     method: "POST",
     dataType: "json",
-    data: {'data':JSON.stringify(data),
-          'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-          'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
+    data: { 'data':JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
@@ -308,4 +303,31 @@ function convertDateTime(inputFormat, type) {
   }else if (type == 'time'){
     return [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
   }
+};
+
+//geneare drop down optioms
+function GetDropdownList(id, category) {
+  var data = {'LookupCat': category}
+  $.ajax({
+    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.Lookup_Get.json",
+    method: "POST",
+    dataType: "json",
+    xhrFields: {withCredentials: true},
+    data: { 'data': JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          var lookup = data.d.RetData.Tbl.Rows;
+          for (var i=0; i<lookup.length; i++ ){
+            $(id).append('<option value="'+lookup[i].LookupKey+'">'+lookup[i].Description+'</option>');
+          }
+        }
+      }
+      else {
+        alert(data.d.RetMsg);
+      }
+    }
+  });
 };
