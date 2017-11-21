@@ -191,7 +191,7 @@ function GetBasicInformation(personID) {
 }
 
 function changeNavMenu(){
-  var menu = '<li id="navPackages"><a href="/Ticketing/packages.html"><i class="icon"><img src="/assets/img/icon-mid-packages.png" /></i> Contracts</a></li>'+
+  var menu = '<li id="navPackages"><a href="/Ticketing/packages.html"><i class="icon"><img src="/assets/img/icon-mid-packages.png" /></i> Prdocuts</a></li>'+
   '<li id="navReport"><a href="#"><i class="icon"><img src="/assets/img/icon-mid-reports.png" /></i> Reports</a></li>'+
   '<li id="navUser"><a href="#"><i class="icon"><img src="/assets/img/icon-mid-user.png" /></i> User</a> <ul class="menu vertical">'+
   '<li><a href="/Ticketing/profile.html">Profile</a>'+
