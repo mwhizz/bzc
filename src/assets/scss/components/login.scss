@@ -4,17 +4,20 @@
 
 
     @include breakpoint(medium) {
-      @include position(absolute,$left:30%,$top:30%);
-      height: 40%;
+      @include position(absolute,$left:30%,$top:20%);
+      height: auto;
       width: 40%;
 
     }
     @include breakpoint(large) {
-      @include position(absolute,$left:35%,$top:30%);
+      @include position(absolute,$left:35%);
       //height: 30%;
       width: 30%;
     }
-  }
 
+    section {
+      margin-bottom: 0;
+    }
+  }
 
 }

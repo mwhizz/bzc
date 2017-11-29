@@ -72,7 +72,7 @@ function login() {
     console.log( "Login fail" );
     console.log(jqXHR);
     console.log( "Request failed: " + textStatus );
-    loginCallOut.addClass('warn').html('Login fail.').show();
+    loginCallOut.addClass('alert').html('Login fail.').show();
   });
 } //login
 
@@ -144,7 +144,7 @@ function getLoginInfo(callout) {
     console.log( "Login Info fail to get" );
     console.log(jqXHR);
     console.log( "Request failed: " + textStatus );
-    if (callout)    loginCallOut.addClass('warn').html('Login fail.').show();
+    if (callout)    loginCallOut.addClass('alert').html('Login fail.').show();
   });;
 
 }
