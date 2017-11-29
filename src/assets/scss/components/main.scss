@@ -11,11 +11,13 @@ body {
 .page-noframe {
 
 	#main {
+
 		height: 100%;
 
 	}
 	#mainContent {
 		height: 100%;
+    padding-top: 1rem;
 		//padding-top: $global-margin;
 	}
 }

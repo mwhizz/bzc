@@ -1,0 +1,20 @@
+#page-login {
+  #mainContent {
+    @include border-radius(8px);
+
+
+    @include breakpoint(medium) {
+      @include position(absolute,$left:30%,$top:30%);
+      height: 40%;
+      width: 40%;
+
+    }
+    @include breakpoint(large) {
+      @include position(absolute,$left:35%,$top:30%);
+      //height: 30%;
+      width: 30%;
+    }
+  }
+
+
+}
