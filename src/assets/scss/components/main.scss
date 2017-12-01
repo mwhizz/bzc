@@ -5,7 +5,7 @@ body {
 
 #main {
 	background: $light-gray;
-	@include position(relative);
+	//@include position(relative);
 }
 
 .page-noframe {
@@ -22,27 +22,10 @@ body {
 	}
 }
 
-
-#bizcubeTicketing {
-	color: $dark-gray;
-	font-weight: bold;
-	font-size: 22px;
-	text-transform: uppercase;
-}
-
-#header {
-	-webkit-box-shadow: 0 1px 4px 0 $black;
-	box-shadow: 0 1px 4px 0 $black;
-
-	background: $complementary-light-color1;
-	border-bottom: 5px solid $complementary-dark-color3;
-	@include position(absolute, $top: 0, $left: 0, $right: 0);
-}
-
 #mainContent {
 	background: $white;
 	padding: $global-padding $global-edge-padding;
-	padding-top: 8rem;
+	//padding-top: 8rem;
 
 	section {
 		margin-bottom: $global-section-margin;

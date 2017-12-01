@@ -94,6 +94,9 @@ button, .button {
   &:hover {
     background: none;
     color: $medium-gray;
-
   }
+	&:active {
+		background: none;
+    color: $medium-gray;
+	}
 }

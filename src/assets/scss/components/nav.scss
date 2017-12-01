@@ -1,18 +1,13 @@
 nav {
   text-transform: uppercase;
 
-  @mixin activeDropDown {
-    border-radius: 10px 10px;
-    background: $complementary-light-color2;
-    color: $dark-gray;
-  }
-
   a {
     color: $dark-gray;
     &:hover {
       @include activeDropDown;
     }
   }
+
 
   .dropdown.menu .is-active > a {
     @include activeDropDown;
@@ -31,6 +26,52 @@ nav {
 
       a {
         color: $complementary-light-color1;
+        text-transform: none;
+        &:hover {
+          border-radius: 0;
+          background: $complementary-dark-color3;
+          color: $complementary-light-color1;
+        }
+      }
+  }
+}
+
+#mainMenuLeft nav {
+  a {
+    background: $complementary-dark-color3;
+    color: $complementary-light-color1;
+    &:hover {
+      @include border-radius($radius: 0);
+      background: $complementary-dark-color2;
+      color: $complementary-light-color1;
+    }
+  }
+  .dropdown.menu .is-active > a {
+    @include border-radius($radius: 0);
+    @include activeDropDown;
+
+    background: $complementary-dark-color2;
+    color: $complementary-light-color1;
+  }
+
+  .submenu {
+    border: 1px solid $complementary-dark-color3;
+    color: $complementary-dark-color1;
+    margin-top: 0;
+
+    width: 100%;
+
+    li {
+      border-top: 1px solid $complementary-dark-color3;
+      &:first {
+        border-top: none;
+      }
+    }
+
+      a {
+        background: $complementary-dark-color2;
+        color: $complementary-light-color1;
+        padding-left: 58px;
         text-transform: none;
         &:hover {
           border-radius: 0;

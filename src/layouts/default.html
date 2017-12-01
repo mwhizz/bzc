@@ -20,9 +20,9 @@
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
   </head>
   <body id="page-{{page}}">
-    <div id="main">
+    <div id="main" class="off-canvas-wrapper">
       {{> header}}
-      <div id="mainContent" class="grid-container">
+      <div id="mainContent" class="grid-container off-canvas-content" data-off-canvas-content>
         {{!-- Pages you create in the src/pages/ folder are inserted here when the flattened page is
           created. --}}
         {{> body}}

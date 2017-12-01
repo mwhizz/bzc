@@ -64,3 +64,9 @@
     list-style: none;
   }
 }
+
+@mixin activeDropDown {
+  @include border-radius($radius: 10px);
+  background: $complementary-light-color2;
+  color: $dark-gray;
+}
