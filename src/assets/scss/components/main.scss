@@ -6,6 +6,7 @@ body {
 #main {
 	background: $light-gray;
 	//@include position(relative);
+  height: 100%;
 }
 
 .page-noframe {
@@ -26,6 +27,7 @@ body {
 	background: $white;
 	padding: $global-padding $global-edge-padding;
 	//padding-top: 8rem;
+  height: 100%;
 
 	section {
 		margin-bottom: $global-section-margin;
@@ -33,10 +35,11 @@ body {
 }
 
 #footer {
-	border-top: 1px solid $complementary-dark-color1;
+border-top: 1px solid $complementary-dark-color1;
 
 	.inner {
 		background: $white;
+
 		padding: $global-edge-padding;
 	}
 
@@ -53,10 +56,6 @@ body {
   & > header {
     border-bottom: 1px dashed $medium-gray;
     margin-bottom: $global-margin;
-
-    h1,h2,h3,h4,h5,h6 {
-      padding-top:0.7rem;
-    }
 	}
 }
 
