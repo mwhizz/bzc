@@ -17,7 +17,7 @@ body {
 
 	}
 	#mainContent {
-		height: 100%;
+
     padding-top: 1rem;
 		//padding-top: $global-margin;
 	}
@@ -27,7 +27,6 @@ body {
 	background: $white;
 	padding: $global-padding $global-edge-padding;
 	//padding-top: 8rem;
-  height: 100%;
 
 	section {
 		margin-bottom: $global-section-margin;
@@ -92,4 +91,10 @@ h4 small, {
 			margin-right: 0.5em;
 		}
 	}
+}
+
+@include breakpoint(medium) {
+  #mainContent {
+    height: 100%;
+  }
 }
