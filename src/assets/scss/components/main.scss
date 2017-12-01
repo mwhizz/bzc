@@ -6,14 +6,12 @@ body {
 #main {
 	background: $light-gray;
 	//@include position(relative);
-  height: 100%;
+  //height: 100%;
 }
 
 .page-noframe {
 
 	#main {
-
-		height: 100%;
 
 	}
 	#mainContent {
@@ -34,7 +32,7 @@ body {
 }
 
 #footer {
-border-top: 1px solid $complementary-dark-color1;
+  border-top: 1px solid $complementary-dark-color1;
 
 	.inner {
 		background: $white;
@@ -95,6 +93,6 @@ h4 small, {
 
 @include breakpoint(medium) {
   #mainContent {
-    height: 100%;
+    //height: 100%;
   }
 }
