@@ -61,7 +61,7 @@ $(function(){
       console.log( "Logout success" );
       if (typeof Cookies.getJSON('appCookie') !== 'undefined')
         Cookies.remove('appCookie');
-      if (pageName != 'login') window.location.href = './login.html';
+      if (pageName != 'login') window.location.href = '../login.html';
     })
     .fail(function( jqXHR, textStatus ) {
       console.log( "Logout fail" );
