@@ -106,7 +106,7 @@ function getPackageList(LoginID){
           $('.packageTable tbody').html(htmlString);
           $('.packageTable tbody tr').click(function(){
             var packageId = $(this).attr('id'),
-                packageUrl = '/Support/Ticketing/packageDetails.html?packageID=' + packageId;
+                packageUrl = './packageDetails.html?packageID=' + packageId;
             window.location.href = packageUrl;
           });
         }

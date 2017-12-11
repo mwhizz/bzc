@@ -77,7 +77,7 @@ function getCasesList(LoginID){
           caseTbody.html(htmlString);
           $('.caseTable tbody tr').click(function(){
             var caseId = $(this).attr('id'),
-                caseUrl = '/Support/Ticketing/case.html?caseID=' + caseId
+                caseUrl = './case.html?caseID=' + caseId
             window.location.href = caseUrl;
           });
         }
