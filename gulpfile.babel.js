@@ -136,7 +136,7 @@ function images() {
     .pipe($.if(PRODUCTION, $.imagemin({
       progressive: true
     })))
-    .pipe(gulp.dest(PATHS.dist + '/assets/img'));
+    .pipe(gulp.dest(PATHS.dist + '/Support/assets/img'));
 }
 
 // Start a server with BrowserSync to preview the site in

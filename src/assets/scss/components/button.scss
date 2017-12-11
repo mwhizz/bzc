@@ -66,7 +66,7 @@ button, .button {
 	&.buttonType2Add {
 		&.left:before,
 		&:after {
-			background: $contrast-color1 url('/assets/img/icon-light-add.png') no-repeat center center;
+			background: $contrast-color1 url('/Support/assets/img/icon-light-add.png') no-repeat center center;
 		}
 		&.left:hover:before,
 		&:hover:after {
@@ -77,7 +77,7 @@ button, .button {
 	&.buttonType2Back {
 		&.left:before,
 		&:after {
-			background: url('/assets/img/icon-dark-back.png') no-repeat center center;
+			background: url('/Support/assets/img/icon-dark-back.png') no-repeat center center;
 		}
 		&.left:hover:before,
 		&:hover:after {
