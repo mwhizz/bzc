@@ -9,16 +9,16 @@ $(function(){
   //get page name
   var pageName = getPageName();
   if (pageName == 'packages'){
-    getPackageList(loginID);
+    getPackageList();
   }else if (pageName == 'packageDetails'){
     if (packageID){
-      getPackageDetails(packageID, loginID)
+      getPackageDetails(packageID)
     }
   }else{
     if (loginID!=1){
       $('#packages').show();
     };
-    getCurrentPackageList(loginID);
+    getCurrentPackageList();
   }
 
   GetDropdownList('#packageFilter #product, #packageAddForm #product', 'Product');
@@ -26,19 +26,19 @@ $(function(){
 
   //filter
   $('#packageFilter .tabBoxButtonSubmit').click(function(){
-    getPackageList(loginID);
+    getPackageList();
   });
   //add package
   $('#packageAddForm #submit').click(function(){
-    addNewPackage(loginID);
+    addNewPackage();
   });
   //add transaction
   $('#packageTransactionAddForm #submit').click(function(){
-    addNewtransaction(packageID, '', loginID);
+    addNewtransaction(packageID, '');
   });
 });
 
-function addNewPackage(LoginID){
+function addNewPackage(){
   var RoleID, Type, Product, System, BoughtManDays, Status, StartDate, ExpiryDate;
   RoleID = $('#packageAddForm #organisation').val();
   Type =  $('#packageAddForm #type').val();
@@ -50,7 +50,7 @@ function addNewPackage(LoginID){
 
   var data = {'RoleID':RoleID, 'Type':Type, 'Product':Product, 'System': System, 'BoughtManDays': BoughtManDays, 'StartDate':StartDate, 'ExpiryDate':ExpiryDate, 'LoginID':LoginID};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.AddNewPackage.json",
+    url: "/Support/BCMain/Ctc1.AddNewPackage.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -61,7 +61,7 @@ function addNewPackage(LoginID){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            getPackageList(LoginID);
+            getPackageList();
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -73,7 +73,7 @@ function addNewPackage(LoginID){
 }
 
 //Get All Package List
-function getPackageList(LoginID){
+function getPackageList(){
   var Organization, Product, Status='', DateFrom, DateTo;
   Organization = $('#packageFilterForm #organisation').val();
   Product = $('#packageFilterForm #product').val();
@@ -83,9 +83,9 @@ function getPackageList(LoginID){
   DateFrom = $('#packageFilterForm #packageStartDate').val();
   DateTo = $('#packageFilterForm #packageExpiryDate').val();
 
-  var data = {'Organisation':Organization, 'Product':Product, 'Status':Status, 'StartDate':DateFrom, 'ExpiryDate':DateTo, 'LoginID':LoginID};
+  var data = {'Organisation':Organization, 'Product':Product, 'Status':Status, 'StartDate':DateFrom, 'ExpiryDate':DateTo};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.GetPackageList.json",
+    url: "/Support/BCMain/Ctc1.GetPackageList.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -95,9 +95,9 @@ function getPackageList(LoginID){
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         var htmlString = '';
+        $('.packageTable tbody').html(htmlString);
         if (data.d.RetData.Tbl.Rows.length > 0) {
           var packages = data.d.RetData.Tbl.Rows;
-          var htmlString = '';
           for (var i=0; i<packages.length; i++ ){
             var startDate = convertDateTime(packages[i].StartDate,'date');
             var expiryDate = convertDateTime(packages[i].ExpiryDate,'date');
@@ -116,14 +116,13 @@ function getPackageList(LoginID){
 };
 
 //get Current Package List
-function getCurrentPackageList(LoginID){
-  var data = {'LoginID':LoginID};
+function getCurrentPackageList(){
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.GetCurrentPackages.json",
+    url: "/Support/BCMain/Ctc1.GetCurrentPackages.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
-    data: { 'data':JSON.stringify(data),
+    data: { 'data':'',
             'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
             'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
@@ -150,15 +149,15 @@ function getCurrentPackageList(LoginID){
   });
 };
 
-function addNewtransaction(PackageID, FLID, LoginID){
+function addNewtransaction(PackageID, FLID){
   var Type, ManDays, Remarks;
   Type =  $('#packageTransactionAddForm #type').val();
   ManDays = $('#packageTransactionAddForm #manDays').val();
   Remarks = $('#packageTransactionAddForm #remarks').val();
 
-  var data = {'PackageID':PackageID, 'FLID':FLID, 'Type':Type, 'ManDays':ManDays, 'Remarks': Remarks, 'LoginID':LoginID};
+  var data = {'PackageID':PackageID, 'FLID':FLID, 'Type':Type, 'ManDays':ManDays, 'Remarks': Remarks};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.AddNewPackageTransactions.json",
+    url: "/Support/BCMain/Ctc1.AddNewPackageTransactions.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -169,7 +168,7 @@ function addNewtransaction(PackageID, FLID, LoginID){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            getPackageDetails(PackageID, LoginID);
+            getPackageDetails(PackageID);
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -180,10 +179,10 @@ function addNewtransaction(PackageID, FLID, LoginID){
   });
 }
 
-function getPackageDetails(PackageID, LoginID){
-  var data = {'PackageID':PackageID, 'LoginID':LoginID};
+function getPackageDetails(PackageID){
+  var data = {'PackageID':PackageID};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/Ctc1.GetPackagedetails.json",
+    url: "/Support/BCMain/Ctc1.GetPackagedetails.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -244,7 +243,7 @@ function getPageName() {
 function GetDropdownList(id, category) {
   var data = {'LookupCat': category}
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.Lookup_Get.json",
+    url: "/Support/BCMain/iCtc1.Lookup_Get.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},

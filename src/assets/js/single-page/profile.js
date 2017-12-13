@@ -30,9 +30,10 @@ $(function(){
 function getOrgnisationInfo(PersonID){
   var data = {'PersonID':PersonID};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.GetOrganisationInfo.json",
+    url: "/Support/BCMain/iCtc1.GetOrganisationInfo.json",
     method: "POST",
     dataType: "json",
+    xhrFields: { withCredentials: true },
     data: { 'data':JSON.stringify(data),
             'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
             'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
@@ -61,9 +62,10 @@ function getOrgnisationInfo(PersonID){
 function getPointofContact(PersonID){
   var data = {'PersonID':PersonID};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.GetPointOfContactInfo.json",
+    url: "/Support/BCMain/iCtc1.GetPointOfContactInfo.json",
     method: "POST",
     dataType: "json",
+    xhrFields: { withCredentials: true },
     data: {'data':JSON.stringify(data),
           'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
           'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'},
@@ -102,7 +104,7 @@ function getPointofContact(PersonID){
 function changeMyPwd(Username, Password){
   var data = { "Username": Username, "Password": Password };
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.ChangeUsernamePassword.json",
+    url: "/Support/BCMain/iCtc1.ChangeUsernamePassword.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -138,7 +140,7 @@ function checkPassword() {
 function GetBasicInformation(personID) {
   var data = {'PersonID': personID};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.GetPersonalInfo.json",
+    url: "/Support/BCMain/iCtc1.GetPersonalInfo.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -185,7 +187,7 @@ function updateIndBasic(PersonID){
   address = $('#address').val();
   var data = { "PID": PersonID, "name": name, "tel1": tel1, "mobile": mobile, "email": email, "address": address };
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.UpdateIndBasic.json",
+    url: "/Support/BCMain/iCtc1.UpdateIndBasic.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -219,7 +221,7 @@ function updateOrgBasic(PersonID){
   address = $('#address').val();
   var data = { "PID": PersonID, "name": name, "entityKey": entityKey, "tel1": tel1, "email": email, "address": address };
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.UpdateOrgBasic.json",
+    url: "/Support/BCMain/iCtc1.UpdateOrgBasic.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -259,7 +261,7 @@ function updateContactPoint(PersonID){
 
   var data = { "PID": PersonID, "poc1Name": poc1Name, "poc1Contact": poc1Contact, "poc1Email": poc1Email, "poc1Designation": poc1Designation, "poc1Department": poc1Department, "poc2Name": poc2Name, "poc2Contact": poc2Contact, "poc2Email": poc2Email, "poc2Designation": poc2Designation, "poc2Department": poc2Department };
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.UpdateContactPoint.json",
+    url: "/Support/BCMain/iCtc1.UpdateContactPoint.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },

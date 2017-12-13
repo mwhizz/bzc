@@ -22,12 +22,10 @@ $(function(){
 
 function checkRememberMe() {
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/Sec1.LoginViaRememberMe.json",
+    url: "/Support/Sec1.LoginViaRememberMe.json",
     method: "POST",
     dataType: "json",
-    xhrFields: {
-      withCredentials: true
-    },
+    xhrFields: { withCredentials: true },
     data: {
       'data': JSON.stringify(''),
       'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
@@ -53,12 +51,10 @@ function login() {
   };
 
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/Sec1.Login.json",
+    url: "/Support/BCMain/Sec1.Login.json",
     method: "POST",
     dataType: "json",
-    xhrFields: {
-      withCredentials: true
-    },
+    xhrFields: { withCredentials: true },
     data: {
       'data': JSON.stringify(data),
       'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
@@ -79,12 +75,10 @@ function login() {
 function getLoginInfo(callout) {
   var getLoginInfo =
     $.ajax({
-      url: "https://portal.taksys.com.sg/Support/BCMain/Sec1.LoginInfo.json",
+      url: "/Support/BCMain/Sec1.LoginInfo.json",
       method: "POST",
       dataType: "json",
-      xhrFields: {
-        withCredentials: true
-      },
+      xhrFields: { withCredentials: true },
       data: {
         'data': {},
         'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
@@ -102,12 +96,10 @@ function getLoginInfo(callout) {
 
   var getOwnPersonID =
     $.ajax({
-      url: "https://portal.taksys.com.sg/Support/iCtc1.GetOwnPersonID.json",
+      url: "/Support/iCtc1.GetOwnPersonID.json",
       method: "POST",
       dataType: "json",
-      xhrFields: {
-        withCredentials: true
-      },
+      xhrFields: { withCredentials: true },
       data: {
         'data': {},
         'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',

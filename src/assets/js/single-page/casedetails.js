@@ -8,7 +8,7 @@ $(function(){
   var urlParams = new URLSearchParams(window.location.search),
       caseID = urlParams.get('caseID');
   if (caseID){
-    GetCaseDetails(caseID,'Full',loginID);
+    GetCaseDetails(caseID,'Full');
   }
 
   $('#attachments').hide();
@@ -32,15 +32,16 @@ $(function(){
 });
 
 //Get Case Details
-function GetCaseDetails(caseId, section, LoginID){
+function GetCaseDetails(caseId, section){
   if (section == ''){
     section = 'Full'
   }
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/FL1.GetCaseDetailsBySection.json",
+    url: "/Support/BCMain/FL1.GetCaseDetailsBySection.json",
     method: "POST",
     dataType: "json",
-    data: { 'data':JSON.stringify({'LoginID':LoginID,'Section':section,'FLID':caseId}),
+    xhrFields: {withCredentials: true},
+    data: { 'data':JSON.stringify({'Section':section,'FLID':caseId}),
             'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
             'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
     success: function(data){
@@ -205,7 +206,7 @@ function createNewLog(FLID, LoginID){
   var data = {'FLID':FLID, 'ActionType':ActionType, 'Status':Status, 'Details': Details,
               'Duration': Duration, 'Internal':Internal, 'LoginID':LoginID};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/FL1.InsertActivityLog.json",
+    url: "/Support/BCMain/FL1.InsertActivityLog.json",
     method: "POST",
     dataType: "json",
     data: { 'data':JSON.stringify(data),
@@ -215,8 +216,8 @@ function createNewLog(FLID, LoginID){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            GetCaseDetails(FLID,'Main',LoginID);
-            GetCaseDetails(FLID,'Log',LoginID);
+            GetCaseDetails(FLID,'Main');
+            GetCaseDetails(FLID,'Log');
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -236,7 +237,7 @@ function addInvolvement(FLID, LoginID){
 
   var data = {'FLID':FLID, 'RoleName':RoleName, 'RoleID':RoleID, 'Details': Details, 'LoginID':LoginID};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/FL1.AddInvolvement.json",
+    url: "/Support/BCMain/FL1.AddInvolvement.json",
     method: "POST",
     dataType: "json",
     data: { 'data':JSON.stringify(data),
@@ -246,8 +247,8 @@ function addInvolvement(FLID, LoginID){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            GetCaseDetails(FLID,'Involve',LoginID);
-            GetCaseDetails(FLID,'Log',LoginID);
+            GetCaseDetails(FLID,'Involve');
+            GetCaseDetails(FLID,'Log');
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -269,7 +270,7 @@ function reviewCase(FLID, LoginID){
   var data = {'FLID':FLID, 'Category':Category, 'ProposedManDays': ProposedManDays,
   'IntTargetEndDate': IntTargetEndDate,'TargetEndDate': TargetEndDate, 'LoginID':LoginID};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/FL1.ReviewCase.json",
+    url: "/Support/BCMain/FL1.ReviewCase.json",
     method: "POST",
     dataType: "json",
     data: { 'data':JSON.stringify(data),
@@ -279,7 +280,7 @@ function reviewCase(FLID, LoginID){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            GetCaseDetails(FLID,'Full',LoginID);
+            GetCaseDetails(FLID,'Full');
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -310,7 +311,7 @@ function convertDateTime(inputFormat, type) {
 function GetDropdownList(id, category) {
   var data = {'LookupCat': category}
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.Lookup_Get.json",
+    url: "/Support/BCMain/iCtc1.Lookup_Get.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},

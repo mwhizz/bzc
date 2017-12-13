@@ -9,19 +9,19 @@ $(function(){
   GetDropdownList('#caseAddForm #product', 'Product');
   GetDropdownList('#caseAddForm #system, #caseFilter #system', 'system');
 
-  getCasesList(loginID);
+  getCasesList();
 
   $('#caseFilter .tabBoxButtonSubmit').click(function(){
-    getCasesList(loginID);
+    getCasesList();
     return false;
   });
   $('#caseAddForm .newCaseSubmitButton').click(function(){
-    createNewCase(loginID);
+    createNewCase();
   });
 });
 
 //get case list
-function getCasesList(LoginID){
+function getCasesList(){
   var caseContainerTable = $('#caseContainer').find('table'),
       caseTbody = caseContainerTable.find('tbody');
 
@@ -38,10 +38,10 @@ function getCasesList(LoginID){
     MyCase = 1;
   }
 
-  var data = {'LoginID':LoginID,'System':System,'Module':Module,'Status':Status,'DateFrom':DateFrom,'DateTo':DateTo,'MyCase':MyCase};
+  var data = {'System':System,'Module':Module,'Status':Status,'DateFrom':DateFrom,'DateTo':DateTo,'MyCase':MyCase};
   caseTbody.html('');
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/FL1.GetCasesList.json",
+    url: "/Support/BCMain/FL1.GetCasesList.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -87,7 +87,7 @@ function getCasesList(LoginID){
 };
 
 //Create new case
-function createNewCase(LoginID){
+function createNewCase(){
   var Organization, Product, System, Module, Title, Details, CCEmails;
   Organization = $('#caseAddForm #organisation').val();
   Product = $('#caseAddForm #product').val();
@@ -99,7 +99,7 @@ function createNewCase(LoginID){
 
   var data = {'Organization':Organization, 'Product':Product, 'System':System, 'Module': Module, 'Title': Title, 'Details':Details, 'CCEmail':CCEmails, 'LoginID':LoginID};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/FL1.AddNewCase.json",
+    url: "/Support/BCMain/FL1.AddNewCase.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -110,7 +110,7 @@ function createNewCase(LoginID){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
           if (data.d.RetData.Tbl.Rows[0].Success == true) {
-            getCasesList(LoginID);
+            getCasesList();
           } else { alert(data.d.RetData.Tbl.Rows[0].ReturnMsg); }
         }
       }
@@ -146,7 +146,7 @@ function customCaseTable(){
 function GetDropdownList(id, category) {
   var data = {'LookupCat': category}
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.Lookup_Get.json",
+    url: "/Support/BCMain/iCtc1.Lookup_Get.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},

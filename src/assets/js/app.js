@@ -45,12 +45,10 @@ $(function(){
 
   $('#logOut').click(function() {
     $.ajax({
-      url: "https://portal.taksys.com.sg/Support/Sec1.Logout.json",
+      url: "/Support/Sec1.Logout.json",
       method: "POST",
       dataType: "json",
-      xhrFields: {
-        withCredentials: true
-      },
+      xhrFields: { withCredentials: true },
       data: {
         'data': {},
         'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
@@ -165,7 +163,7 @@ $(function(){
 function GetBasicInformation(personID) {
   var data = {'PersonID': personID};
   $.ajax({
-    url: "https://portal.taksys.com.sg/Support/BCMain/iCtc1.GetPersonalInfo.json",
+    url: "/Support/BCMain/iCtc1.GetPersonalInfo.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
