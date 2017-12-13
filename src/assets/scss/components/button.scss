@@ -1,5 +1,5 @@
-button, .button {
-	@include global-box($type: mobile);
+button, .button, [type="button"], [type="reset"], [type="submit"] {
+	@include global-box();
 	//background: $contrast-color1;
 	cursor: pointer;
   font-weight: bold;
@@ -102,7 +102,9 @@ button, .button {
 }
 
 @include breakpoint(medium) {
-	@include global-box();
+	button, .button {
+
+	}
 
 	.buttonType2 {
 		font-size: 1rem;
