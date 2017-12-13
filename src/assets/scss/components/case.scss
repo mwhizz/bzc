@@ -1,6 +1,6 @@
 
 .legend {
-	
+
 	h6 {
 		font-weight: bold;
 	}
@@ -36,8 +36,7 @@
 	}
 }
 
-table {
-  &.caseTable {
+table.caseTable {
     tr.completed {
       background: $complementary-dark-color2;
     }
@@ -45,6 +44,7 @@ table {
       text-align: center;
     }
     td:nth-child(1) {
+			min-width:5px;
 			padding: 0;
       width: 1%;
     }
@@ -52,5 +52,4 @@ table {
       text-align: left;
       width: 50%;
     }
-  }
 }
