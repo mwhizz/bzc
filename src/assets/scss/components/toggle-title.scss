@@ -4,13 +4,22 @@ section {
     border-bottom: 1px dashed $medium-gray;
     margin-bottom: $global-margin;
 
-    &.toggleTitle .button {
+    h2 {
+      align-self: flex-end;
+    }
+
+    button, .buttonType2 {
+      margin-bottom: 0.5rem;
+    }
+
+    &.toggleTitle button.toggleTitleButton {
       @include global-box('small');
-      @include position(absolute, $top: 5px, $right: 0);
+      @include position(absolute, $top: 0, $right: 0);
       background: $complementary-light-color1;
 
       cursor: pointer;
       height: 30px;
+      //margin-bottom: 0;
       width: 30px;
 
       &:hover {
@@ -22,7 +31,7 @@ section {
         @include css-triangle($triangle-size: 8px, $triangle-color: $dark-gray, $triangle-direction:'up');
       }
     }
-    &.toggleTitle .button.toggleOpen {
+    &.toggleTitle button.toggleTitleButton.toggleOpen {
 
         &:before {
           @include css-triangle($triangle-size: 8px, $triangle-color: $dark-gray, $triangle-direction:'down');
@@ -33,5 +42,11 @@ section {
 }
 
 @include breakpoint(medium) {
-
+  section {
+    & > header {
+      button, .buttonType2 {
+        margin-bottom: $global-margin*0.5;
+      }
+    }
+  }
 }
