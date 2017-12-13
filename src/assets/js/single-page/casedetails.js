@@ -80,6 +80,7 @@ function GetCaseDetails(caseId, section){
               $('.targetEndDate').html(tarEndDate);
               $('.intTargetEndDate').html(intTarEndDate);
               if (Permission!=4 && Permission!=3){
+                $('.internalCheckBox').hide();
                 $('.involvemetAdd').hide();
                 $('.orgData').hide();
                 $('.intTargetEndDate, .intTargetEndDateLbl').hide();
