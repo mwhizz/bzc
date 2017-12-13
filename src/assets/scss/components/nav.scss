@@ -1,6 +1,7 @@
 nav {
   text-transform: uppercase;
 
+  //menu links
   a {
     color: $dark-gray;
     &:hover {
@@ -23,7 +24,7 @@ nav {
         border-top: none;
       }
     }
-
+      //submenu links
       a {
         color: $complementary-light-color1;
         text-transform: none;

@@ -1,5 +1,5 @@
 button, .button {
-	@include global-box(small);
+	@include global-box();
 	//background: $contrast-color1;
 	cursor: pointer;
   font-weight: bold;
