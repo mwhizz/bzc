@@ -75,14 +75,26 @@ $(function(){
   $('.tabBoxButtonClose,.tabBoxButtonSubmit').click(function(){
     var targetRef = $(this).parents('.tabBoxContent');
     $(targetRef).hide();
+    var targetRefId = targetRef.prop('id');
+
+
+    $('.tabBoxButton').filter(
+        function() {
+          return $(this).data('target')==targetRefId;
+        }).removeClass('tabBoxButtonOpen');
+    //console.log('hiude');
     return false;
   });
   $('.tabBoxButton').click(function(){
     var targetRef = $(this).data('target');
     if (  $('#'+targetRef).is(':visible')){
       $('#'+targetRef).hide();
+      $(this).removeClass('tabBoxButtonOpen');
+      console.log('hiude');
     }else{
       $('#'+targetRef).show();
+      $(this).addClass('tabBoxButtonOpen');
+      console.log('add');
     }
     return false;
   });
