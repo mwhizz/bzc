@@ -28,7 +28,7 @@
   margin-bottom: 0;
 
   .menu-icon {
-		@include border-radius(3px);
+		@include border-radius($global-border-radius);
     background-color: $complementary-dark-color3;
     height: 30px;
     margin-right: 0.8rem;
