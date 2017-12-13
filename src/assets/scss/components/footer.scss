@@ -1,0 +1,30 @@
+#footer {
+  border-top: 1px solid $complementary-light-color2;
+
+	.inner {
+		background: $white;
+    font-size: $small-font-size;
+		padding: $global-mobile-padding;
+	}
+
+	a {
+		color: $black;
+    display: block;
+		margin: 10px;
+		&:hover {
+			color: $dark-gray;
+		}
+	}
+}
+
+@include breakpoint(medium) {
+  #footer {
+    .inner {
+      padding: $global-edge-padding;
+    }
+    a {
+      display: inline;
+    }
+  }
+
+}

@@ -31,23 +31,7 @@ body {
 	}
 }
 
-#footer {
-  border-top: 1px solid $complementary-dark-color1;
 
-	.inner {
-		background: $white;
-
-		padding: $global-edge-padding;
-	}
-
-	a {
-		color: $black;
-		margin: 10px;
-		&:hover {
-			color: $dark-gray;
-		}
-	}
-}
 
 .contentContainer {
   & > header {
@@ -95,4 +79,5 @@ h4 small, {
   #mainContent {
     //height: 100%;
   }
+
 }
