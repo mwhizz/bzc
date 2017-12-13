@@ -1,5 +1,5 @@
 button, .button, [type="button"], [type="reset"], [type="submit"] {
-	@include global-box();
+	@include global-box($type:'mobile');
 	//background: $contrast-color1;
 	cursor: pointer;
   font-weight: bold;
@@ -26,7 +26,7 @@ button, .button, [type="button"], [type="reset"], [type="submit"] {
   color: $black;
 	font-size: 0.8rem;
 	padding: 0;
-	padding-top: 0.7rem;
+	//padding-top: 0.7rem;
 	margin-bottom: $global-margin;
 
 	&:hover {
@@ -41,15 +41,13 @@ button, .button, [type="button"], [type="reset"], [type="submit"] {
 	&.left:before,
 	&:after {
 		//@include position(absolute,$top:0, $right: 0);
-		@include global-box();
+		@include global-box($type: 'mobile',$margin-top: -0.7rem,
+		$margin-left: 0.8rem,$margin-bottom: 0);
 		background-color: $contrast-color1;
 		color: $white;
 		content: '';
 		display: inline-block;
 		height: 40px;
-		margin-top: -0.7rem;
-		margin-left: 0.8rem;
-		margin-bottom: 0;
 		width:40px;
 		vertical-align: middle;
 
@@ -88,7 +86,7 @@ button, .button, [type="button"], [type="reset"], [type="submit"] {
 	}
 }
 
-&.close-button {
+.close-button {
   background: none;
   margin-bottom: 0;
   &:hover {
@@ -100,13 +98,31 @@ button, .button, [type="button"], [type="reset"], [type="submit"] {
     color: $medium-gray;
 	}
 }
+.lightBg {
+	.close-button {
+	  color: $complementary-dark-color3;
+	  &:hover {
+	    color: $medium-gray;
+	  }
+		&:active {
+	    color: $medium-gray;
+		}
+	}
+}
 
 @include breakpoint(medium) {
 	button, .button {
+			@include global-box();
 
 	}
 
 	.buttonType2 {
 		font-size: 1rem;
+		&.left:before,
+		&:after {
+			//@include position(absolute,$top:0, $right: 0);
+			@include global-box($margin-top: -0.7rem,
+			$margin-left: 0.8rem,$margin-bottom: 0);
+		}
 	}
 }
