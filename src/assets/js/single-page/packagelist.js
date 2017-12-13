@@ -138,7 +138,7 @@ function getCurrentPackageList(){
             }
             htmlString +=	'</div>'
             if (packages[i].ManDaysLeft > 0) {
-              htmlString += '<div class="manDays cell small-4"> <div class="grid-y" style="height: 60px;"> <div class="cell small-9"><b>'+packages[i].ManDaysLeft+'</b>/<span class="totalDays">'+packages[i].BoughtManDays+'</span></div> <small class="cell small-3">Man-day(s)</small> </div> </div>'
+              htmlString += '<div class="manDays cell small-5"> <div class="grid-y" style="height: 60px;"> <div class="cell small-9"><b>'+packages[i].ManDaysLeft+'</b>/<span class="totalDays">'+packages[i].BoughtManDays+'</span></div> <small class="cell small-3">Man-day(s)</small> </div> </div>'
             }
             htmlString += '</div><!--card-divider--> <div class="card-section"> <div class="packageType">'+packages[i].Type+'</div> <div class="expiring">Expiring: <i>'+date+'</i></div> </div> </div> </div>'
           }
