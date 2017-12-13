@@ -1,10 +1,16 @@
 #profile {
-  padding: 2rem 0;
+  padding: $global-mobile-padding 0;
 
   .profileName {
     font-size: 1.25rem;
   }
   .organisation {
     font-size: 1.25rem;
+  }
+}
+
+@include breakpoint(medium) {
+  #profile {
+    padding: 2rem 0;
   }
 }
