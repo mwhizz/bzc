@@ -97,7 +97,7 @@ function createNewCase(){
   Details = $('#description').val();
   CCEmails = $('#cc').val();
 
-  var data = {'Organization':Organization, 'Product':Product, 'System':System, 'Module': Module, 'Title': Title, 'Details':Details, 'CCEmail':CCEmails, 'LoginID':LoginID};
+  var data = {'Organization':Organization, 'Product':Product, 'System':System, 'Module': Module, 'Title': Title, 'Details':Details, 'CCEmail':CCEmails};
   $.ajax({
     url: "/Support/BCMain/FL1.AddNewCase.json",
     method: "POST",
