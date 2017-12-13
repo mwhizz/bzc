@@ -11,7 +11,7 @@
     z-index: 2;
 
     &.tabBoxButtonOpen {
-      @include border-radius($top-right:8px, $top-left: 8px,$bottom-right:0px, $bottom-left: 0px);
+      @include border-radius($top-right:$global-mobile-radius, $top-left:$global-mobile-radius,$bottom-right:0px, $bottom-left: 0px);
     }
   }
   .tabBoxContent {
@@ -28,5 +28,15 @@
     color: $complementary-light-color1;
     right: 0;
     top: 0;
+  }
+}
+
+@include breakpoint(medium) {
+  .tabBoxContainer {
+    .tabBoxButton {
+      &.tabBoxButtonOpen {
+        @include border-radius($top-right:$global-radius, $top-left: $global-radius,$bottom-right:0px, $bottom-left: 0px);
+      }
+    }
   }
 }
