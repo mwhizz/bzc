@@ -48,7 +48,7 @@ function addNewPackage(){
   StartDate = $('#packageAddForm #packageStartDate').val();
   ExpiryDate = $('#packageAddForm #packageExpiryDate').val();
 
-  var data = {'RoleID':RoleID, 'Type':Type, 'Product':Product, 'System': System, 'BoughtManDays': BoughtManDays, 'StartDate':StartDate, 'ExpiryDate':ExpiryDate, 'LoginID':LoginID};
+  var data = {'RoleID':RoleID, 'Type':Type, 'Product':Product, 'System': System, 'BoughtManDays': BoughtManDays, 'StartDate':StartDate, 'ExpiryDate':ExpiryDate};
   $.ajax({
     url: "/Support/BCMain/Ctc1.AddNewPackage.json",
     method: "POST",
