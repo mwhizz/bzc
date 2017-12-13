@@ -18,19 +18,19 @@
 }
 
 .title-bar {
-  @include global-box();
+  @include global-box($border-radius: 0);
   -webkit-box-shadow: 0 1px 4px 0 $black;
 	box-shadow: 0 1px 4px 0 $black;
 
-  @include border-radius(0);
   background: $complementary-light-color1;
   color: inherit;
   margin-bottom: 0;
 
   .menu-icon {
-		@include border-radius($global-border-radius);
+		//@include border-radius();
     background-color: $complementary-dark-color3;
     height: 30px;
+		margin-left: 0;
     margin-right: 0.8rem;
 		width: 30px;
 

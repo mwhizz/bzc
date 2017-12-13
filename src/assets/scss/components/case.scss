@@ -14,7 +14,7 @@
 		margin-right: $global-margin*0.5;
 
 		&:before {
-			@include global-box('small');
+			@include global-box($type: 'small');
 			background: $complementary-dark-color2;
 			content: '';
 			display:inline-block;

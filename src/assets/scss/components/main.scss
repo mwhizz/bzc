@@ -44,7 +44,7 @@ body {
 }
 
 .boxModel {
-	@include global-box;
+	@include global-box();
 }
 
 .calloutInline {

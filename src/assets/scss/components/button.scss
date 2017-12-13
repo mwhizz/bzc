@@ -1,5 +1,5 @@
 button, .button {
-	@include global-box();
+	@include global-box($type: mobile);
 	//background: $contrast-color1;
 	cursor: pointer;
   font-weight: bold;
@@ -18,8 +18,7 @@ button, .button {
 
 }
 
-
-
+//label is outside the button
 .buttonType2 {
 	//@include position(relative);
 	background: none;
@@ -42,7 +41,7 @@ button, .button {
 	&.left:before,
 	&:after {
 		//@include position(absolute,$top:0, $right: 0);
-		@include global-box;
+		@include global-box();
 		background-color: $contrast-color1;
 		color: $white;
 		content: '';
@@ -103,6 +102,8 @@ button, .button {
 }
 
 @include breakpoint(medium) {
+	@include global-box();
+
 	.buttonType2 {
 		font-size: 1rem;
 	}
