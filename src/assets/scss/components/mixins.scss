@@ -41,22 +41,26 @@
   $padding-right: $global-padding,
   $padding-bottom: $global-padding,
   $padding-left: $global-padding,
-  $margin-top: $global-margin,
-  $margin-right: $global-margin,
+  $margin-top: 0,
+  $margin-right: 0,
   $margin-bottom: $global-margin,
-  $margin-left: $global-margin,
+  $margin-left: 0,
   $border-radius: $global-radius
   ) {
 
     $factor: 1;
   @if ($type == 'small') {
-    $factor: 5;
+    $factor: 0.5;
   }
   @if ($type == 'mobile') {
-    $factor: 2;
+    $factor: 0.5;
   }
 
-  @include border-radius($radius: $global-radius * $factor);
+  @if ($border-radius == $global-radius) {
+    $border-radius: $global-radius * $factor
+  }
+
+  @include border-radius($radius: $border-radius);
 
   @if ($padding-top == $global-padding) {
     $padding-top: $global-padding * $factor;
@@ -72,16 +76,16 @@
   }
   padding: $padding-top $padding-right $padding-bottom $padding-left;
 
-  @if ($margin-top == $global-margin) {
+  @if ($margin-top > 0) {
     $margin-top: $global-margin * $factor;
   }
-  @if ($margin-right == $global-margin) {
+  @if ($margin-right > 0) {
     $margin-right: $global-margin * $factor;
   }
   @if ($margin-bottom == $global-margin) {
     $margin-bottom: $global-margin * $factor;
   }
-  @if ($margin-left == $global-margin) {
+  @if ($margin-left > 0) {
     $margin-left: $global-margin * $factor;
   }
 
