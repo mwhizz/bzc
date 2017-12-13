@@ -12,8 +12,14 @@
 	overflow-x: hidden;
 }
 
-@mixin border-radius($radius: 8px, $bottom-left: -1, $bottom-right: -1, $top-left: -1, $top-right: -1) {
-  @if ($top-left >= 0 and $top-right >= 0 and $bottom-left >= 0 and $bottom-right >= 0) {
+@mixin border-radius(
+  $radius: $global-radius,
+  $bottom-left: $global-radius,
+  $bottom-right: $global-radius,
+  $top-left: $global-radius,
+  $top-right: $global-radius
+) {
+  @if ($radius != $global-radius) {
     -webkit-border-radius: $top-left;
     -webkit-border-radius: $top-right;
     -webkit-border-radius: $bottom-left;
@@ -29,17 +35,39 @@
   }
 }
 
-@mixin global-box($type: null) {
+@mixin global-box(
+  $type: null,
+  $padding-top: $global-padding,
+  $padding-right: $global-padding,
+  $padding-bottom: $global-padding,
+  $padding-left: $global-padding,
+  $margin-top: $global-margin,
+  $margin-right: $global-margin,
+  $margin-bottom: $global-margin,
+  $margin-left: $global-margin
+  $border-radius: 8px
+  ) {
+
   $factor: 1;
 
   @if ($type == 'small') {
     $factor: 0.5;
   }
-    -webkit-border-radius: 8px*$factor;
-    border-radius: 8px*$factor;
-    margin-bottom: $global-margin*$factor;
-    padding: 0.8rem*$factor $global-padding*$factor 0.8rem*$factor;
+  @if ($type == 'mobile') {
+    $factor: 0.5;
+  }
 
+  @include border-radius($radius: $border-radius * $factor)
+
+  $padding-top: $global-padding * $factor;
+  $padding-right: $global-padding * $factor;
+  $padding-bottom: $global-padding * $factor;
+  $padding-left: $global-padding * $factor;
+
+  $margin-top: $global-margin * $factor;
+  $margin-right: $global-margin * $factor;
+  $margin-bottom: $global-margin * $factor;
+  $margin-left: $global-margin * $factor;
 }
 
 @mixin global-tag() {
