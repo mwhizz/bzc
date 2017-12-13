@@ -106,10 +106,9 @@ $(function(){
   });
 
   //toggleTitle
-  var toggleTitleButton = $('<div class="button"></div>');
+  var toggleTitleButton = $('<button class="toggleTitleButton"></button>');
   $('.toggleTitle').append(toggleTitleButton);
-  $('.toggleTitle').find('.button').click(function() {
-    console.log('t');
+  $('.toggleTitle').find('.toggleTitleButton').click(function() {
     var toggleObj = $(this);
     var toggleBox = toggleObj.parents('.toggleBox');
     var toggleContent = toggleBox.find('.toggleContent');
