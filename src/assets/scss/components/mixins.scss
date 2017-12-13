@@ -19,11 +19,11 @@
   $top-left: $global-radius,
   $top-right: $global-radius
 ) {
-  @if ($radius != $global-radius) {
-    -webkit-border-radius: $top-left;
-    -webkit-border-radius: $top-right;
-    -webkit-border-radius: $bottom-left;
-    -webkit-border-radius: $bottom-right;
+  @if ($radius == $global-radius) {
+    -webkit-border-top-left-radius: $top-left;
+    -webkit-border-top-right-radius: $top-right;
+    -webkit-border-bottom-left-radius: $bottom-left;
+    -webkit-border-bottom-right-radius: $bottom-right;
     border-top-left-radius: $top-left;
     border-top-right-radius: $top-right;
     border-bottom-left-radius: $bottom-left;
@@ -44,30 +44,48 @@
   $margin-top: $global-margin,
   $margin-right: $global-margin,
   $margin-bottom: $global-margin,
-  $margin-left: $global-margin
-  $border-radius: 8px
+  $margin-left: $global-margin,
+  $border-radius: $global-radius
   ) {
 
-  $factor: 1;
-
+    $factor: 1;
   @if ($type == 'small') {
-    $factor: 0.5;
+    $factor: 5;
   }
   @if ($type == 'mobile') {
-    $factor: 0.5;
+    $factor: 2;
   }
 
-  @include border-radius($radius: $border-radius * $factor)
+  @include border-radius($radius: $global-radius * $factor);
 
-  $padding-top: $global-padding * $factor;
-  $padding-right: $global-padding * $factor;
-  $padding-bottom: $global-padding * $factor;
-  $padding-left: $global-padding * $factor;
+  @if ($padding-top == $global-padding) {
+    $padding-top: $global-padding * $factor;
+  }
+  @if ($padding-right == $global-padding) {
+    $padding-right: $global-padding * $factor;
+  }
+  @if ($padding-bottom == $global-padding) {
+    $padding-bottom: $global-padding * $factor;
+  }
+  @if ($padding-left == $global-padding) {
+    $padding-left: $global-padding * $factor;
+  }
+  padding: $padding-top $padding-right $padding-bottom $padding-left;
 
-  $margin-top: $global-margin * $factor;
-  $margin-right: $global-margin * $factor;
-  $margin-bottom: $global-margin * $factor;
-  $margin-left: $global-margin * $factor;
+  @if ($margin-top == $global-margin) {
+    $margin-top: $global-margin * $factor;
+  }
+  @if ($margin-right == $global-margin) {
+    $margin-right: $global-margin * $factor;
+  }
+  @if ($margin-bottom == $global-margin) {
+    $margin-bottom: $global-margin * $factor;
+  }
+  @if ($margin-left == $global-margin) {
+    $margin-left: $global-margin * $factor;
+  }
+
+  margin: $margin-top $margin-right $margin-bottom $margin-left;
 }
 
 @mixin global-tag() {
