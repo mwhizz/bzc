@@ -48,11 +48,16 @@
   $border-radius: $global-radius
   ) {
 
-    $factor: 1;
-  @if ($type == 'small') {
-    $factor: 0.5;
-  }
+
+  $factor: 1;
+
   @if ($type == 'mobile') {
+    //$factor: 0.5;
+    @if ($border-radius == $global-radius) {
+      $border-radius: $global-mobile-radius;
+    }
+  }
+  @if ($type == 'small') {
     $factor: 0.5;
   }
 
