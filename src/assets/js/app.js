@@ -36,7 +36,7 @@ $(function(){
     }
     appCookie.redirectPage = (pageURL != '') ? pageURL : 'index.html';
     Cookies.set('appCookie', appCookie);
-    window.location.href = 'login.html';
+    window.location.href = '/Support/login.html';
   }
 
   if(appCookie.loginID){

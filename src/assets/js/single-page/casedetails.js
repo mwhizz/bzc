@@ -57,7 +57,7 @@ function GetCaseDetails(caseId, section){
                 caseAttachmentsContainer = '';
             $('.threadLog').html('');$('.threadTask').html('');$('.attachments').html('');
             if(data.d.RetData.Tbls[4].Rows.length >0){
-              var url = 'https://portal.taksys.com.sg/Support' + data.d.RetData.Tbls[4].Rows[0].FolderPath;
+              var url = '/Support' + data.d.RetData.Tbls[4].Rows[0].FolderPath;
               $('#attachments').attr('src', url);
             }
             for (var i=0; i<caseDetails.length; i++ ){
@@ -93,7 +93,7 @@ function GetCaseDetails(caseId, section){
               }
             }
             for (var i=0; i<caseAttachments.length; i++ ){
-              caseAttachmentsContainer += '<img width="10%" height="10%" src="https://portal.taksys.com.sg/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
+              caseAttachmentsContainer += '<img width="10%" height="10%" src="/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
             }
             for (var i=0; i<caseLogs.length; i++ ){
               var date = convertDateTime(caseLogs[i].LogCreatedDate,'date');
@@ -181,7 +181,7 @@ function GetCaseDetails(caseId, section){
             var caseAttachments = data.d.RetData.Tbl.Rows;
             var caseAttachmentsContainer = '';;$('.attachments').html('');
             for (var i=0; i<caseAttachments.length; i++ ){
-              caseAttachmentsContainer += '<img width="10%" height="10%" src="https://portal.taksys.com.sg/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
+              caseAttachmentsContainer += '<img width="10%" height="10%" src="/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
             }
             $('.attachments').html(caseAttachmentsContainer);
           }
