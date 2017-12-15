@@ -171,22 +171,28 @@ function GetBasicInformation(personID) {
       'data': JSON.stringify(data),
       'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
       'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
-    }
-  }).done(function(data) {
-    if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
-      $('.profileName').html(data.d.RetData.Tbl.Rows[0].DisplayName);
-      if (data.d.RetData.Tbl.Rows[0].EntityType == 'I'){
-        $('#navPackages').show();
-        $('#navReport').show();
-        $('#navSettings').show();
-        $('#packages').hide();
-      }else{
-        $('#caseFilter .orgCell').hide();
-        $('#caseFilter #statusMyCase, #caseFilter .mycase').hide();
+    },
+    success: function(data){
+      if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
+        $('.profileName').html(data.d.RetData.Tbl.Rows[0].DisplayName);
+        if (data.d.RetData.Tbl.Rows[0].EntityType == 'I'){
+          $('#navPackages').show();
+          $('#navReport').show();
+          $('#navSettings').show();
+          $('#packages').hide();
+        }else{
+          $('#caseFilter .orgCell').hide();
+          $('#caseFilter #statusMyCase, #caseFilter .mycase').hide();
+        }
       }
+    },
+    error: function(XMLHttpRequest, data, errorThrown){
+      Cookies.remove('appCookie');
+      document.location.reload();
     }
-  });
+  })
 }
+
 
 function getPageName() {
   var pageName = $('body').attr('id').replace('page-','');
