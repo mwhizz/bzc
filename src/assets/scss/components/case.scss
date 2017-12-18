@@ -53,3 +53,27 @@ table.caseTable {
       width: 50%;
     }
 }
+
+#summary {
+	.cell {
+		margin-bottom: 1rem;
+	}
+	b {
+		color: $complementary-dark-color2;
+		display: block;
+		font-size: $small-font-size;
+		margin-right: 0.8rem;
+	}
+	span {
+		display: block;
+		min-height: 1rem;
+	}
+}
+
+@include breakpoint(medium) {
+	#summary {
+		b,span {
+			display: inline;
+		}
+	}
+};
