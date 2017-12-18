@@ -7,14 +7,14 @@
 
 #header {
 	//@include position(absolute, $top: 0, $left: 0, $right: 0);
-
-  -webkit-box-shadow: 0 1px 4px 0 $black;
+	-webkit-box-shadow: 0 1px 4px 0 $black;
   box-shadow: 0 1px 4px 0 $black;
   background: $complementary-light-color1;
   border-bottom: 5px solid $complementary-dark-color3;
 
 	position: relative;
 	z-index: 1;
+
 }
 
 .title-bar {
@@ -44,6 +44,10 @@
       top:10px;
     }
   }
+}
+
+#mainMenu {
+
 }
 
 #mainMenuLeft {

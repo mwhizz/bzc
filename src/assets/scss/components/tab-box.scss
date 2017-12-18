@@ -6,7 +6,7 @@
 
   .tabBoxButton {
     //@include border-radius($radius: $global-radius);
-        align-self: flex-end;
+    align-self: flex-end;
     margin-bottom: 0px;
     z-index: 2;
 
@@ -19,7 +19,7 @@
     //display: none;
     //padding-top: 49px;
     @include border-radius($top-right:8px, $top-left: 0,$bottom-right:8px, $bottom-left: 8px);
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem 1.5rem;
     top: 0;
     width: 100%;
     z-index: 1;
