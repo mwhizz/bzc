@@ -9,7 +9,7 @@
 @mixin scrollY($height: 300px) {
 	height: $height;
 	overflow-y: scroll;
-	overflow-x: hidden;
+	//overflow-x: hidden;
 }
 
 @mixin border-radius(
