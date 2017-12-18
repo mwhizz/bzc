@@ -52,6 +52,9 @@ form,.form {
   }
 
   .screenshots {
+    min-height: 200px;
+    width: 100%;
+
   	img {
   		@include position(relative);
   		border: 1px solid $complementary-dark-color3;
