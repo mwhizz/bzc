@@ -10,7 +10,7 @@
 	a {
 		color: $black;
     display: block;
-		margin: 10px;
+		margin: 0px;
 		&:hover {
 			color: $dark-gray;
 		}
@@ -24,6 +24,7 @@
     }
     a {
       display: inline;
+      margin: 0 10px 0 0;
     }
   }
 
