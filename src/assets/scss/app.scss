@@ -55,6 +55,8 @@
 @import 'components/mixins';
 @import 'components/main';
 @import 'components/fonts';
+@import 'components/header';
+@import 'components/footer';
 @import 'components/nav';
 @import 'components/table';
 @import 'components/form';
@@ -66,3 +68,5 @@
 @import 'components/profile';
 @import 'components/packages';
 @import 'components/case';
+
+@import 'components/login';

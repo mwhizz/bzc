@@ -9,15 +9,21 @@
 @mixin scrollY($height: 300px) {
 	height: $height;
 	overflow-y: scroll;
-	overflow-x: hidden;
+	//overflow-x: hidden;
 }
 
-@mixin border-radius($radius: 8px, $bottom-left: -1, $bottom-right: -1, $top-left: -1, $top-right: -1) {
-  @if ($top-left >= 0 and $top-right >= 0 and $bottom-left >= 0 and $bottom-right >= 0) {
-    -webkit-border-radius: $top-left;
-    -webkit-border-radius: $top-right;
-    -webkit-border-radius: $bottom-left;
-    -webkit-border-radius: $bottom-right;
+@mixin border-radius(
+  $radius: $global-radius,
+  $bottom-left: $global-radius,
+  $bottom-right: $global-radius,
+  $top-left: $global-radius,
+  $top-right: $global-radius
+) {
+  @if ($radius == $global-radius) {
+    -webkit-border-top-left-radius: $top-left;
+    -webkit-border-top-right-radius: $top-right;
+    -webkit-border-bottom-left-radius: $bottom-left;
+    -webkit-border-bottom-right-radius: $bottom-right;
     border-top-left-radius: $top-left;
     border-top-right-radius: $top-right;
     border-bottom-left-radius: $bottom-left;
@@ -29,17 +35,66 @@
   }
 }
 
-@mixin global-box($type: null) {
+@mixin global-box(
+  $type: null,
+  $padding-top: $global-padding,
+  $padding-right: $global-padding,
+  $padding-bottom: $global-padding,
+  $padding-left: $global-padding,
+  $margin-top: 0,
+  $margin-right: 0,
+  $margin-bottom: $global-margin,
+  $margin-left: 0,
+  $border-radius: $global-radius
+  ) {
+
+
   $factor: 1;
 
+  @if ($type == 'mobile') {
+    //$factor: 0.5;
+    @if ($border-radius == $global-radius) {
+      $border-radius: $global-mobile-radius;
+    }
+  }
   @if ($type == 'small') {
     $factor: 0.5;
   }
-    -webkit-border-radius: 8px*$factor;
-    border-radius: 8px*$factor;
-    margin-bottom: $global-margin*$factor;
-    padding: 0.8rem*$factor $global-padding*$factor 0.8rem*$factor;
 
+  @if ($border-radius == $global-radius) {
+    $border-radius: $global-radius * $factor
+  }
+
+  @include border-radius($radius: $border-radius);
+
+  @if ($padding-top == $global-padding) {
+    $padding-top: $global-padding * $factor;
+  }
+  @if ($padding-right == $global-padding) {
+    $padding-right: $global-padding * $factor;
+  }
+  @if ($padding-bottom == $global-padding) {
+    $padding-bottom: $global-padding * $factor;
+  }
+  @if ($padding-left == $global-padding) {
+    $padding-left: $global-padding * $factor;
+  }
+  padding: $padding-top $padding-right $padding-bottom $padding-left;
+
+  @if ($margin-top > 0) {
+    $margin-top: $global-margin * $factor;
+  }
+  @if ($margin-right > 0) {
+    $margin-right: $global-margin * $factor;
+  }
+  @if ($margin-bottom == $global-margin) {
+    $margin-bottom: $global-margin * $factor;
+  }
+  @if ($margin-left > 0) {
+    $margin-left: $global-margin * $factor;
+  }
+
+  margin: $margin-top $margin-right $margin-bottom $margin-left;
 }
 
 @mixin global-tag() {
@@ -63,4 +118,10 @@
     display: inline-block;
     list-style: none;
   }
+}
+
+@mixin activeDropDown {
+  @include border-radius($radius: 10px);
+  background: darken($complementary-light-color1,2);
+  color: $dark-gray;
 }

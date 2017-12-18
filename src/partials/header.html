@@ -1,5 +1,10 @@
-<header id="header" class="">
-  <div class="grid-container top-bar">
+<header id="header">
+  <div class="title-bar" data-responsive-toggle="mainMenu"  data-hide-for="medium">
+    <button class="menu-icon" type="button" data-open="mainMenuLeft"></button>
+    <div class="title-bar-title">Bizcube Ticketing</div>
+  </div>
+<div>
+  <div id="mainMenu" class="grid-container top-bar" >
     <div class="top-bar-left">
       <a href="/Support/index.html" id="bizcubeTicketing">Bizcube Ticketing</a>
     </div>
@@ -18,5 +23,26 @@
       </ul>
     </nav>
   </div>
+</div>
+<div id="mainMenuLeft" class="off-canvas position-left" data-off-canvas>
+
+    <button class="close-button" aria-label="Close menu" type="button" data-close>
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <nav>
+      <ul class="menu vertical accordion-menu" data-accordion-menu>
+        <li id="navPackages"><a href="/Support/Ticketing/packages.html"><i class="icon"><img src="/assets/img/icon-mid-packages.png" /></i> Prdocuts</a></li>
+        <li style="display:none"id="navReport"><a href="#"><i class="icon"><img src="/assets/img/icon-mid-reports.png" /></i> Reports</a></li>
+        <li id="navUser"><a href="#"><i class="icon"><img src="/assets/img/icon-mid-user.png" /></i> User</a>
+          <ul class="menu vertical nested">
+            <li><a href="/Support/Ticketing/profile.html">Profile</a>
+            <li><a href="/Support/Ticketing/changeMyPwd.html">Change Password</a>
+            <li><a href="#" id="logOut">Logout</a>
+          </ul>
+        </li>
+        <li id="navSettings"><a href="#"><i class="icon"><img src="/assets/img/icon-mid-settings.png" /></i> Settings</a></li>
+      </ul>
+    </nav>
+</div>
 </header>
 <!-- header end -->

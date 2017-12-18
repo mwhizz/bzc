@@ -5,62 +5,35 @@ body {
 
 #main {
 	background: $light-gray;
-	@include position(relative);
+	//@include position(relative);
+  //height: 100%;
 }
 
 .page-noframe {
-
 	#main {
-		height: 100%;
 
 	}
 	#mainContent {
-		height: 100%;
+
+    padding-top: 1rem;
 		//padding-top: $global-margin;
 	}
 }
 
-
-#bizcubeTicketing {
-	color: $dark-gray;
-	font-weight: bold;
-	font-size: 22px;
-	text-transform: uppercase;
-}
-
-#header {
-	-webkit-box-shadow: 0 1px 4px 0 $black;
-	box-shadow: 0 1px 4px 0 $black;
-
-	background: $complementary-light-color1;
-	border-bottom: 5px solid $complementary-dark-color3;
-	@include position(absolute, $top: 0, $left: 0, $right: 0);
-}
-
 #mainContent {
 	background: $white;
+  min-height: 400px;
 	padding: $global-padding $global-edge-padding;
-	padding-top: 8rem;
+	//padding-top: 8rem;
+  header.titleMain {
+
+    border-bottom: none;
+    margin-bottom: 1.5rem;
+
+  }
 
 	section {
-		margin-bottom: $global-section-margin;
-	}
-}
-
-#footer {
-	border-top: 1px solid $complementary-dark-color1;
-
-	.inner {
-		background: $white;
-		padding: $global-edge-padding;
-	}
-
-	a {
-		color: $black;
-		margin: 10px;
-		&:hover {
-			color: $dark-gray;
-		}
+		margin-bottom: $global-mobile-margin;
 	}
 }
 
@@ -71,21 +44,13 @@ body {
 	}
 }
 
-h1 small,
-h2 small,
-h3 small,
-h4 small, {
-	font-size: 1rem;
-	text-transform: none;
-}
-
 .icon img {
 	margin-right: 0.5rem;
 	vertical-align: middle;
 }
 
 .boxModel {
-	@include global-box;
+	@include global-box();
 }
 
 .calloutInline {
@@ -104,4 +69,26 @@ h4 small, {
 			margin-right: 0.5em;
 		}
 	}
+}
+
+.boxContent {
+  @include global-box($padding-top: 0,$padding-left:0, $padding-right: 0, $padding-bottom: 0, $margin-bottom: 1.5rem);
+}
+
+.attachments {
+  @include global-box();
+  background: $light-gray;
+  margin-bottom: $global-margin;
+  min-height: 100px;
+
+}
+
+@include breakpoint(medium) {
+  #mainContent {
+    //height: 100%;
+    //min-height: 300px;
+    section {
+  		margin-bottom: $global-section-margin;
+  	}
+  }
 }

@@ -1,8 +1,12 @@
 <section id="packageContainer">
+  <div class="boxContent">
+    <button type="button" class="buttonType2 buttonType2Add left show-for-small-only"  data-open="packageAddForm">New Product</button>
+  </div>
   <header class="grid-x">
     <h2 class="cell auto">Product(s)</h2>
-    <button type="button" class="buttonType2 buttonType2Add cell medium-3 text-right"  data-open="packageAddForm">New Product</button>
+    <button type="button" class="buttonType2 buttonType2Add cell medium-3 text-right show-for-medium"  data-open="packageAddForm">New Product</button>
   </header>
+
   <div id='packageFilter' class="packageFilter tabBoxContainer">
     <button class="button button3 tabBoxButton" data-target="packageFilterForm" ><i class="icon"><img src="/Support/assets/img/icon-light-filter.png" alt="icon"/></i>Filter</button>
     <form class="form2 tabBoxContent reveal" id="packageFilterForm">
@@ -54,28 +58,30 @@
         </footer>
     </form> <!-- form end -->
   </div><!-- filter end -->
-  <div class="scrollContainer scrollYPackages">
-    <table class="packageTable">
-      <thead>
-        <tr>
-          <th>Organization</th>
-          <th>Man Days</th>
-          <th>Product</th>
-          <th>System</th>
-          <th>Start Date</th>
-          <th>Expiry Date</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-  </div><!-- scroll container end -->
+
+    <div class="scrollContainer scrollYPackages">
+      <table class="packageTable">
+        <thead>
+          <tr>
+            <th>Organization</th>
+            <th>Man Days</th>
+            <th>Product</th>
+            <th>System</th>
+            <th>Start Date</th>
+            <th>Expiry Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div><!-- scroll container end -->
+
 </section><!-- packagaeContainer end -->
 
 
-<form id="packageAddForm" class="reveal medium" data-reveal >
-<header onloadedmetadata=""class="grid-x grid-padding-x">
+<form id="packageAddForm" class="reveal lightBg" data-reveal >
+<header onloadedmetadata="" class="grid-x grid-padding-x">
 <h3 class="cell">New Product</h3>
 <button class="close-button" data-close aria-label="Close modal" type="button">
   <span aria-hidden="true">&times;</span>

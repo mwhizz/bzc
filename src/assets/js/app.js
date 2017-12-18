@@ -73,14 +73,26 @@ $(function(){
   $('.tabBoxButtonClose,.tabBoxButtonSubmit').click(function(){
     var targetRef = $(this).parents('.tabBoxContent');
     $(targetRef).hide();
+    var targetRefId = targetRef.prop('id');
+
+
+    $('.tabBoxButton').filter(
+        function() {
+          return $(this).data('target')==targetRefId;
+        }).removeClass('tabBoxButtonOpen');
+    //console.log('hiude');
     return false;
   });
   $('.tabBoxButton').click(function(){
     var targetRef = $(this).data('target');
     if (  $('#'+targetRef).is(':visible')){
       $('#'+targetRef).hide();
+      $(this).removeClass('tabBoxButtonOpen');
+      console.log('hiude');
     }else{
       $('#'+targetRef).show();
+      $(this).addClass('tabBoxButtonOpen');
+      console.log('add');
     }
     return false;
   });
@@ -92,10 +104,9 @@ $(function(){
   });
 
   //toggleTitle
-  var toggleTitleButton = $('<div class="button"></div>');
+  var toggleTitleButton = $('<button class="toggleTitleButton"></button>');
   $('.toggleTitle').append(toggleTitleButton);
-  $('.toggleTitle').find('.button').click(function() {
-    console.log('t');
+  $('.toggleTitle').find('.toggleTitleButton').click(function() {
     var toggleObj = $(this);
     var toggleBox = toggleObj.parents('.toggleBox');
     var toggleContent = toggleBox.find('.toggleContent');

@@ -40,11 +40,21 @@ form,.form {
     height: 110px;
   }
 
+  .checkboxGroup,.radioGroup {
+    margin-bottom: $global-margin;
+    span {
+      display: block;
+    }
+  }
+
   .formCallout {
     display: none;
   }
 
   .screenshots {
+    min-height: 200px;
+    width: 100%;
+
   	img {
   		@include position(relative);
   		border: 1px solid $complementary-dark-color3;
@@ -78,5 +88,14 @@ form,.form {
 
   &.formContainer {
     @include global-box();
+  }
+}
+@include breakpoint(medium) {
+  form,.form {
+    .checkboxGroup,.radioGroup {
+      span {
+        display: inline;
+      }
+    }
   }
 }

@@ -1,6 +1,6 @@
 
 .legend {
-	
+
 	h6 {
 		font-weight: bold;
 	}
@@ -14,7 +14,7 @@
 		margin-right: $global-margin*0.5;
 
 		&:before {
-			@include global-box('small');
+			@include global-box($type: 'small');
 			background: $complementary-dark-color2;
 			content: '';
 			display:inline-block;
@@ -36,8 +36,7 @@
 	}
 }
 
-table {
-  &.caseTable {
+table.caseTable {
     tr.completed {
       background: $complementary-dark-color2;
     }
@@ -45,6 +44,7 @@ table {
       text-align: center;
     }
     td:nth-child(1) {
+			min-width:5px;
 			padding: 0;
       width: 1%;
     }
@@ -52,5 +52,28 @@ table {
       text-align: left;
       width: 50%;
     }
-  }
 }
+
+#summary {
+	.cell {
+		margin-bottom: 1rem;
+	}
+	b {
+		color: $complementary-dark-color2;
+		display: block;
+		font-size: $small-font-size;
+		margin-right: 0.8rem;
+	}
+	span {
+		display: block;
+		min-height: 1rem;
+	}
+}
+
+@include breakpoint(medium) {
+	#summary {
+		b,span {
+			display: inline;
+		}
+	}
+};

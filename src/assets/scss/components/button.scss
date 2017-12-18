@@ -1,8 +1,9 @@
-button, .button {
-	@include global-box();
+button, .button, [type="button"], [type="reset"], [type="submit"] {
+	@include global-box($type:'mobile');
 	//background: $contrast-color1;
 	cursor: pointer;
   font-weight: bold;
+	margin-bottom: 0;
   text-transform: uppercase;
 
 	@include button-style(get-color(primary), lighten(get-color(primary),10%), $complementary-light-color1);
@@ -17,16 +18,23 @@ button, .button {
 
 }
 
-
-
+//label is outside the button
 .buttonType2 {
 	//@include position(relative);
 	background: none;
 	cursor: pointer;
   color: $black;
-	padding: 0;
-	padding-top: 0.7rem;
-	margin-bottom: $global-margin;
+	font-size: 0.8rem;
+	@include global-box(
+		$margin-top: 0,
+		$margin-left: 0,
+		$margin-bottom: 0,
+		$margin-right: 0,
+		$padding-top: 0,
+		$padding-left: 0,
+		$padding-bottom: 0,
+		$padding-right: 0
+	);
 
 	&:hover {
     background: none;
@@ -40,22 +48,28 @@ button, .button {
 	&.left:before,
 	&:after {
 		//@include position(absolute,$top:0, $right: 0);
-		@include global-box;
+		@include global-box($type: 'mobile',
+		$margin-top: 0rem,
+		$margin-left: 0.5rem,
+		$margin-bottom: 0,
+		$margin-right: 0,
+		$padding-top: 0,
+		$padding-left: 0,
+		$padding-bottom: 0,
+		$padding-right: 0
+		);
 		background-color: $contrast-color1;
 		color: $white;
 		content: '';
 		display: inline-block;
 		height: 40px;
-		margin-top: -0.7rem;
-		margin-left: 0.8rem;
-		margin-bottom: 0;
 		width:40px;
 		vertical-align: middle;
 
 	}
 	&.left:before {
 		margin-left: 0;
-		margin-right: 0.8rem;
+		margin-right: 0.5rem;
 	}
 	&.left:after {
 		height: 0;
@@ -87,12 +101,70 @@ button, .button {
 	}
 }
 
-&.close-button {
+.close-button {
   background: none;
   margin-bottom: 0;
   &:hover {
     background: none;
     color: $medium-gray;
-
   }
+	&:active {
+		background: none;
+    color: $medium-gray;
+	}
+}
+.lightBg {
+	.close-button {
+	  color: $complementary-dark-color3;
+	  &:hover {
+	    color: $medium-gray;
+	  }
+		&:active {
+	    color: $medium-gray;
+		}
+	}
+}
+
+@include breakpoint(medium) {
+	button, .button, [type="button"], [type="reset"], [type="submit"] {
+			@include global-box();
+
+	}
+
+	.buttonType2 {
+		@include global-box(
+			$margin-top: 0,
+			$margin-left: 0,
+			$margin-bottom: 0,
+			$margin-right: 0,
+			$padding-top: 0,
+			$padding-left: 0,
+			$padding-bottom: 0,
+			$padding-right: 0
+		);
+		font-size: 1rem;
+		&.left:before,
+		&:after {
+			//@include position(absolute,$top:0, $right: 0);
+			@include global-box(
+			$margin-top: 0rem,
+			$margin-left: 0.8rem,
+			$margin-bottom: 0,
+			$margin-right: 0,
+			$padding-top: 0,
+			$padding-left: 0,
+			$padding-bottom: 0,
+			$padding-right: 0
+				);
+		}
+		&.left:before {
+			margin-left: 0;
+			margin-right: 0.8rem;
+		}
+		&.left:after {
+			height: 0;
+			padding: 0;
+			width: 0;
+		}
+	}
 }

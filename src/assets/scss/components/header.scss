@@ -1,0 +1,98 @@
+#bizcubeTicketing {
+	color: $dark-gray;
+	font-weight: bold;
+	font-size: 22px;
+	text-transform: uppercase;
+}
+
+#header {
+	//@include position(absolute, $top: 0, $left: 0, $right: 0);
+	-webkit-box-shadow: 0 1px 4px 0 $black;
+  box-shadow: 0 1px 4px 0 $black;
+  background: $complementary-light-color1;
+  border-bottom: 5px solid $complementary-dark-color3;
+
+	position: relative;
+	z-index: 1;
+
+}
+
+.title-bar {
+  @include global-box($border-radius: 0, $type: 'default');
+  -webkit-box-shadow: 0 1px 4px 0 $black;
+	box-shadow: 0 1px 4px 0 $black;
+
+  background: $complementary-light-color1;
+  color: inherit;
+  margin-bottom: 0;
+
+  .menu-icon {
+		//@include border-radius();
+    background-color: $complementary-dark-color3;
+    height: 30px;
+		margin-left: 0;
+    margin-right: 0.8rem;
+		width: 30px;
+
+    &:hover {
+      background-color: $complementary-dark-color2;
+    }
+
+    &::after {
+      background: $complementary-light-color1;
+      box-shadow: 0 10px 0 $complementary-light-color1;
+      top:10px;
+    }
+  }
+}
+
+#mainMenu {
+
+}
+
+#mainMenuLeft {
+	background: $complementary-dark-color3;
+	padding-top: 5rem;
+	width: 100%;
+
+
+	button.close-button {
+		background: $complementary-dark-color3;
+		color: $complementary-light-color1;
+
+		&:hover {
+			color: $complementary-light-color2;
+		}
+	}
+}
+
+
+@include breakpoint(small only) {
+	.top-bar {
+		display: none;
+	}
+}
+@include breakpoint(medium) {
+
+}
+
+//prevent top-bar from showing briefly when initially loads
+.no-js {
+  @include breakpoint(small only) {
+    .top-bar {
+      display: none;
+    }
+		#mainMenu, #mainMenuLeft {
+			display: none;
+		}
+  }
+
+  @include breakpoint(medium) {
+    .title-bar {
+      display: none;
+    }
+		#mainMenu {
+			display: none;
+		}
+  }
+}

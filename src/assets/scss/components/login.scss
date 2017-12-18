@@ -1,0 +1,29 @@
+#page-login {
+  #mainContent {
+    @include border-radius(8px);
+
+
+    @include breakpoint(medium) {
+      @include position(absolute,$left:30%,$top:20%);
+      height: auto;
+      width: 40%;
+
+    }
+    @include breakpoint(large) {
+      @include position(absolute,$left:35%);
+      //height: 30%;
+      width: 30%;
+    }
+
+    .formCallout  {
+      margin: 1rem 0;
+    }
+    #rememberMe {
+      margin-bottom: 0;
+    }
+    section {
+      margin-bottom: 0;
+    }
+  }
+
+}
