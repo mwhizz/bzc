@@ -286,7 +286,7 @@ function updateContactPoint(PersonID){
 
 function showOrgProfile(){
   var orgProfile = '';
-  orgProfile = '<div id="basicContent" class="grid-container toggleContent form">'+
+  orgProfile = '<div class="toggleContent"><div id="basicContent" class="grid-container form">'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <div class="labelText"> Name </div> <div class="text orgName"> </div> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <div class="labelText"> ID Type </div> <div class="text idType"> </div> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <div class="labelText"> UEN No </div> <div class="text entityKey"> </div> </div> </div>'+
@@ -299,7 +299,8 @@ function showOrgProfile(){
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="tel1"> Contact No </label> <input type="text" id="tel1"/> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="email"> Email </label> <input type="text" id="email"/> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="address"> Address </label> <input type="text" id="address"/> </div> </div>'+
-  '<footer class="grid-x grid-padding-x"> <button type="button" id="basicSubmit" data-close class="btn cell small-12 medium-offset-4 medium-4">Submit</button> </footer> </form>';
+  '<footer class="grid-x grid-padding-x"> <button type="button" id="basicSubmit" data-close class="btn cell small-12 medium-offset-4 medium-4">Submit</button> </footer> </form> </div>';
+
   $('#profileData').append(orgProfile);
   $('#basicForm').hide();
   $('#basicSubmit').click(function(){
@@ -309,7 +310,7 @@ function showOrgProfile(){
 
 function showIndProfile(){
   var indProfile = '';
-  indProfile = '<div id="basicContent" class="grid-container toggleContent form">'+
+  indProfile = '<div class="toggleContent"><div id="basicContent" class="grid-container form">'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <div class="labelText"> Name </div> <div class="text indName"> </div> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <div class="labelText"> Contact No (O) </div> <div class="text indTel"> </div> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <div class="labelText"> Contact No (M) </div> <div class="text indMobile"> </div> </div> </div>'+
@@ -321,7 +322,8 @@ function showIndProfile(){
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="mobile"> Contact No (M) </label> <input type="text" id="mobile"/> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="email"> Email </label> <input type="text" id="email"/> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="address"> Address </label> <input type="text" id="address"/> </div> </div>'+
-  '<footer class="grid-x grid-padding-x"> <button type="button" id="basicSubmit" data-close class="btn cell small-12 medium-offset-4 medium-4">Submit</button> </footer> </form>';
+  '<footer class="grid-x grid-padding-x"> <button type="button" id="basicSubmit" data-close class="btn cell small-12 medium-offset-4 medium-4">Submit</button> </footer> </form> </div>';
+
   $('#profileData').append(indProfile);
   $('#basicForm').hide();
   $('#contactPointData').hide();
@@ -332,7 +334,7 @@ function showIndProfile(){
 
 function showOrgContact(){
   var contactPoint = '';
-  contactPoint='<div id="contactPointContent" class="grid-container toggleContent form">'+
+  contactPoint='<div class="toggleContent"><div id="contactPointContent" class="grid-container form">'+
   '<h3>Point of Contact 1</h3>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <div class="labelText"> Name </div> <div class="text poc1Name"> </div> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <div class="labelText"> Contact No </div> <div class="text poc1Contact"> </div> </div> </div>'+
@@ -358,7 +360,8 @@ function showOrgContact(){
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="poc2Email"> Email </label> <input type="text" id="poc2Email" /> </div> </div>'+
   '<div class="grid-x grid-padding-x"> <div class="cell"> <label for="poc2Designation"> Designation </label> <input type="text" id="poc2Designation" />'+
   '</div> </div> <div class="grid-x grid-padding-x"> <div class="cell"> <label for="poc2Department"> Department </label> <input type="text" id="poc2Department" /> </div> </div>'+
-  '<footer class="grid-x grid-padding-x"> <button type="button" id="pocSubmit" data-close class="btn cell small-12 medium-offset-4 medium-4"> Submit </button> </footer> </form>';
+  '<footer class="grid-x grid-padding-x"> <button type="button" id="pocSubmit" data-close class="btn cell small-12 medium-offset-4 medium-4"> Submit </button> </footer> </form> </div>';
+
   $('#contactPointData').append(contactPoint);
   $('#contactPointForm').hide();
   $('#pocSubmit').click(function(){
