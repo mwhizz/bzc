@@ -19,7 +19,7 @@ $(function(){
   //get page name
   pageName = getPageName();
   appName = getAppName();
-  
+
   //set login cookie
   if (typeof Cookies.getJSON('appCookie') === 'undefined') {
     appCookie = Cookies.set('appCookie', {
@@ -216,8 +216,8 @@ function getAppName(){
 
   var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
   var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
-
-  if (webFolderFullPath='http://localhost:8000/'){
+  console.log(webFolderFullPath)
+  if (webFolderFullPath == ''){
     return targetURL;
   }else{
     return appName;
