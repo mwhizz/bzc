@@ -1,5 +1,6 @@
-
+var appName = "";
 $(function(){
+  appName = getAppName();
   //get cookie & loginID
   var appCookie = Cookies.getJSON('appCookie'),
       loginID = appCookie.loginID;
@@ -37,7 +38,7 @@ function GetCaseDetails(caseId, section){
     section = 'Full'
   }
   $.ajax({
-    url: "/Support/BCMain/FL1.GetCaseDetailsBySection.json",
+    url: appName+"BCMain/FL1.GetCaseDetailsBySection.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -93,7 +94,8 @@ function GetCaseDetails(caseId, section){
               }
             }
             for (var i=0; i<caseAttachments.length; i++ ){
-              caseAttachmentsContainer += '<img width="10%" height="10%" src="/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
+              var src = appName+caseAttachments[i].FullPath;
+              caseAttachmentsContainer += '<img width="10%" height="10%" src='+src+' alt=""/>'
             }
             for (var i=0; i<caseLogs.length; i++ ){
               var date = convertDateTime(caseLogs[i].LogCreatedDate,'date');
@@ -181,7 +183,7 @@ function GetCaseDetails(caseId, section){
             var caseAttachments = data.d.RetData.Tbl.Rows;
             var caseAttachmentsContainer = '';;$('.attachments').html('');
             for (var i=0; i<caseAttachments.length; i++ ){
-              caseAttachmentsContainer += '<img width="10%" height="10%" src="/Support/'+caseAttachments[i].FullPath+'" alt=""/>'
+              caseAttachmentsContainer += '<img width="10%" height="10%" src=appName+"'+caseAttachments[i].FullPath+'" alt=""/>'
             }
             $('.attachments').html(caseAttachmentsContainer);
           }
@@ -207,7 +209,7 @@ function createNewLog(FLID, LoginID){
   var data = {'FLID':FLID, 'ActionType':ActionType, 'Status':Status, 'Details': Details,
               'Duration': Duration, 'Internal':Internal, 'LoginID':LoginID};
   $.ajax({
-    url: "/Support/BCMain/FL1.InsertActivityLog.json",
+    url: appName+"BCMain/FL1.InsertActivityLog.json",
     method: "POST",
     dataType: "json",
     data: { 'data':JSON.stringify(data),
@@ -238,7 +240,7 @@ function addInvolvement(FLID, LoginID){
 
   var data = {'FLID':FLID, 'RoleName':RoleName, 'RoleID':RoleID, 'Details': Details, 'LoginID':LoginID};
   $.ajax({
-    url: "/Support/BCMain/FL1.AddInvolvement.json",
+    url: appName+"BCMain/FL1.AddInvolvement.json",
     method: "POST",
     dataType: "json",
     data: { 'data':JSON.stringify(data),
@@ -271,7 +273,7 @@ function reviewCase(FLID, LoginID){
   var data = {'FLID':FLID, 'Category':Category, 'ProposedManDays': ProposedManDays,
   'IntTargetEndDate': IntTargetEndDate,'TargetEndDate': TargetEndDate, 'LoginID':LoginID};
   $.ajax({
-    url: "/Support/BCMain/FL1.ReviewCase.json",
+    url: appName+"BCMain/FL1.ReviewCase.json",
     method: "POST",
     dataType: "json",
     data: { 'data':JSON.stringify(data),
@@ -312,7 +314,7 @@ function convertDateTime(inputFormat, type) {
 function GetDropdownList(id, category) {
   var data = {'LookupCat': category}
   $.ajax({
-    url: "/Support/BCMain/iCtc1.Lookup_Get.json",
+    url: appName+"BCMain/iCtc1.Lookup_Get.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -334,3 +336,22 @@ function GetDropdownList(id, category) {
     }
   });
 };
+
+function getAppName(){
+  var targetURL = 'https://portal.taksys.com.sg/Support/';
+
+  var _location = document.location.toString();
+  var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
+  var applicationName = _location.substring(0, applicationNameIndex) + '/';
+  var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
+  var webFolderFullPath = _location.substring(0, webFolderIndex);
+
+  var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
+  var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
+
+  if (webFolderFullPath='http://localhost:8000/'){
+    return targetURL;
+  }else{
+    return appName;
+  }
+}

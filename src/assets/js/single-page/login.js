@@ -1,8 +1,13 @@
 var appCookie;
 var loginComponent;
 var loginCallOut;
+
+var appName = "";
+
 $(function(){
   //get login details
+  appName = getAppName();
+
   loginComponent = $('#loginComponent');
   loginCallOut = loginComponent.find('.formCallout');
 
@@ -22,7 +27,7 @@ $(function(){
 
 function checkRememberMe() {
   $.ajax({
-    url: "/Support/Sec1.LoginViaRememberMe.json",
+    url: appName+"Sec1.LoginViaRememberMe.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -51,7 +56,7 @@ function login() {
   };
 
   $.ajax({
-    url: "/Support/BCMain/Sec1.Login.json",
+    url: appName+"BCMain/Sec1.Login.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -75,7 +80,7 @@ function login() {
 function getLoginInfo(callout) {
   var getLoginInfo =
     $.ajax({
-      url: "/Support/BCMain/Sec1.LoginInfo.json",
+      url: appName+"BCMain/Sec1.LoginInfo.json",
       method: "POST",
       dataType: "json",
       xhrFields: { withCredentials: true },
@@ -96,7 +101,7 @@ function getLoginInfo(callout) {
 
   var getOwnPersonID =
     $.ajax({
-      url: "/Support/iCtc1.GetOwnPersonID.json",
+      url: appName+"iCtc1.GetOwnPersonID.json",
       method: "POST",
       dataType: "json",
       xhrFields: { withCredentials: true },
@@ -138,5 +143,23 @@ function getLoginInfo(callout) {
     console.log( "Request failed: " + textStatus );
     if (callout)    loginCallOut.addClass('alert').html('Login fail.').show();
   });;
+}
 
+function getAppName(){
+  var targetURL = 'https://portal.taksys.com.sg/Support/';
+
+  var _location = document.location.toString();
+  var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
+  var applicationName = _location.substring(0, applicationNameIndex) + '/';
+  var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
+  var webFolderFullPath = _location.substring(0, webFolderIndex);
+
+  var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
+  var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
+
+  if (webFolderFullPath='http://localhost:8000/'){
+    return targetURL;
+  }else{
+    return appName;
+  }
 }

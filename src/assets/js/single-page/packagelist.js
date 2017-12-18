@@ -1,5 +1,6 @@
-
+var appName = "";
 $(function(){
+  appName = getAppName();
   //get cookie & LoginID
   var appCookie = Cookies.getJSON('appCookie'),
       loginID = appCookie.loginID;
@@ -50,7 +51,7 @@ function addNewPackage(){
 
   var data = {'RoleID':RoleID, 'Type':Type, 'Product':Product, 'System': System, 'BoughtManDays': BoughtManDays, 'StartDate':StartDate, 'ExpiryDate':ExpiryDate};
   $.ajax({
-    url: "/Support/BCMain/Ctc1.AddNewPackage.json",
+    url: appName+"BCMain/Ctc1.AddNewPackage.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -85,7 +86,7 @@ function getPackageList(){
 
   var data = {'Organisation':Organization, 'Product':Product, 'Status':Status, 'StartDate':DateFrom, 'ExpiryDate':DateTo};
   $.ajax({
-    url: "/Support/BCMain/Ctc1.GetPackageList.json",
+    url: appName+"BCMain/Ctc1.GetPackageList.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -118,7 +119,7 @@ function getPackageList(){
 //get Current Package List
 function getCurrentPackageList(){
   $.ajax({
-    url: "/Support/BCMain/Ctc1.GetCurrentPackages.json",
+    url: appName+"BCMain/Ctc1.GetCurrentPackages.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -157,7 +158,7 @@ function addNewtransaction(PackageID, FLID){
 
   var data = {'PackageID':PackageID, 'FLID':FLID, 'Type':Type, 'ManDays':ManDays, 'Remarks': Remarks};
   $.ajax({
-    url: "/Support/BCMain/Ctc1.AddNewPackageTransactions.json",
+    url: appName+"BCMain/Ctc1.AddNewPackageTransactions.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -182,7 +183,7 @@ function addNewtransaction(PackageID, FLID){
 function getPackageDetails(PackageID){
   var data = {'PackageID':PackageID};
   $.ajax({
-    url: "/Support/BCMain/Ctc1.GetPackagedetails.json",
+    url: appName+"BCMain/Ctc1.GetPackagedetails.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -243,7 +244,7 @@ function getPageName() {
 function GetDropdownList(id, category) {
   var data = {'LookupCat': category}
   $.ajax({
-    url: "/Support/BCMain/iCtc1.Lookup_Get.json",
+    url: appName+"BCMain/iCtc1.Lookup_Get.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -265,3 +266,23 @@ function GetDropdownList(id, category) {
     }
   });
 };
+
+
+function getAppName(){
+  var targetURL = 'https://portal.taksys.com.sg/Support/';
+
+  var _location = document.location.toString();
+  var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
+  var applicationName = _location.substring(0, applicationNameIndex) + '/';
+  var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
+  var webFolderFullPath = _location.substring(0, webFolderIndex);
+
+  var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
+  var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
+
+  if (webFolderFullPath='http://localhost:8000/'){
+    return targetURL;
+  }else{
+    return appName;
+  }
+}

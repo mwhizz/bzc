@@ -12,13 +12,14 @@ import Foundation from 'foundation-sites';
 
 $(document).foundation();
 
-var pageName = "";
+var pageName = "", appName = "";
 var appCookie;
 //document ready
 $(function(){
   //get page name
   pageName = getPageName();
-
+  appName = getAppName();
+  
   //set login cookie
   if (typeof Cookies.getJSON('appCookie') === 'undefined') {
     appCookie = Cookies.set('appCookie', {
@@ -36,7 +37,7 @@ $(function(){
     }
     appCookie.redirectPage = (pageURL != '') ? pageURL : 'index.html';
     Cookies.set('appCookie', appCookie);
-    window.location.href = '/Support/login.html';
+    window.location.href = appName + 'login.html';
   }
 
   if(appCookie.loginID){
@@ -45,7 +46,7 @@ $(function(){
 
   $('#logOut').click(function() {
     $.ajax({
-      url: "/Support/Sec1.Logout.json",
+      url: appName+"Sec1.Logout.json",
       method: "POST",
       dataType: "json",
       xhrFields: { withCredentials: true },
@@ -59,7 +60,7 @@ $(function(){
       console.log( "Logout success" );
       if (typeof Cookies.getJSON('appCookie') !== 'undefined')
         Cookies.remove('appCookie');
-      if (pageName != 'login') window.location.href = '/Support/login.html';
+      if (pageName != 'login') window.location.href = appName+'login.html';
     })
     .fail(function( jqXHR, textStatus ) {
       console.log( "Logout fail" );
@@ -174,7 +175,7 @@ $(function(){
 function GetBasicInformation(personID) {
   var data = {'PersonID': personID};
   $.ajax({
-    url: "/Support/BCMain/iCtc1.GetPersonalInfo.json",
+    url: appName+"BCMain/iCtc1.GetPersonalInfo.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -204,6 +205,24 @@ function GetBasicInformation(personID) {
   })
 }
 
+function getAppName(){
+  var targetURL = 'https://portal.taksys.com.sg/Support/';
+
+  var _location = document.location.toString();
+  var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
+  var applicationName = _location.substring(0, applicationNameIndex) + '/';
+  var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
+  var webFolderFullPath = _location.substring(0, webFolderIndex);
+
+  var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
+  var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
+
+  if (webFolderFullPath='http://localhost:8000/'){
+    return targetURL;
+  }else{
+    return appName;
+  }
+}
 
 function getPageName() {
   var pageName = $('body').attr('id').replace('page-','');

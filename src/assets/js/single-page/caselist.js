@@ -1,5 +1,6 @@
-
+var appName = "";
 $(function(){
+  appName = getAppName();
   //get cookie
   var appCookie = Cookies.getJSON('appCookie');
   //get loginid
@@ -41,7 +42,7 @@ function getCasesList(){
   var data = {'System':System,'Module':Module,'Status':Status,'DateFrom':DateFrom,'DateTo':DateTo,'MyCase':MyCase};
   caseTbody.html('');
   $.ajax({
-    url: "/Support/BCMain/FL1.GetCasesList.json",
+    url: appName+"BCMain/FL1.GetCasesList.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -99,7 +100,7 @@ function createNewCase(){
 
   var data = {'Organization':Organization, 'Product':Product, 'System':System, 'Module': Module, 'Title': Title, 'Details':Details, 'CCEmail':CCEmails};
   $.ajax({
-    url: "/Support/BCMain/FL1.AddNewCase.json",
+    url: appName+"BCMain/FL1.AddNewCase.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -146,7 +147,7 @@ function customCaseTable(){
 function GetDropdownList(id, category) {
   var data = {'LookupCat': category}
   $.ajax({
-    url: "/Support/BCMain/iCtc1.Lookup_Get.json",
+    url: appName+"BCMain/iCtc1.Lookup_Get.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -168,3 +169,23 @@ function GetDropdownList(id, category) {
     }
   });
 };
+
+
+function getAppName(){
+  var targetURL = 'https://portal.taksys.com.sg/Support/';
+
+  var _location = document.location.toString();
+  var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
+  var applicationName = _location.substring(0, applicationNameIndex) + '/';
+  var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
+  var webFolderFullPath = _location.substring(0, webFolderIndex);
+
+  var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
+  var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
+
+  if (webFolderFullPath='http://localhost:8000/'){
+    return targetURL;
+  }else{
+    return appName;
+  }
+}

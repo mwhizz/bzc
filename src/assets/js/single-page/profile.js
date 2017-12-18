@@ -1,6 +1,8 @@
 var appCookie;
-
+var appName = "";
 $(function(){
+
+  appName = getAppName();
 
   appCookie = Cookies.getJSON('appCookie');
   if (appCookie.personID) {
@@ -30,7 +32,7 @@ $(function(){
 function getOrgnisationInfo(PersonID){
   var data = {'PersonID':PersonID};
   $.ajax({
-    url: "/Support/BCMain/iCtc1.GetOrganisationInfo.json",
+    url: appName+"BCMain/iCtc1.GetOrganisationInfo.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -62,7 +64,7 @@ function getOrgnisationInfo(PersonID){
 function getPointofContact(PersonID){
   var data = {'PersonID':PersonID};
   $.ajax({
-    url: "/Support/BCMain/iCtc1.GetPointOfContactInfo.json",
+    url: appName+"BCMain/iCtc1.GetPointOfContactInfo.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -104,7 +106,7 @@ function getPointofContact(PersonID){
 function changeMyPwd(Username, Password){
   var data = { "Username": Username, "Password": Password };
   $.ajax({
-    url: "/Support/BCMain/iCtc1.ChangeUsernamePassword.json",
+    url: appName+"BCMain/iCtc1.ChangeUsernamePassword.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -140,7 +142,7 @@ function checkPassword() {
 function GetBasicInformation(personID) {
   var data = {'PersonID': personID};
   $.ajax({
-    url: "/Support/BCMain/iCtc1.GetPersonalInfo.json",
+    url: appName+"BCMain/iCtc1.GetPersonalInfo.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -187,7 +189,7 @@ function updateIndBasic(PersonID){
   address = $('#address').val();
   var data = { "PID": PersonID, "name": name, "tel1": tel1, "mobile": mobile, "email": email, "address": address };
   $.ajax({
-    url: "/Support/BCMain/iCtc1.UpdateIndBasic.json",
+    url: appName+"BCMain/iCtc1.UpdateIndBasic.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -221,7 +223,7 @@ function updateOrgBasic(PersonID){
   address = $('#address').val();
   var data = { "PID": PersonID, "name": name, "entityKey": entityKey, "tel1": tel1, "email": email, "address": address };
   $.ajax({
-    url: "/Support/BCMain/iCtc1.UpdateOrgBasic.json",
+    url: appName+"BCMain/iCtc1.UpdateOrgBasic.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -261,7 +263,7 @@ function updateContactPoint(PersonID){
 
   var data = { "PID": PersonID, "poc1Name": poc1Name, "poc1Contact": poc1Contact, "poc1Email": poc1Email, "poc1Designation": poc1Designation, "poc1Department": poc1Department, "poc2Name": poc2Name, "poc2Contact": poc2Contact, "poc2Email": poc2Email, "poc2Designation": poc2Designation, "poc2Department": poc2Department };
   $.ajax({
-    url: "/Support/BCMain/iCtc1.UpdateContactPoint.json",
+    url: appName+"BCMain/iCtc1.UpdateContactPoint.json",
     method: "POST",
     dataType: "json",
     xhrFields: { withCredentials: true },
@@ -369,4 +371,24 @@ function showOrgContact(){
   $('#pocSubmit').click(function(){
     updateContactPoint(appCookie.personID);
   });
+}
+
+
+function getAppName(){
+  var targetURL = 'https://portal.taksys.com.sg/Support/';
+
+  var _location = document.location.toString();
+  var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
+  var applicationName = _location.substring(0, applicationNameIndex) + '/';
+  var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
+  var webFolderFullPath = _location.substring(0, webFolderIndex);
+
+  var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
+  var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
+
+  if (webFolderFullPath='http://localhost:8000/'){
+    return targetURL;
+  }else{
+    return appName;
+  }
 }
