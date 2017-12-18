@@ -22,10 +22,15 @@
 </section>
 <!-- packages end -->
 <section id="caseContainer">
+  <div class="boxContent  show-for-small-only">
+    <button type="button" class="buttonType2 buttonType2Add left "  data-open="caseAddForm">Create Case</button>
+  </div>
    <header class="grid-x">
       <h2 class="cell auto">Case(s)</h2>
-      <button type="button" class="buttonType2 buttonType2Add cell medium-3 text-right"  data-open="caseAddForm">Create Case</button>
+      <button type="button" class="buttonType2 buttonType2Add cell medium-3 text-right show-for-medium"  data-open="caseAddForm">Create Case</button>
    </header>
+
+
    <div id='caseFilter' class="caseFilter tabBoxContainer">
       <button class="button button3 tabBoxButton" data-target="caseFilterForm"><i class="icon"><img src="/assets/img/icon-light-filter.png" alt="icon"/></i>Filter</button>
       <form class="form2 tabBoxContent reveal" id="caseFilterForm">
@@ -201,7 +206,7 @@
    <div class="grid-x grid-padding-x">
       <div class="cell">
          <label>
-         Carbon Copy (For multiple emails, separate by |)
+         Carbon Copy <small>(For multiple emails, separate by |)</small>
          <input type="text" id="cc" name="cc"/>
          </label>
       </div>
