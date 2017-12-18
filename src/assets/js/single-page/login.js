@@ -157,7 +157,7 @@ function getAppName(){
   var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
   var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
 
-  if (webFolderFullPath='http://localhost:8000/'){
+  if (webFolderFullPath == ''){
     return targetURL;
   }else{
     return appName;
