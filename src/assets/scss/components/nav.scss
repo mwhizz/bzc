@@ -1,4 +1,5 @@
 nav {
+
   text-transform: uppercase;
 
   //menu links
@@ -43,7 +44,7 @@ nav {
     color: $complementary-light-color1;
     &:hover {
       @include border-radius($radius: 0);
-      background: $complementary-dark-color2;
+      background: darken($complementary-dark-color2,30);
       color: $complementary-light-color1;
     }
   }
@@ -59,6 +60,7 @@ nav {
     border: 1px solid $complementary-dark-color3;
     color: $complementary-dark-color1;
     margin-top: 0;
+    margin-left: 0;
 
     width: 100%;
 
@@ -72,6 +74,7 @@ nav {
       a {
         background: $complementary-dark-color2;
         color: $complementary-light-color1;
+        padding-left: 60px;
         text-transform: none;
         &:hover {
           border-radius: 0;
