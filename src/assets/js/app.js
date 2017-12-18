@@ -216,7 +216,7 @@ function getAppName(){
 
   var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
   var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
-  console.log(webFolderFullPath)
+  
   if (webFolderFullPath == ''){
     return targetURL;
   }else{
