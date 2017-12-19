@@ -58,7 +58,7 @@ function GetCaseDetails(caseId, section){
                 caseAttachmentsContainer = '';
             $('.threadLog').html('');$('.threadTask').html('');$('.attachments').html('');
             if(data.d.RetData.Tbls[4].Rows.length >0){
-              var url = '/Support' + data.d.RetData.Tbls[4].Rows[0].FolderPath;
+              var url = appName + data.d.RetData.Tbls[4].Rows[0].FolderPath;
               $('#attachments').attr('src', url);
             }
             for (var i=0; i<caseDetails.length; i++ ){
@@ -89,7 +89,7 @@ function GetCaseDetails(caseId, section){
               if (caseDetails[i].CurStatus == 'Closed' || caseDetails[i].CurStatus == 'Completed'){
                 $('.involvemetAdd').hide();
               }
-              if (caseDetails[i].CurStatus != 'New' && (Permission!=4 || Permission!=3)){
+              if (caseDetails[i].CurStatus != 'New' || (Permission!=4 && Permission!=3)){
                 $('#review').hide();
               }
             }
@@ -176,7 +176,7 @@ function GetCaseDetails(caseId, section){
       if (section == 'Files'){
         if ((data) && (data.d.RetVal === -1)) {
           if(data.d.RetData.Tbls[1].Rows.length >0){
-            var url = data.d.RetData.Tbls[1].Rows[0].FolderPath;
+            var url = appName + data.d.RetData.Tbls[1].Rows[0].FolderPath;
             $('#attachments').attr('src', url);
           }
           if (data.d.RetData.Tbls[0].Rows.length > 0) {
@@ -344,12 +344,12 @@ function getAppName(){
   var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
   var applicationName = _location.substring(0, applicationNameIndex) + '/';
   var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
-  var webFolderFullPath = _location.substring(0, webFolderIndex);
 
   var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
   var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
+  var webFolderFullPath = _location.substring(0, applicationNameIndex);
 
-  if (webFolderFullPath == ''){
+  if (webFolderFullPath == 'http://localhost:8000'){
     return targetURL;
   }else{
     return appName;
