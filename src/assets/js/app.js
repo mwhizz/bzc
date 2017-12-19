@@ -4,6 +4,9 @@ import whatInput from 'what-input';
 
 window.$ = $;
 window.Cookies = Cookies;
+window.pageName ='';
+window.apiSrcURL = 'https://portal.taksys.com.sg/Support/';
+window.apiSrc='';
 
 import Foundation from 'foundation-sites';
 // If you want to pick and choose which modules to include, comment out the above and uncomment
@@ -12,13 +15,13 @@ import Foundation from 'foundation-sites';
 
 $(document).foundation();
 
-var pageName = "", appName = "";
 var appCookie, igwasCookie;
+
 //document ready
 $(function(){
   //get page name
   pageName = getPageName();
-  appName = getAppName();
+  window.apiSrc = getApiSrc();
   var guid = getGUID();
 
   //set login cookie
@@ -40,8 +43,7 @@ $(function(){
     }
     appCookie.redirectPage = (pageURL != '') ? pageURL : 'index.html';
     Cookies.set('appCookie', appCookie);
-    console.log(appName)
-    window.location.href = appName + 'login.html';
+    window.location.href = '/login.html';
   }
 
   if(appCookie.loginID){
@@ -50,7 +52,7 @@ $(function(){
 
   $('#logOut').click(function() {
     $.ajax({
-      url: appName+"Sec1.Logout.json",
+      url: apiSrc+"Sec1.Logout.json",
       method: "POST",
       dataType: "json",
       xhrFields: { withCredentials: true },
@@ -64,7 +66,7 @@ $(function(){
       console.log( "Logout success" );
       if (typeof Cookies.getJSON('appCookie') !== 'undefined')
         Cookies.remove('appCookie');
-      if (pageName != 'login') window.location.href = appName+'login.html';
+      if (pageName != 'login') window.location.href = '/login.html';
     })
     .fail(function( jqXHR, textStatus ) {
       console.log( "Logout fail" );
@@ -179,7 +181,7 @@ $(function(){
 function GetBasicInformation(personID) {
   var data = {'PersonID': personID};
   $.ajax({
-    url: appName+"BCMain/iCtc1.GetPersonalInfo.json",
+    url: apiSrc+"/BCMain/iCtc1.GetPersonalInfo.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -209,9 +211,9 @@ function GetBasicInformation(personID) {
   })
 }
 
-function getAppName(){
-  var targetURL = 'https://portal.taksys.com.sg/Support/';
-
+function getApiSrc(){
+  //var targetURL = 'https://portal.taksys.com.sg/Support/';
+  /*
   var _location = document.location.toString();
   var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
   var applicationName = _location.substring(0, applicationNameIndex) + '/';
@@ -220,11 +222,14 @@ function getAppName(){
   var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
   var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
   var webFolderFullPath = _location.substring(0, applicationNameIndex);
+  */
+  var hostname = window.location.hostname;
 
-  if (webFolderFullPath == 'http://localhost:8000'){
-    return targetURL;
-  }else{
-    return appName;
+  if (hostname.match(/localhost/)){
+    return apiSrcURL;
+  }
+  else {
+    return '/';
   }
 }
 
@@ -258,3 +263,13 @@ function getPageName() {
   var pageName = $('body').attr('id').replace('page-','');
   return pageName;
 }
+
+class Rectangle {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}
+
+
+export default Rectangle;

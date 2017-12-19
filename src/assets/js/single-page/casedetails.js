@@ -1,6 +1,6 @@
-var appName = "";
+
 $(function(){
-  appName = getAppName();
+
   //get cookie & loginID
   var appCookie = Cookies.getJSON('appCookie'),
       loginID = appCookie.loginID;
@@ -38,7 +38,7 @@ function GetCaseDetails(caseId, section){
     section = 'Full'
   }
   $.ajax({
-    url: appName+"BCMain/FL1.GetCaseDetailsBySection.json",
+    url: apiSrc+"BCMain/FL1.GetCaseDetailsBySection.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -58,7 +58,7 @@ function GetCaseDetails(caseId, section){
                 caseAttachmentsContainer = '';
             $('.threadLog').html('');$('.threadTask').html('');$('.attachments').html('');
             if(data.d.RetData.Tbls[4].Rows.length >0){
-              var url = appName + data.d.RetData.Tbls[4].Rows[0].FolderPath;
+              var url = apiSrc + data.d.RetData.Tbls[4].Rows[0].FolderPath;
               $('#attachments').attr('src', url);
             }
             for (var i=0; i<caseDetails.length; i++ ){
@@ -94,7 +94,7 @@ function GetCaseDetails(caseId, section){
               }
             }
             for (var i=0; i<caseAttachments.length; i++ ){
-              var src = appName+caseAttachments[i].FullPath;
+              var src = apiSrc+caseAttachments[i].FullPath;
               caseAttachmentsContainer += '<img width="10%" height="10%" src='+src+' alt=""/>'
             }
             for (var i=0; i<caseLogs.length; i++ ){
@@ -176,14 +176,14 @@ function GetCaseDetails(caseId, section){
       if (section == 'Files'){
         if ((data) && (data.d.RetVal === -1)) {
           if(data.d.RetData.Tbls[1].Rows.length >0){
-            var url = appName + data.d.RetData.Tbls[1].Rows[0].FolderPath;
+            var url = apiSrc + data.d.RetData.Tbls[1].Rows[0].FolderPath;
             $('#attachments').attr('src', url);
           }
           if (data.d.RetData.Tbls[0].Rows.length > 0) {
             var caseAttachments = data.d.RetData.Tbl.Rows;
             var caseAttachmentsContainer = '';;$('.attachments').html('');
             for (var i=0; i<caseAttachments.length; i++ ){
-              caseAttachmentsContainer += '<img width="10%" height="10%" src=appName+"'+caseAttachments[i].FullPath+'" alt=""/>'
+              caseAttachmentsContainer += '<img width="10%" height="10%" src=""' + apiSrc +caseAttachments[i].FullPath+'" alt=""/>';
             }
             $('.attachments').html(caseAttachmentsContainer);
           }
@@ -241,7 +241,7 @@ function addInvolvement(FLID){
 
   var data = {'FLID':FLID, 'RoleName':RoleName, 'RoleID':RoleID, 'Details': Details};
   $.ajax({
-    url: appName+"BCMain/FL1.AddInvolvement.json",
+    url: apiSrc+"BCMain/FL1.AddInvolvement.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -275,7 +275,7 @@ function reviewCase(FLID){
   var data = {'FLID':FLID, 'Category':Category, 'ProposedManDays': ProposedManDays,
   'IntTargetEndDate': IntTargetEndDate,'TargetEndDate': TargetEndDate};
   $.ajax({
-    url: appName+"BCMain/FL1.ReviewCase.json",
+    url: apiSrc+"BCMain/FL1.ReviewCase.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -317,7 +317,7 @@ function convertDateTime(inputFormat, type) {
 function GetDropdownList(id, category) {
   var data = {'LookupCat': category}
   $.ajax({
-    url: appName+"BCMain/iCtc1.Lookup_Get.json",
+    url: apiSrc+"BCMain/iCtc1.Lookup_Get.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -339,22 +339,3 @@ function GetDropdownList(id, category) {
     }
   });
 };
-
-function getAppName(){
-  var targetURL = 'https://portal.taksys.com.sg/Support/';
-
-  var _location = document.location.toString();
-  var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
-  var applicationName = _location.substring(0, applicationNameIndex) + '/';
-  var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
-
-  var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
-  var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
-  var webFolderFullPath = _location.substring(0, applicationNameIndex);
-
-  if (webFolderFullPath == 'http://localhost:8000'){
-    return targetURL;
-  }else{
-    return appName;
-  }
-}
