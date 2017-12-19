@@ -20,15 +20,15 @@ $(function(){
 
   //Review submit
   $('#reviewForm .review').click(function(){
-    reviewCase(caseID, loginID);
+    reviewCase(caseID);
   });
   //Assign Task
   $('#involvement .assign').click(function(){
-    addInvolvement(caseID, loginID);
+    addInvolvement(caseID);
   });
   //Add New Log
   $('#caseLogAddForm #submit').click(function(){
-    createNewLog(caseID, loginID)
+    createNewLog(caseID)
   });
 });
 
@@ -194,12 +194,12 @@ function GetCaseDetails(caseId, section){
 };
 
 //Add New Log
-function createNewLog(FLID, LoginID){
+function createNewLog(FLID){
   var ActionType, Status, Details, Duration, Internal;
   ActionType = 'U';
   Status = $('#caseLogAddForm #status').val();
   Details = $('#caseLogAddForm #description').val();
-  Duration = $('#caseLogAddForm #internal').val();
+  Duration = $('#caseLogAddForm #duration').val();
   if ($('#caseLogAddForm #internal').is(':checked')){
     Internal = 1;
   }else{
@@ -207,7 +207,7 @@ function createNewLog(FLID, LoginID){
   }
 
   var data = {'FLID':FLID, 'ActionType':ActionType, 'Status':Status, 'Details': Details,
-              'Duration': Duration, 'Internal':Internal, 'LoginID':LoginID};
+              'Duration': Duration, 'Internal':Internal};
   $.ajax({
     url: appName+"BCMain/FL1.InsertActivityLog.json",
     method: "POST",
@@ -215,6 +215,7 @@ function createNewLog(FLID, LoginID){
     data: { 'data':JSON.stringify(data),
             'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
             'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
+    xhrFields: { withCredentials: true },
     success: function(data){
       if ((data) && (data.d.RetVal === -1)) {
         if (data.d.RetData.Tbl.Rows.length > 0) {
@@ -232,17 +233,18 @@ function createNewLog(FLID, LoginID){
 };
 
 //Add Involvements
-function addInvolvement(FLID, LoginID){
+function addInvolvement(FLID){
   var RoleName, RoleID, Details;
   RoleName = $('#involvement #roles').val();
   RoleID = $('#involvement #person').val();
   Details = $('#involvement #task').val();
 
-  var data = {'FLID':FLID, 'RoleName':RoleName, 'RoleID':RoleID, 'Details': Details, 'LoginID':LoginID};
+  var data = {'FLID':FLID, 'RoleName':RoleName, 'RoleID':RoleID, 'Details': Details};
   $.ajax({
     url: appName+"BCMain/FL1.AddInvolvement.json",
     method: "POST",
     dataType: "json",
+    xhrFields: {withCredentials: true},
     data: { 'data':JSON.stringify(data),
             'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
             'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
@@ -263,7 +265,7 @@ function addInvolvement(FLID, LoginID){
 };
 
 //Review Case
-function reviewCase(FLID, LoginID){
+function reviewCase(FLID){
   var Category, ProposedManDays, IntTargetEndDate, TargetEndDate;
   Category = $('#reviewForm #category').val();
   ProposedManDays = $('#reviewForm #manDays').val();
@@ -271,11 +273,12 @@ function reviewCase(FLID, LoginID){
   IntTargetEndDate = $('#reviewForm #intTargetEndDate').val();
 
   var data = {'FLID':FLID, 'Category':Category, 'ProposedManDays': ProposedManDays,
-  'IntTargetEndDate': IntTargetEndDate,'TargetEndDate': TargetEndDate, 'LoginID':LoginID};
+  'IntTargetEndDate': IntTargetEndDate,'TargetEndDate': TargetEndDate};
   $.ajax({
     url: appName+"BCMain/FL1.ReviewCase.json",
     method: "POST",
     dataType: "json",
+    xhrFields: {withCredentials: true},
     data: { 'data':JSON.stringify(data),
             'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
             'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
