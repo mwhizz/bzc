@@ -123,7 +123,7 @@ function GetCaseDetails(caseId, section){
             var caseDetails = data.d.RetData.Tbl.Rows;
             for (var i=0; i<caseDetails.length; i++ ){
               var datetime = convertDateTime(caseDetails[i].CreatedDate,'datetime');
-              $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title + '<small onclick="window.location.reload()"><A> Review</A></small>');
+              $('.caseTitle').html('#'+caseDetails[i].FLID+' '+caseDetails[i].Title);
               $('.status').html(caseDetails[i].CurStatus);
               $('.category').html(caseDetails[i].Category);
               $('.organisation').html(caseDetails[i].OrganizationName);
