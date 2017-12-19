@@ -21,8 +21,11 @@ var appCookie, igwasCookie;
 $(function(){
   //get page name
   pageName = getPageName();
+
   window.apiSrc = getApiSrc();
   var guid = getGUID();
+  igwasCookie = Cookies.getJSON('IGWAS');
+  WebPartVal = getCookie(igwasCookie, 'WebPartKey');
 
   //set login cookie
   if (typeof Cookies.getJSON('appCookie') === 'undefined') {
@@ -32,8 +35,6 @@ $(function(){
   }
   else {
     appCookie = Cookies.getJSON('appCookie');
-    igwasCookie = Cookies.getJSON('IGWAS');
-    var a = getCookie(igwasCookie, 'WebPartKey');
   }
 
   if (!appCookie.username && pageName.toLowerCase() != 'login') {
@@ -58,8 +59,8 @@ $(function(){
       xhrFields: { withCredentials: true },
       data: {
         'data': {},
-        'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-        'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
+        'WebPartKey': WebPartVal,
+        'ReqGUID': getGUID()
       }
     })
     .done(function(data) {
@@ -187,8 +188,8 @@ function GetBasicInformation(personID) {
     xhrFields: {withCredentials: true},
     data: {
       'data': JSON.stringify(data),
-      'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
-      'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277'
+      'WebPartKey':WebPartVal,
+      'ReqGUID': getGUID()
     },
     success: function(data){
       if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
@@ -263,13 +264,3 @@ function getPageName() {
   var pageName = $('body').attr('id').replace('page-','');
   return pageName;
 }
-
-class Rectangle {
-  constructor(height, width) {
-    this.height = height;
-    this.width = width;
-  }
-}
-
-
-export default Rectangle;
