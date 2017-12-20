@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import whatInput from 'what-input';
-import BizcubeAPi from './lib/bizcube-api';
 import Master from './lib/master';
 
 window.$ = $;
