@@ -212,26 +212,6 @@ function GetBasicInformation(personID) {
   })
 }
 
-<<<<<<< HEAD
-function getApiSrc(){
-  var hostname = location.hostname;
-  var href = location.href;
-  var match =  href.match(/(http|https):\/\/[A-Za-z0-9-_]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
-
-  if (hostname.match(/localhost/)){
-    appRootPath = '/';
-    return apiSrcURL;
-  }
-  else {
-    if (href.length >= 3)
-      appName = match[2];
-      appRootPath = '/' + appName + '/';
-      return appRootPath;
-  }
-}
-
-=======
->>>>>>> cookie
 function getCookie(cookie, cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(cookie);
