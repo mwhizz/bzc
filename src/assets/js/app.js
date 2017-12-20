@@ -240,7 +240,7 @@ function getApiSrc(){
     if (href.length >= 3)
       appName = match[2];
       appRootPath = '/' + appName + '/';
-      return appNameRootPath;
+      return appRootPath;
   }
 }
 
