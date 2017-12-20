@@ -233,6 +233,7 @@ function getApiSrc(){
   var match =  href.match(/(http|https):\/\/[A-Za-z0-9-_]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
 
   if (hostname.match(/localhost/)){
+    appRootPath = '/';
     return apiSrcURL;
   }
   else {
