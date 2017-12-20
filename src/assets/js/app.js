@@ -50,7 +50,7 @@ $(function(){
     }
     appCookie.redirectPage = (pageURL != '') ? pageURL : 'index.html';
     Cookies.set('appCookie', appCookie);
-    window.location.href = '/login.html';
+    window.location.href = apiSrc+'/login.html';
   }
 
   if(appCookie.loginID){
@@ -236,7 +236,10 @@ function getApiSrc(){
     return apiSrcURL;
   }
   else {
-    return '/';
+    var _location = window.location.pathname.toString();
+    var applicationNameIndex = _location.indexOf('/', 2);
+    var applicationName = _location.substring(0, applicationNameIndex);
+    return applicationName;
   }
 }
 
