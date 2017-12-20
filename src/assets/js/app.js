@@ -51,7 +51,11 @@ $(function(){
     }
     appCookie.redirectPage = (pageURL != '') ? pageURL : 'index.html';
     Cookies.set('appCookie', appCookie);
-    window.location.href = apiSrc+'/login.html';
+    if (location.hostname.match(/localhost/)){
+      window.location.href = '/login.html';
+    }else{
+      window.location.href = apiSrc+'/login.html';
+    }
   }
 
   if(appCookie.loginID){
