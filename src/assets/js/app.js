@@ -8,6 +8,7 @@ window.pageName ='';
 window.apiSrcURL = 'https://portal.taksys.com.sg/Support/';
 window.apiSrc='';
 window.appName='';
+window.appRootPath='';
 
 import Foundation from 'foundation-sites';
 // If you want to pick and choose which modules to include, comment out the above and uncomment
@@ -45,13 +46,13 @@ $(function(){
   }
 
   if (!appCookie.username && pageName.toLowerCase() != 'login') {
-    var pageURL = window.location;
+    var pageURL = window.location.href;
     if (typeof Cookies.getJSON('appCookie') !== 'undefined') {
       appCookie = Cookies.getJSON('appCookie');
     }
-    appCookie.redirectPage = (pageURL != '') ? pageURL : 'index.html';
+    appCookie.redirectPage = (pageURL != '') ? pageURL : appRootPath+'index.html';
     Cookies.set('appCookie', appCookie);
-    window.location.href = apiSrc+'/login.html';
+    window.location.href = appRootPath +'login.html';
   }
 
   if(appCookie.loginID){
@@ -74,7 +75,7 @@ $(function(){
       console.log( "Logout success" );
       if (typeof Cookies.getJSON('appCookie') !== 'undefined')
         Cookies.remove('appCookie');
-      if (pageName != 'login') window.location.href = '/login.html';
+      if (pageName != 'login') window.location.href = appRootPath + 'login.html';
     })
     .fail(function( jqXHR, textStatus ) {
       console.log( "Logout fail" );
@@ -185,7 +186,7 @@ $(function(){
 function GetBasicInformation(personID) {
   var data = {'PersonID': personID};
   $.ajax({
-    url: apiSrc+"/BCMain/iCtc1.GetPersonalInfo.json",
+    url: apiSrc+"BCMain/iCtc1.GetPersonalInfo.json",
     method: "POST",
     dataType: "json",
     xhrFields: {withCredentials: true},
@@ -237,7 +238,8 @@ function getApiSrc(){
   else {
     if (href.length >= 3)
       appName = match[2];
-      return '/' + appName + '/';
+      appRootPath = '/' + appName + '/';
+      return appNameRootPath;
   }
 }
 
