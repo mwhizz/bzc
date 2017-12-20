@@ -231,9 +231,9 @@ function getApiSrc(){
   var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
   var webFolderFullPath = _location.substring(0, applicationNameIndex);
   */
+  var hostname = location.hostname;
   var href = location.href;
   var match =  href.match(/(http|https):\/\/[A-Za-z0-9-_]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
-
 
   if (hostname.match(/localhost/)){
     return apiSrcURL;
@@ -241,7 +241,7 @@ function getApiSrc(){
   else {
     if (href.length >= 3)
       appName = match[2];
-    return '/' + appName + '/';
+      return '/' + appName + '/';
   }
 }
 
