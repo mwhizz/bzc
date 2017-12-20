@@ -16,7 +16,7 @@ import Foundation from 'foundation-sites';
 
 $(document).foundation();
 
-var appCookie, igwasCookie;
+var appCookie, igwasCookie, WebPartVal, guid;
 
 //document ready
 $(function(){
@@ -24,9 +24,15 @@ $(function(){
   pageName = getPageName();
 
   window.apiSrc = getApiSrc();
-  var guid = getGUID();
+  guid = getGUID();
+
   igwasCookie = Cookies.getJSON('IGWAS');
-  WebPartVal = getCookie(igwasCookie, 'WebPartKey');
+  if (igwasCookie){
+    WebPartVal = getCookie(igwasCookie, 'WebPartKey');
+  }else{
+    WebPartVal = '021cb7cca70748ff89795e3ad544d5eb';
+  }
+
 
   //set login cookie
   if (typeof Cookies.getJSON('appCookie') === 'undefined') {
