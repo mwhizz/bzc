@@ -1,14 +1,12 @@
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import whatInput from 'what-input';
+import BizcubeAPi from './lib/bizcube-api';
+import Master from './lib/master';
 
 window.$ = $;
 window.Cookies = Cookies;
-window.pageName ='';
-window.apiSrcURL = 'https://portal.taksys.com.sg/Support/';
-window.apiSrc='';
-window.appName='';
-window.appRootPath='';
+
 
 import Foundation from 'foundation-sites';
 // If you want to pick and choose which modules to include, comment out the above and uncomment
@@ -21,10 +19,10 @@ var appCookie, igwasCookie, WebPartVal, guid;
 
 //document ready
 $(function(){
-  //get page name
-  pageName = getPageName();
 
-  window.apiSrc = getApiSrc();
+  window.Master = new Master();
+  //get page name
+  //pageName = getPageName();
   guid = getGUID();
 
   igwasCookie = Cookies.getJSON('IGWAS');
@@ -33,7 +31,6 @@ $(function(){
   }else{
     WebPartVal = '021cb7cca70748ff89795e3ad544d5eb';
   }
-
 
   //set login cookie
   if (typeof Cookies.getJSON('appCookie') === 'undefined') {
@@ -216,34 +213,6 @@ function GetBasicInformation(personID) {
   })
 }
 
-function getApiSrc(){
-  //var targetURL = 'https://portal.taksys.com.sg/Support/';
-  /*
-  var _location = document.location.toString();
-  var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
-  var applicationName = _location.substring(0, applicationNameIndex) + '/';
-  var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
-
-  var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
-  var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
-  var webFolderFullPath = _location.substring(0, applicationNameIndex);
-  */
-  var hostname = location.hostname;
-  var href = location.href;
-  var match =  href.match(/(http|https):\/\/[A-Za-z0-9-_]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
-
-  if (hostname.match(/localhost/)){
-    appRootPath = '/';
-    return apiSrcURL;
-  }
-  else {
-    if (href.length >= 3)
-      appName = match[2];
-      appRootPath = '/' + appName + '/';
-      return appRootPath;
-  }
-}
-
 function getCookie(cookie, cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(cookie);
@@ -261,16 +230,11 @@ function getCookie(cookie, cname) {
 }
 
 function getGUID() {
-		var d = new Date().getTime();
-		var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-			var r = (d + Math.random() * 16) % 16 | 0;
-			d = Math.floor(d / 16);
-			return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-		});
-		return uuid;
-	};
-
-function getPageName() {
-  var pageName = $('body').attr('id').replace('page-','');
-  return pageName;
-}
+	var d = new Date().getTime();
+	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+		var r = (d + Math.random() * 16) % 16 | 0;
+		d = Math.floor(d / 16);
+		return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+	});
+	return uuid;
+};
