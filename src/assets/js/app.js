@@ -217,17 +217,6 @@ function GetBasicInformation(personID) {
 }
 
 function getApiSrc(){
-  //var targetURL = 'https://portal.taksys.com.sg/Support/';
-  /*
-  var _location = document.location.toString();
-  var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
-  var applicationName = _location.substring(0, applicationNameIndex) + '/';
-  var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
-
-  var appNameIndex = _location.indexOf('/', applicationNameIndex + 1);
-  var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
-  var webFolderFullPath = _location.substring(0, applicationNameIndex);
-  */
   var hostname = location.hostname;
   var href = location.href;
   var match =  href.match(/(http|https):\/\/[A-Za-z0-9-_]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
