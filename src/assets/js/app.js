@@ -51,7 +51,7 @@ $(function(){
     }
     appCookie.redirectPage = (pageURL != '') ? pageURL : 'index.html';
     Cookies.set('appCookie', appCookie);
-    window.location.href = '/login.html';
+    window.location.href = apiSrc+'/login.html';
   }
 
   if(appCookie.loginID){
@@ -231,18 +231,15 @@ function getApiSrc(){
   var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
   var webFolderFullPath = _location.substring(0, applicationNameIndex);
   */
-  var protocol = location.protocol;
-  var hostname = location.hostname;
   var href = location.href;
   var match =  href.match(/(http|https):\/\/[A-Za-z0-9]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
   appName = match[2];
-
 
   if (hostname.match(/localhost/)){
     return apiSrcURL;
   }
   else {
-    return protocol + '//' + hostname + '/' + appName + '/';
+    return '/' + appName + '/';
   }
 }
 
