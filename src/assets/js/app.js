@@ -7,6 +7,7 @@ window.Cookies = Cookies;
 window.pageName ='';
 window.apiSrcURL = 'https://portal.taksys.com.sg/Support/';
 window.apiSrc='';
+window.appName='';
 
 import Foundation from 'foundation-sites';
 // If you want to pick and choose which modules to include, comment out the above and uncomment
@@ -230,16 +231,15 @@ function getApiSrc(){
   var appName = _location.substring(applicationNameIndex, appNameIndex) + '/';
   var webFolderFullPath = _location.substring(0, applicationNameIndex);
   */
-  var hostname = window.location.hostname;
+  var href = location.href;
+  var match =  href.match(/(http|https):\/\/[A-Za-z]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
+  appName = match[2];
 
   if (hostname.match(/localhost/)){
     return apiSrcURL;
   }
   else {
-    var _location = window.location.pathname.toString();
-    var applicationNameIndex = _location.indexOf('/', 2);
-    var applicationName = _location.substring(0, applicationNameIndex);
-    return applicationName;
+    return '/' + appName + '/';
   }
 }
 
