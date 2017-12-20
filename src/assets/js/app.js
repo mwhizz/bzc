@@ -234,7 +234,7 @@ function getApiSrc(){
   var protocol = location.protocol;
   var hostname = location.hostname;
   var href = location.href;
-  var match =  href.match(/(http|https):\/\/[A-Za-z]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
+  var match =  href.match(/(http|https):\/\/[A-Za-z0-9]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
   appName = match[2];
 
 
