@@ -232,13 +232,15 @@ function getApiSrc(){
   var webFolderFullPath = _location.substring(0, applicationNameIndex);
   */
   var href = location.href;
-  var match =  href.match(/(http|https):\/\/[A-Za-z0-9]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
-  appName = match[2];
+  var match =  href.match(/(http|https):\/\/[A-Za-z0-9-_]+.[A-Za-z-_].[A-Za-z]+[.a-z]+?\/([A-Za-z0-9-_]+)\//);
+
 
   if (hostname.match(/localhost/)){
     return apiSrcURL;
   }
   else {
+    if (href.length >= 3)
+      appName = match[2];
     return '/' + appName + '/';
   }
 }
