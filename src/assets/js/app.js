@@ -1,14 +1,11 @@
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import whatInput from 'what-input';
+import Master from './lib/master';
 
 window.$ = $;
 window.Cookies = Cookies;
-window.pageName ='';
-window.apiSrcURL = 'https://portal.taksys.com.sg/Support/';
-window.apiSrc='';
-window.appName='';
-window.appRootPath='';
+
 
 import Foundation from 'foundation-sites';
 // If you want to pick and choose which modules to include, comment out the above and uncomment
@@ -21,10 +18,10 @@ var appCookie, igwasCookie, WebPartVal, guid;
 
 //document ready
 $(function(){
-  //get page name
-  pageName = getPageName();
 
-  window.apiSrc = getApiSrc();
+  window.Master = new Master();
+  //get page name
+  //pageName = getPageName();
   guid = getGUID();
 
   igwasCookie = Cookies.getJSON('IGWAS');
@@ -33,7 +30,6 @@ $(function(){
   }else{
     WebPartVal = '021cb7cca70748ff89795e3ad544d5eb';
   }
-
 
   //set login cookie
   if (typeof Cookies.getJSON('appCookie') === 'undefined') {
@@ -216,6 +212,7 @@ function GetBasicInformation(personID) {
   })
 }
 
+<<<<<<< HEAD
 function getApiSrc(){
   var hostname = location.hostname;
   var href = location.href;
@@ -233,6 +230,8 @@ function getApiSrc(){
   }
 }
 
+=======
+>>>>>>> cookie
 function getCookie(cookie, cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(cookie);
@@ -250,16 +249,11 @@ function getCookie(cookie, cname) {
 }
 
 function getGUID() {
-		var d = new Date().getTime();
-		var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-			var r = (d + Math.random() * 16) % 16 | 0;
-			d = Math.floor(d / 16);
-			return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-		});
-		return uuid;
-	};
-
-function getPageName() {
-  var pageName = $('body').attr('id').replace('page-','');
-  return pageName;
-}
+	var d = new Date().getTime();
+	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+		var r = (d + Math.random() * 16) % 16 | 0;
+		d = Math.floor(d / 16);
+		return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+	});
+	return uuid;
+};
