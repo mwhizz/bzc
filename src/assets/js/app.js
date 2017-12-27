@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import whatInput from 'what-input';
 import Master from './lib/master';
 
+
 window.$ = $;
 window.Cookies = Cookies;
 
