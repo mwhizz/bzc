@@ -1,4 +1,4 @@
-import Login from 'assets/lib/login';
+import Login from '../lib/login';
 
 var appCookie;
 var loginComponent;
@@ -10,14 +10,16 @@ $(function(){
   loginCallOut = loginComponent.find('.formCallout');
 
   appCookie = Cookies.getJSON('appCookie');
-  Login.checkRememberMe();
+  //Login.checkRememberMe();
 
   $('#loginComponent').keyup(function(e){
     if(e.keyCode == 13){
-        Login.login();
+        //Login.login();
     }
   });
   $('#submit').click(function() {
-    Login.login();
+    //Login.login();
   });
+
+  Login.login(apiSrc);
 });//onready

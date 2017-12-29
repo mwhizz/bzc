@@ -3,7 +3,7 @@ class Login {
 
   }
 
-  static login() {
+  static initLogin(apiSrc) {
     var data = {
       'Username': $('#username').val(),
       'Password': $('#password').val(),
@@ -31,7 +31,7 @@ class Login {
       loginCallOut.addClass('alert').html('Login fail.').show();
     });
   } //login
-
+/*
   static getLoginInfo(callout) {
     $.when(
       this.getLoginInfo, this.getOwnPersonID
@@ -82,6 +82,7 @@ class Login {
       console.log( "Request failed: " + textStatus );
     });
 
+
   static getOwnPersonID =
     $.ajax({
       url: apiSrc+"iCtc1.GetOwnPersonID.json",
@@ -124,6 +125,6 @@ class Login {
       console.log( "Request failed: " + textStatus );
     });
   } //checkRememberMe
-
+  */
 }
 export default Login;
