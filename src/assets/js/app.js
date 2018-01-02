@@ -2,8 +2,6 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 import whatInput from 'what-input';
 import Master from './lib/master';
-import Login from './lib/login';
-
 
 window.$ = $;
 window.Cookies = Cookies;
@@ -25,7 +23,6 @@ $(function(){
   //get page name
   //pageName = getPageName();
   guid = getGUID();
-  //Login.initLogin(apiSrc);
 
   igwasCookie = Cookies.getJSON('IGWAS');
   if (igwasCookie){
