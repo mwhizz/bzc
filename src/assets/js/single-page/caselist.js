@@ -55,7 +55,7 @@ function getCasesList(){
           var cases = data.d.RetData.Tbl.Rows;
           var htmlString = '';
           for (var i=0; i<cases.length; i++ ){
-            if (cases[i].Permission==2){
+            if (cases[i].Permission==1){
               customCaseTable();
             }
             var date = convertDateTime(cases[i].CreatedDate,'date');
