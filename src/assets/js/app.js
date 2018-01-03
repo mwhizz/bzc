@@ -55,7 +55,7 @@ $(function(){
     GetBasicInformation(appCookie.personID);
   }
 
-  $('#logOut').click(function() {
+  $('#mainMenuLeft #logOut, #logOut').click(function() {
     $.ajax({
       url: apiSrc+"Sec1.Logout.json",
       method: "POST",
@@ -195,10 +195,10 @@ function GetBasicInformation(personID) {
       if ((data) && (data.d.RetData.Tbl.Rows.length > 0)) {
         $('.profileName').html(data.d.RetData.Tbl.Rows[0].DisplayName);
         if (data.d.RetData.Tbl.Rows[0].EntityType == 'I'){
-          $('#navPackages').show();
           $('#navReport').show();
-          $('#navSettings').show();
           $('#packages').hide();
+          $('#mainMenuLeft #navPackages, #navPackages').show();
+          $('#mainMenuLeft #navSettings, #navSettings').show();
         }else{
           $('#caseFilter .orgCell').hide();
           $('#caseFilter #statusMyCase, #caseFilter .mycase').hide();
