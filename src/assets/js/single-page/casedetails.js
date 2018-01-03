@@ -28,7 +28,7 @@ $(function(){
   });
   //Add New Log
   $('#caseLogAddForm #submit').click(function(){
-    createNewLog(caseID)
+    createNewLog(caseID);
   });
 });
 
@@ -209,7 +209,7 @@ function createNewLog(FLID){
   var data = {'FLID':FLID, 'ActionType':ActionType, 'Status':Status, 'Details': Details,
               'Duration': Duration, 'Internal':Internal};
   $.ajax({
-    url: appName+"BCMain/FL1.InsertActivityLog.json",
+    url: apiSrc+"BCMain/FL1.InsertActivityLog.json",
     method: "POST",
     dataType: "json",
     data: { 'data':JSON.stringify(data),
