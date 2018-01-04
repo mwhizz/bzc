@@ -9,7 +9,7 @@ $(function(){
   GetDropdownList('#caseAddForm #module, #caseFilter #module', 'module');
   GetDropdownList('#caseAddForm #product', 'Product');
   GetDropdownList('#caseAddForm #system, #caseFilter #system', 'system');
-  getOrgnaisationList();
+  //getOrgnaisationList();
   getCasesList();
 
   $('#caseFilter .tabBoxButtonSubmit').click(function(){

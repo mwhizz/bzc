@@ -23,6 +23,7 @@ $(function(){
   }
   getOrgnaisationList();
   GetDropdownList('#packageFilter #product, #packageAddForm #product', 'Product');
+  GetDropdownList('#packageAddForm #system', 'System');
   GetDropdownList('#packageAddForm #type', 'SupportPackageType');
 
   //filter
