@@ -11,6 +11,7 @@ $(function(){
   if (caseID){
     GetCaseDetails(caseID,'Full');
   }
+  GetDropdownList('#caseLogAddForm #status','logStatus');
 
   $('#attachments').hide();
   $('#addAttachment').click(function(){
@@ -80,8 +81,8 @@ function GetCaseDetails(caseId, section){
               $('.description').html(caseDetails[i].Details);
               $('.targetEndDate').html(tarEndDate);
               $('.intTargetEndDate').html(intTarEndDate);
-              if (Permission!=4 && Permission!=3){
-                $('.internalCheckBox').hide();
+              if (Permission==1){
+                $('.internalCheckBox, #caseLogAddForm .duration').hide();
                 $('.involvemetAdd').hide();
                 $('.orgData').hide();
                 $('.intTargetEndDate, .intTargetEndDateLbl').hide();

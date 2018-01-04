@@ -40,7 +40,9 @@
          <div class="grid-x grid-padding-x orgCell">
             <div class="cell">
                <label>Organization
-               <input type="text" id="organisation" name="organisation" />
+                 <select id="organisation" name="organisation">
+                    <option value="">-- Please Select --</option>
+                 </select>
                </label>
             </div>
          </div>
@@ -65,14 +67,18 @@
          <div class="grid-x grid-padding-x">
             <fieldset class="cell checkboxGroup">
                <legend>Status</legend>
+               <!--
                <span>
                  <input type="checkbox" id="statusNewCB" value="New" name="status" checked /><label for="statusNewCB">New</label>
+               </span>-->
+               <span>
+                 <input type="checkbox" id="statusNewCB" value="New" name="status" /><label for="statusNewCB">New</label>
                </span>
                <span>
-                 <input type="checkbox" id="statusReviewCB" value="Reviewed" name="status" checked /><label for="statusReviewCB">Reviewed</label>
+                 <input type="checkbox" id="statusReviewCB" value="Reviewed" name="status" /><label for="statusReviewCB">Reviewed</label>
                </span>
                <span>
-                 <input type="checkbox" id="statusProgressingCB" value="Progressing" name="status" checked/><label for="statusProgressingCB">Progressing</label>
+                 <input type="checkbox" id="statusProgressingCB" value="Progressing" name="status" /><label for="statusProgressingCB">Progressing</label>
                </span>
                <span>
                  <input type="checkbox" id="statusClosedCB" value="Closed" name="status" /><label for="statusClosedCB">Closed</label>
@@ -153,7 +159,9 @@
       <div class="cell">
          <label>
          Organisation
-         <input type="text" id="organisation" name="organisation"/>
+         <select id="organisation" name="organisation">
+            <option value="">-- Please Select --</option>
+         </select>
          </label>
       </div>
    </div>

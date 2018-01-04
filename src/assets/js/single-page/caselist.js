@@ -9,7 +9,7 @@ $(function(){
   GetDropdownList('#caseAddForm #module, #caseFilter #module', 'module');
   GetDropdownList('#caseAddForm #product', 'Product');
   GetDropdownList('#caseAddForm #system, #caseFilter #system', 'system');
-
+  getOrgnaisationList();
   getCasesList();
 
   $('#caseFilter .tabBoxButtonSubmit').click(function(){
@@ -20,6 +20,29 @@ $(function(){
     createNewCase();
   });
 });
+
+function getOrgnaisationList(){
+  var data = {};
+  $.ajax({
+    url: apiSrc+"BCMain/iCtc1.getOrgnaisationList.json",
+    method: "POST",
+    dataType: "json",
+    xhrFields: {withCredentials: true},
+    data: { 'data':JSON.stringify(data),
+            'WebPartKey':'021cb7cca70748ff89795e3ad544d5eb',
+            'ReqGUID': 'b4bbedbf-e591-4b7a-ad20-101f8f656277' },
+    success: function(data){
+      if ((data) && (data.d.RetVal === -1)) {
+        if (data.d.RetData.Tbl.Rows.length > 0) {
+          var orgList = data.d.RetData.Tbl.Rows;
+          for (var i=0; i<orgList.length; i++ ){
+            $('#caseAddForm #organisation, #caseFilter #organisation').append('<option value="'+orgList[i].DefaultRoleID+'">'+orgList[i].DisplayName+'</option>');
+          }
+        }
+      }
+    }
+  });
+}
 
 //get case list
 function getCasesList(){
@@ -70,7 +93,7 @@ function getCasesList(){
             }
             htmlString += '<td>'+cases[i].Title+'</td>';
             //show org name
-            if (cases[i].Permission==4 || cases[i].Permission==3){
+            if (cases[i].Permission!=1){
               htmlString += '<td>'+cases[i].OrganizationName+'</td>';
             }
             htmlString += '<td>'+cases[i].System+'</td> <td>'+cases[i].ManDays+'</td> <td>'+cases[i].Module+'</td> <td>'+date+'</td> <td><span class="statusNew">'+cases[i].CurStatus+'</span></td> </tr>';
