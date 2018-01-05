@@ -103,7 +103,7 @@ function getPackageList(){
           for (var i=0; i<packages.length; i++ ){
             var startDate = convertDateTime(packages[i].StartDate,'date');
             var expiryDate = convertDateTime(packages[i].ExpiryDate,'date');
-            htmlString += '<tr id="'+ packages[i].PackageID  +'"> <td>'+packages[i].Organization+'</td> <td>'+packages[i].BoughtManDays+'</td> <td>'+packages[i].Product+'</td> <td>'+packages[i].System+'</td> <td>'+startDate+'</td> <td>'+expiryDate+'</td> <td>'+packages[i].Status+'</td> </tr>';
+            htmlString += '<tr id="'+ packages[i].PackageID  +'"> <td>'+packages[i].Organization+'</td> <td>'+packages[i].ManDaysLeft+'/'+packages[i].BoughtManDays+'</td> <td>'+packages[i].Product+'</td> <td>'+packages[i].System+'</td> <td>'+startDate+'</td> <td>'+expiryDate+'</td> <td>'+packages[i].Status+'</td> </tr>';
           }
           $('.packageTable tbody').html(htmlString);
           $('.packageTable tbody tr').click(function(){
